@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "102278054925",
+    "project_id": "lumina-backend",
+    "storage_bucket": "lumina-backend.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:102278054925:android:84ab4dcadc2a2897600144",
+        "android_client_info": {
+          "package_name": "com.example.lumina_frontend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDD1ehCVghcsXq0pIhBvO2JKvjj3sqC4V8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
