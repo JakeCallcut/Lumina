@@ -23,12 +23,30 @@ class HomePage extends StatelessWidget {
             Text(_address, style: MainTheme.h1,),
           ],
         ),
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            HomeDial(value: 70, maxValue: 100),
-            HomeDial(value: 50, maxValue: 100),
-            HomeDial(value: 40, maxValue: 100),
+            Column(
+              children: [
+                const HomeDial(value: 70, maxValue: 100, unit: "kWh",),
+                const SizedBox(height: 10,),
+                Text("Usage", style: MainTheme.h4,),
+              ],
+            ),
+            Column(
+              children: [
+                const HomeDial(value: 50, maxValue: 100, unit: "/hr",),
+                const SizedBox(height: 10,),
+                Text("Generation", style: MainTheme.h4,)
+              ],
+            ),
+            Column(
+              children: [
+                const HomeDial(value: 40, maxValue: 100, unit: null,),
+                const SizedBox(height: 10,),
+                Text("Devices Connected", style: MainTheme.h4,)
+              ],
+            ),
           ],
         ),
         Placeholder(),
