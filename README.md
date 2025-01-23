@@ -8,6 +8,7 @@
 
 <div style="text-align: center;">
     <img src="https://img.shields.io/badge/Status-WIP-orange">
+    <img src="https://img.shields.io/badge/Tests-Failing-red">
 </div>
 <div style="text-align: center;">
     <img src="https://img.shields.io/badge/Frontend-Dart-lightblue">
