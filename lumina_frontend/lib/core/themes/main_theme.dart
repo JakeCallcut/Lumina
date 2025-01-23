@@ -14,5 +14,19 @@ class MainTheme {
   static Color luminaGreen = const Color(0xFF409A29);
 
   //Font configs
-  
+  static TextStyle h1 = const TextStyle(
+    fontSize: 24,
+    fontFamily: 'Montserrat',
+    fontWeight: FontWeight.w400,
+    color: Colors.black,
+    decoration: TextDecoration.none
+  );
+
+  static TextStyle h2 = const TextStyle(
+    fontSize: 18,
+    fontFamily: 'Montserrat',
+    fontWeight: FontWeight.w400,
+    color: Colors.black,
+    decoration: TextDecoration.none
+  );
 }

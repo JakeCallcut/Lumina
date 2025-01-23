@@ -8,7 +8,7 @@ class Routes {
   static const String devices = '/devices';
   static const String stats = '/stats';
   static const String config = '/config';
-
+  
   //edge case routes
   static const String error = '/error';
   static const String login = '/login';
