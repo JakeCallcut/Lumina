@@ -5,6 +5,7 @@ import 'package:lumina_frontend/core/themes/main_theme.dart';
 class statsPage extends StatelessWidget {
 
   String _title = "Usage and Stats";
+  String _Today = "Today"; 
 
   @override
   Widget build(BuildContext context) {
@@ -24,24 +25,24 @@ class statsPage extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(data: _)
+            Text(_Today, /*style: MainTheme.h2,*/),
           ],
-        )
+        ),
         Row(
 
-        )
+        ),
         Row(
 
-        )
+        ),
         Row(
 
-        )
+        ),
         Row(
 
-        )
+        ),
         Row(
 
-        )
+        ),
       ],
     );
   }
