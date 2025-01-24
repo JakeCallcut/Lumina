@@ -21,6 +21,27 @@ class statsPage extends StatelessWidget {
             Text(_title, /*style: MainTheme.h1,*/),
           ],
         ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(data: _)
+          ],
+        )
+        Row(
+
+        )
+        Row(
+
+        )
+        Row(
+
+        )
+        Row(
+
+        )
+        Row(
+
+        )
       ],
     );
   }
