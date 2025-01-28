@@ -4,8 +4,6 @@ import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 
 class StatsPage extends StatelessWidget {
 
-  final String _title = "Usage and Stats";
-  final String _Today = "Today";
   final String _used = "You've used";
   final String _saved = "You've saved";
 
@@ -25,13 +23,13 @@ class StatsPage extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: Image.asset("/images/logo64.png"),
                 ),
-                Text(_title, style: MainTheme.h1,),
+                Text("Usage and stats", style: MainTheme.h1,),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(_Today, style: MainTheme.h2,),
+                Text("Title", style: MainTheme.h2,),
               ],
             ),
             Row(
@@ -64,13 +62,19 @@ class StatsPage extends StatelessWidget {
               ],
             ),
             Row(
-        
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text("Energy Usage (kWh)", style: MainTheme.h2,),
+              ],
             ),
             Row(
         
             ),
             Row(
-        
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text("Energy Generation (kWh)", style: MainTheme.h2,),
+              ],
             ),
             Row(
         
