@@ -64,7 +64,7 @@ class StatsPage extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("("+_used_power+")", style: MainTheme.h2),
+                            Text("($_used_power)", style: MainTheme.h2),
                           ],
                         ),
                       ],
@@ -99,7 +99,7 @@ class StatsPage extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("("+_saved_power+")", style: MainTheme.h2),
+                            Text("($_saved_power)", style: MainTheme.h2),
                           ],
                         ),
                       ],
