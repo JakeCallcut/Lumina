@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/features/error/presentation/page/error_page.dart';
 import 'package:lumina_frontend/features/home/presentation/page/home_page.dart';
+import 'package:lumina_frontend/features/stats/presentation/page/stats.dart';
 
 class Routes {
   //main routes
@@ -23,7 +24,7 @@ class Routes {
       case devices:
         return MaterialPageRoute(builder: (_) => ErrorPage());
       case stats:
-        return MaterialPageRoute(builder: (_) => ErrorPage());
+        return MaterialPageRoute(builder: (_) => StatsPage());
       case config:
         return MaterialPageRoute(builder: (_) => ErrorPage());
 
