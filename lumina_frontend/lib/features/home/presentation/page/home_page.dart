@@ -6,7 +6,7 @@ import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 class HomePage extends StatelessWidget {
 
   //Dummy values
-  String _address = "11/15 Kingfisher Street";
+  final String _address = "11/15 Kingfisher Street";
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Image.asset("/images/logo64.png"),
             ),
-            Text(_address, style: MainTheme.h1,),
+            Text(_address, style: MainTheme.h1Black,),
           ],
         ),
         Row(
@@ -30,21 +30,21 @@ class HomePage extends StatelessWidget {
               children: [
                 const HomeDial(value: 70, maxValue: 100, unit: "kWh",),
                 const SizedBox(height: 10,),
-                Text("Usage", style: MainTheme.h4,),
+                Text("Usage", style: MainTheme.h4Black,),
               ],
             ),
             Column(
               children: [
                 const HomeDial(value: 50, maxValue: 100, unit: "/hr",),
                 const SizedBox(height: 10,),
-                Text("Generation", style: MainTheme.h4,)
+                Text("Generation", style: MainTheme.h4Black,)
               ],
             ),
             Column(
               children: [
                 const HomeDial(value: 40, maxValue: 100, unit: null,),
                 const SizedBox(height: 10,),
-                Text("Devices Connected", style: MainTheme.h4,)
+                Text("Devices Connected", style: MainTheme.h4Black,)
               ],
             ),
           ],

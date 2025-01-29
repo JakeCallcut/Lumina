@@ -41,11 +41,11 @@ class HomeDial extends StatelessWidget {
                   children: [
                     Text(
                       value.toString(),
-                      style: MainTheme.h1,
+                      style: MainTheme.h1Black,
                     ),
                     Text(
                       "/${maxValue.toString()}",
-                      style: MainTheme.h2,
+                      style: MainTheme.h2Black,
                     )
                   ],
                 )
@@ -54,11 +54,11 @@ class HomeDial extends StatelessWidget {
                   children: [
                     Text(
                       value.toString(),
-                      style: MainTheme.h1,
+                      style: MainTheme.h1Black,
                     ),
                     Text(
                       unit!,
-                      style: MainTheme.h3,
+                      style: MainTheme.h3Black,
                     )
                   ],
                 ),

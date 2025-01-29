@@ -25,13 +25,13 @@ class StatsPage extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: Image.asset("/images/logo64.png"),
                 ),
-                Text("Usage and stats", style: MainTheme.h1,),
+                Text("Usage and stats", style: MainTheme.h1Black,),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("Title", style: MainTheme.h2,),
+                Text("Title", style: MainTheme.h2Black,),
               ],
             ),
             Row(
@@ -43,7 +43,7 @@ class StatsPage extends StatelessWidget {
                     height: 200,
                     width: 250,
                     decoration: BoxDecoration(
-                    color: MainTheme.luminaLightGreen,
+                    color: MainTheme.luminaBlue,
                     borderRadius: BorderRadius.circular(10), // Rounded edges
                     ),
                     child: Column(
@@ -52,19 +52,19 @@ class StatsPage extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("You've used", style: MainTheme.h2),
+                            Text("You've used", style: MainTheme.h2White),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(_used_money, style: MainTheme.h2),
+                            Text(_used_money, style: MainTheme.h2White),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("($_used_power)", style: MainTheme.h2),
+                            Text("($_used_power)", style: MainTheme.h2White),
                           ],
                         ),
                       ],
@@ -87,19 +87,19 @@ class StatsPage extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("You've saved", style: MainTheme.h2),
+                            Text("You've saved", style: MainTheme.h2Black),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(_saved_money, style: MainTheme.h2),
+                            Text(_saved_money, style: MainTheme.h2Black),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("($_saved_power)", style: MainTheme.h2),
+                            Text("($_saved_power)", style: MainTheme.h2Black),
                           ],
                         ),
                       ],
@@ -112,7 +112,7 @@ class StatsPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("Energy Usage (kWh)", style: MainTheme.h2,),
+                Text("Energy Usage (kWh)", style: MainTheme.h2Black,),
               ],
             ),
             Row(
@@ -121,7 +121,7 @@ class StatsPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("Energy Generation (kWh)", style: MainTheme.h2,),
+                Text("Energy Generation (kWh)", style: MainTheme.h2Black,),
               ],
             ),
             Row(
