@@ -15,7 +15,7 @@ class GraphBox extends StatelessWidget{
             padding: const EdgeInsets.all(32.0),
               child: LineChart(
               LineChartData(
-                minX: 0,
+                minX: 1,
                 maxX: 31,
                 minY: 0,
                 maxY: 2.5,
@@ -23,6 +23,7 @@ class GraphBox extends StatelessWidget{
                   show: true,
                   drawHorizontalLine: true,
                   drawVerticalLine: true,
+                  verticalInterval: 7,
                   getDrawingVerticalLine: (value) {
                     return const FlLine(
                       color: Colors.white,
@@ -48,13 +49,21 @@ class GraphBox extends StatelessWidget{
                       sideTitles: SideTitles(
                         showTitles: true,
                         getTitlesWidget: (value, meta) {
+                          if (value == 21) {
+                            return Text(
+                              ("${value}st"),
+                              style: MainTheme.h2White,
+                            );
+                          }
                           return Text(
-                            value.toString(),
+                            ("${value}th"),
                             style: MainTheme.h2White,
                           );
                         },
                         reservedSize: 30,
                         interval: 7,
+                        maxIncluded: false,
+                        minIncluded: false,
                       ),
                     ),
                     rightTitles: const AxisTitles(
