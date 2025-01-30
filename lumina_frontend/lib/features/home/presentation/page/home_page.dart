@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/features/home/presentation/widget/device_widget.dart';
 import 'package:lumina_frontend/features/home/presentation/widget/home_dial.dart';
+import 'package:lumina_frontend/features/home/presentation/widget/room_list.dart';
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 
 class HomePage extends StatelessWidget {
@@ -79,6 +80,7 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
+        RoomList(),
         const Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
