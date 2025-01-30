@@ -31,7 +31,10 @@ class StatsPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("Title", style: MainTheme.h2Black,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text("Title", style: MainTheme.h1Black,),
+                ),
               ],
             ),
             Row(
@@ -40,11 +43,19 @@ class StatsPage extends StatelessWidget {
                Column(
                  children: [
                    Container(
-                    height: 200,
+                    height: 175,
                     width: 250,
                     decoration: BoxDecoration(
                     color: MainTheme.luminaBlue,
                     borderRadius: BorderRadius.circular(10), // Rounded edges
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(), // Shadow color
+                        spreadRadius: 2, // Spread radius
+                        blurRadius: 5, // Blur radius
+                        offset: const Offset(0, 3), // Offset in x and y direction
+                        ),
+                      ],
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -58,7 +69,7 @@ class StatsPage extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(_used_money, style: MainTheme.h2White),
+                            Text(_used_money, style: MainTheme.h1White),
                           ],
                         ),
                         Row(
@@ -75,11 +86,19 @@ class StatsPage extends StatelessWidget {
                Column(
                  children: [
                    Container(
-                    height: 200,
+                    height: 175,
                     width: 250,
                     decoration: BoxDecoration(
                       color: MainTheme.luminaLightGreen,
                       borderRadius: BorderRadius.circular(10), // Rounded edges
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(), // Shadow color
+                          spreadRadius: 2, // Spread radius
+                          blurRadius: 5, // Blur radius
+                          offset: const Offset(0, 3), // Offset in x and y direction
+                        ),
+                      ], // Rounded edges
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -112,7 +131,10 @@ class StatsPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("Energy Usage (kWh)", style: MainTheme.h2Black,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text("Energy Usage (kWh)", style: MainTheme.h2Black,),
+                ),
               ],
             ),
             Row(
@@ -121,7 +143,10 @@ class StatsPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("Energy Generation (kWh)", style: MainTheme.h2Black,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text("Energy Generation (kWh)", style: MainTheme.h2Black,),
+                ),
               ],
             ),
             Row(
