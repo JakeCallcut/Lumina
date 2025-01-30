@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
+import 'package:lumina_frontend/features/stats/presentation/widget/graph_box.dart';
 import 'package:lumina_frontend/features/stats/presentation/widget/info_box.dart';
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 
@@ -70,8 +70,29 @@ class StatsPage extends StatelessWidget {
                 ),
               ],
             ),
-            const Row(
-        
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 300,
+                  width: 500,
+                  decoration: BoxDecoration(
+                    color: MainTheme.luminaBlue,
+                    borderRadius: BorderRadius.circular(10), // Rounded edges
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.grey,
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                  child: const GraphBox(
+                  
+                  ),
+                ),
+              ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
