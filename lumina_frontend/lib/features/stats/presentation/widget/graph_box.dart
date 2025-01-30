@@ -24,9 +24,9 @@ class GraphBox extends StatelessWidget{
                   show: true,
                   border: Border(
                     top: BorderSide(color: MainTheme.luminaBlue, width: 2),
-                    left: BorderSide(color: MainTheme.luminaDarkGrey, width: 2),
+                    left: const BorderSide(color: Colors.white, width: 2),
                     right: BorderSide(color: MainTheme.luminaBlue, width: 2),
-                    bottom: BorderSide(color: MainTheme.luminaDarkGrey, width: 2),
+                    bottom: const BorderSide(color: Colors.white, width: 2),
                   ),),
                 lineBarsData: [
                   LineChartBarData(
@@ -43,11 +43,17 @@ class GraphBox extends StatelessWidget{
                       FlSpot(9, 9),
                       FlSpot(10, 10),
                     ],
-                    isCurved: true,
+                    isCurved: false,
+                    shadow: Shadow(
+                      color: MainTheme.luminaBlue,
+                      blurRadius: 10,
+                      offset: Offset(0, 5),
+                    ),
                     color: MainTheme.luminaLightGreen,
                     barWidth: 4,
                     isStrokeCapRound: true,
-                    belowBarData: BarAreaData(show: true),
+                    dotData: const FlDotData(show: false),
+                    belowBarData: BarAreaData(show: false),
                   ),
                 ]
               ),
