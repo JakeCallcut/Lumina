@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/features/stats/presentation/widget/info_box.dart';
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
@@ -28,7 +29,7 @@ class StatsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Text("Title", style: MainTheme.h1Black,),
                 ),
               ],
@@ -64,7 +65,7 @@ class StatsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                 padding: const EdgeInsets.all(16.0),
                   child: Text("Energy Usage (kWh)", style: MainTheme.h2Black,),
                 ),
               ],
@@ -76,7 +77,7 @@ class StatsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Text("Energy Generation (kWh)", style: MainTheme.h2Black,),
                 ),
               ],
