@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/features/error/presentation/page/error_page.dart';
 import 'package:lumina_frontend/features/home/presentation/page/home_page.dart';
-import 'package:lumina_frontend/features/stats/presentation/page/stats.dart';
+import 'package:lumina_frontend/features/stats/presentation/page/stats_page.dart';
 
 class Routes {
   //main routes
