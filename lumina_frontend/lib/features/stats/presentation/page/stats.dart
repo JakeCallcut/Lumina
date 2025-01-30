@@ -5,11 +5,6 @@ import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 
 class StatsPage extends StatelessWidget {
 
-  final String _used_money = "£2.67";
-  final String _used_power = "4.7 kWh";
-  final String _saved_money = "£0.89";
-  final String _saved_power = "2.14 kWh";
-
   const StatsPage({super.key}); 
 
   @override
@@ -38,17 +33,29 @@ class StatsPage extends StatelessWidget {
                 ),
               ],
             ),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                Column(
                  children: [
-                  InfoBox(title: "You've used", valueMoney: 2.67, valueUnit: 4.7,),
-                 ],
-               ),
+                  InfoBox(
+                    title: "You've used",
+                    valueMoney: 2.67,
+                    valueUnit: 4.7,
+                    boxColor: MainTheme.luminaBlue,
+                    textStyle: [MainTheme.h1White, MainTheme.h2White],
+                  ),
+                ]
+              ),
                Column(
                  children: [
-                  InfoBox(title: "You've saved", valueMoney: 0.89, valueUnit: 2.14,),
+                  InfoBox(
+                    title: "You've saved",
+                    valueMoney: 0.89,
+                    valueUnit: 2.14,
+                    boxColor: MainTheme.luminaLightGreen,
+                    textStyle: [MainTheme.h1Black, MainTheme.h2Black],
+                  ),
                  ],
                ),
               ],
@@ -62,7 +69,7 @@ class StatsPage extends StatelessWidget {
                 ),
               ],
             ),
-            Row(
+            const Row(
         
             ),
             Row(
@@ -74,7 +81,7 @@ class StatsPage extends StatelessWidget {
                 ),
               ],
             ),
-            Row(
+            const Row(
         
             ),
           ],

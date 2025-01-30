@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:lumina_frontend/core/themes/main_theme.dart';
-import 'package:lumina_frontend/core/utils/dial_painter.dart';
 
 class InfoBox extends StatelessWidget {
   final String title;
   final double valueMoney;
   final double valueUnit;
+  final Color boxColor;
+  final List<TextStyle> textStyle;
 
   const InfoBox(
       {super.key,
       required this.title,
       required this.valueMoney,
-      required this.valueUnit});
+      required this.valueUnit,
+      required this.boxColor,
+      required this.textStyle,});
       
         @override
         Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class InfoBox extends StatelessWidget {
                     height: 175,
                     width: 250,
                     decoration: BoxDecoration(
-                    color: MainTheme.luminaBlue,
+                    color: boxColor,
                     borderRadius: BorderRadius.circular(10), // Rounded edges
                     boxShadow: const [
                       BoxShadow(
@@ -37,19 +39,19 @@ class InfoBox extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(title, style: MainTheme.h2White),
+                            Text(title, style: textStyle[1]),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(valueMoney.toString(), style: MainTheme.h1White),
+                            Text("\$$valueMoney", style: textStyle[0]),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("($valueUnit)", style: MainTheme.h2White),
+                            Text("($valueUnit kWh)", style: textStyle[1]),
                           ],
                         ),
                       ],
