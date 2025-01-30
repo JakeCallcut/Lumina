@@ -19,7 +19,36 @@ class GraphBox extends StatelessWidget{
                   show: true,
                   drawHorizontalLine: true,
                   drawVerticalLine: false),
-                titlesData: const FlTitlesData(show: false),
+                titlesData: FlTitlesData(
+                  show: true,
+                  leftTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget: (value, meta) {
+                        return Text(
+                          value.toString(),
+                          style: MainTheme.h2White,
+                        );
+                      },),
+                  ),
+                  topTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        getTitlesWidget: (value, meta) {
+                          return Text(
+                            value.toString(),
+                            style: MainTheme.h2White,
+                          );
+                        },
+                      ),
+                    ),
+                    rightTitles: const AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                  bottomTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                ),
                 borderData: FlBorderData(
                   show: true,
                   border: Border(
