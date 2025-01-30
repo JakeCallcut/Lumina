@@ -15,10 +15,21 @@ class GraphBox extends StatelessWidget{
             padding: const EdgeInsets.all(32.0),
               child: LineChart(
               LineChartData(
-                gridData: const FlGridData(
+                minX: 0,
+                maxX: 31,
+                minY: 0,
+                maxY: 2.5,
+                gridData: FlGridData(
                   show: true,
                   drawHorizontalLine: true,
-                  drawVerticalLine: false),
+                  drawVerticalLine: true,
+                  getDrawingVerticalLine: (value) {
+                    return const FlLine(
+                      color: Colors.white,
+                      strokeWidth: 2,
+                    );
+                  },
+                ),
                 titlesData: FlTitlesData(
                   show: true,
                   leftTitles: AxisTitles(
@@ -29,7 +40,9 @@ class GraphBox extends StatelessWidget{
                           value.toString(),
                           style: MainTheme.h2White,
                         );
-                      },),
+                      },
+                      reservedSize: 30,
+                    ),
                   ),
                   topTitles: AxisTitles(
                       sideTitles: SideTitles(
@@ -40,6 +53,8 @@ class GraphBox extends StatelessWidget{
                             style: MainTheme.h2White,
                           );
                         },
+                        reservedSize: 30,
+                        interval: 7,
                       ),
                     ),
                     rightTitles: const AxisTitles(
@@ -60,17 +75,37 @@ class GraphBox extends StatelessWidget{
                 lineBarsData: [
                   LineChartBarData(
                     spots: [
-                      FlSpot(0, 0),
-                      FlSpot(1, 8),
-                      FlSpot(2, 2),
-                      FlSpot(3, 6),
-                      FlSpot(4, 5),
-                      FlSpot(5, 9),
-                      FlSpot(6, 3),
-                      FlSpot(7, 1),
-                      FlSpot(8, 6),
-                      FlSpot(9, 9),
-                      FlSpot(10, 10),
+                      FlSpot(1, 0.1),
+                      FlSpot(2, 0.2),
+                      FlSpot(3, 0.3),
+                      FlSpot(4, 0.4),
+                      FlSpot(5, 0.5),
+                      FlSpot(6, 0.6),
+                      FlSpot(7, 0.75),
+                      FlSpot(8, 0.8),
+                      FlSpot(9, 0.85),
+                      FlSpot(10, 0.9),
+                      FlSpot(11, 0.75),
+                      FlSpot(12, 0.8),
+                      FlSpot(13, 0.85),
+                      FlSpot(14, 0.9),
+                      FlSpot(15, 0.95),
+                      FlSpot(16, 0.5),
+                      FlSpot(17, 0.6),
+                      FlSpot(18, 0.7),
+                      FlSpot(19, 1.25),
+                      FlSpot(20, 1.2),
+                      FlSpot(21, 1),
+                      FlSpot(22, 1.1),
+                      FlSpot(23, 1.2),
+                      FlSpot(24, 1.3),
+                      FlSpot(25, 1.4),
+                      FlSpot(26, 1.35),
+                      FlSpot(27, 1.25),
+                      FlSpot(28, 1.3),
+                      FlSpot(29, 0.75),
+                      FlSpot(30, 0.85),
+                      FlSpot(31, 1),
                     ],
                     isCurved: false,
                     shadow: Shadow(
