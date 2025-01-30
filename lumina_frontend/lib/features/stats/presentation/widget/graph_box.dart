@@ -15,21 +15,31 @@ class GraphBox extends StatelessWidget{
             padding: const EdgeInsets.all(32.0),
               child: LineChart(
               LineChartData(
-                gridData: const FlGridData(show: true),
+                gridData: const FlGridData(
+                  show: true,
+                  drawHorizontalLine: true,
+                  drawVerticalLine: false),
                 titlesData: const FlTitlesData(show: false),
-                borderData: FlBorderData(show: true),
+                borderData: FlBorderData(
+                  show: true,
+                  border: Border(
+                    top: BorderSide(color: MainTheme.luminaBlue, width: 2),
+                    left: BorderSide(color: MainTheme.luminaDarkGrey, width: 2),
+                    right: BorderSide(color: MainTheme.luminaBlue, width: 2),
+                    bottom: BorderSide(color: MainTheme.luminaDarkGrey, width: 2),
+                  ),),
                 lineBarsData: [
                   LineChartBarData(
                     spots: [
                       FlSpot(0, 0),
-                      FlSpot(1, 1),
+                      FlSpot(1, 8),
                       FlSpot(2, 2),
-                      FlSpot(3, 3),
-                      FlSpot(4, 4),
-                      FlSpot(5, 5),
-                      FlSpot(6, 6),
-                      FlSpot(7, 7),
-                      FlSpot(8, 8),
+                      FlSpot(3, 6),
+                      FlSpot(4, 5),
+                      FlSpot(5, 9),
+                      FlSpot(6, 3),
+                      FlSpot(7, 1),
+                      FlSpot(8, 6),
                       FlSpot(9, 9),
                       FlSpot(10, 10),
                     ],
@@ -37,7 +47,7 @@ class GraphBox extends StatelessWidget{
                     color: MainTheme.luminaLightGreen,
                     barWidth: 4,
                     isStrokeCapRound: true,
-                    belowBarData: BarAreaData(show: false),
+                    belowBarData: BarAreaData(show: true),
                   ),
                 ]
               ),
