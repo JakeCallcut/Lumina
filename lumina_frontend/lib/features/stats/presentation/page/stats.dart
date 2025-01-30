@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
+import 'package:lumina_frontend/features/stats/presentation/widget/info_box.dart';
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 
 class StatsPage extends StatelessWidget {
@@ -37,93 +38,17 @@ class StatsPage extends StatelessWidget {
                 ),
               ],
             ),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                Column(
                  children: [
-                   Container(
-                    height: 175,
-                    width: 250,
-                    decoration: BoxDecoration(
-                    color: MainTheme.luminaBlue,
-                    borderRadius: BorderRadius.circular(10), // Rounded edges
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(), // Shadow color
-                        spreadRadius: 2, // Spread radius
-                        blurRadius: 5, // Blur radius
-                        offset: const Offset(0, 3), // Offset in x and y direction
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("You've used", style: MainTheme.h2White),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(_used_money, style: MainTheme.h1White),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("($_used_power)", style: MainTheme.h2White),
-                          ],
-                        ),
-                      ],
-                    ),
-                   )
+                  InfoBox(title: "You've used", valueMoney: 2.67, valueUnit: 4.7,),
                  ],
                ),
                Column(
                  children: [
-                   Container(
-                    height: 175,
-                    width: 250,
-                    decoration: BoxDecoration(
-                      color: MainTheme.luminaLightGreen,
-                      borderRadius: BorderRadius.circular(10), // Rounded edges
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(), // Shadow color
-                          spreadRadius: 2, // Spread radius
-                          blurRadius: 5, // Blur radius
-                          offset: const Offset(0, 3), // Offset in x and y direction
-                        ),
-                      ], // Rounded edges
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("You've saved", style: MainTheme.h2Black),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(_saved_money, style: MainTheme.h2Black),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("($_saved_power)", style: MainTheme.h2Black),
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
+                  InfoBox(title: "You've saved", valueMoney: 0.89, valueUnit: 2.14,),
                  ],
                ),
               ],
