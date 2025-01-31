@@ -27,6 +27,8 @@ class RoomList extends StatefulWidget {
 }
 
 class _RoomListState extends State<RoomList> {
+  int? selectedIndex; //variable to track the currently selected room
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -69,16 +71,27 @@ class _RoomListState extends State<RoomList> {
             scrollDirection: Axis.horizontal,
             itemCount: widget.Rooms.length,
             itemBuilder: (context, index) {
-              return Container(
-                padding: const EdgeInsets.all(8.0),
-                margin: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  color: MainTheme.luminaLightGreen,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Text(
-                  widget.Rooms[index],
-                  style: MainTheme.h4Black,
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  margin: const EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                    color: selectedIndex == index 
+                           ? MainTheme.luminaBlue 
+                           : MainTheme.luminaLightGreen,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    widget.Rooms[index],
+                    style: selectedIndex == index 
+                           ? MainTheme.h4White 
+                           : MainTheme.h4Black,
+                  ),
                 ),
               );
             },
