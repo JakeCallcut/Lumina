@@ -9,6 +9,7 @@ class MainTheme {
   static Color luminaLightGrey = const Color(0xFFC9C9C9);
   static Color luminaDarkGrey = const Color(0xFF6C6C6C);
   static Color luminaLightBlue = const Color(0xFF3E8AA6);
+  static Color luminaShadedWhite = const Color(0xFFEAEAEA);
 
   //Status Colours
   static Color luminaRed = const Color(0xFFEB3526);
