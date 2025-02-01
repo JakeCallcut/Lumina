@@ -22,3 +22,4 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_LUMINA_BACKEND }}
           channelId: live
           projectId: lumina-backend
+          entryPoint: lumina_frontend
