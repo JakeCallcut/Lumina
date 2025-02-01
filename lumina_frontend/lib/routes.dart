@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/features/error/presentation/page/error_page.dart';
 import 'package:lumina_frontend/features/home/presentation/page/home_page.dart';
+import 'package:lumina_frontend/features/landing/presentation/page/landing_page.dart';
 
 class Routes {
   //main routes
-  static const String home = '/';
+  static const String landing = '/';
+  static const String home = '/home';
   static const String devices = '/devices';
   static const String stats = '/stats';
   static const String config = '/config';
@@ -17,7 +19,9 @@ class Routes {
   //TODO: undefined routes set to error page for now, change when added
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      //main page
+      //main pages
+      case landing:
+        return MaterialPageRoute(builder: (_) => LandingPage());
       case home:
         return MaterialPageRoute(builder: (_) => HomePage());
       case devices:
