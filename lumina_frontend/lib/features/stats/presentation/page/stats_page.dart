@@ -165,6 +165,8 @@ class StatsPage extends StatelessWidget {
                     ),
                   child: GraphBox(
                   spots: energyUsage,
+                  lineColor: MainTheme.luminaLightGreen,
+                  textStyle: MainTheme.h2White,
                   ),
                 ),
               ],
@@ -187,7 +189,7 @@ class StatsPage extends StatelessWidget {
                   height: 300,
                   width: 500,
                   decoration: BoxDecoration(
-                    color: MainTheme.luminaBlue,
+                    color: MainTheme.luminaLightGreen,
                     borderRadius: BorderRadius.circular(10), // Rounded edges
                     boxShadow: const [
                       BoxShadow(
@@ -200,6 +202,8 @@ class StatsPage extends StatelessWidget {
                     ),
                   child: GraphBox(
                     spots: energyGeneration,
+                    lineColor: MainTheme.luminaBlue,
+                    textStyle: MainTheme.h2Black,
                   ),
                 ),
               ],

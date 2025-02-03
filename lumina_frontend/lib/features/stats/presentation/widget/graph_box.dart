@@ -4,8 +4,14 @@ import 'package:lumina_frontend/core/themes/main_theme.dart';
 
 class GraphBox extends StatelessWidget{
   final List<FlSpot> spots;
+  final Color lineColor;
+  final TextStyle textStyle;
   
-  const GraphBox({super.key, required this.spots});
+  const GraphBox(
+    {super.key,
+    required this.spots,
+    required this.lineColor,
+    required this.textStyle,});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +46,7 @@ class GraphBox extends StatelessWidget{
                       getTitlesWidget: (value, meta) {
                         return Text(
                           value.toString(),
-                          style: MainTheme.h2White,
+                          style: textStyle,
                         );
                       },
                       reservedSize: 30,
@@ -53,12 +59,12 @@ class GraphBox extends StatelessWidget{
                           if (value == 21) {
                             return Text(
                               ("${value}st"),
-                              style: MainTheme.h2White,
+                              style: textStyle,
                             );
                           }
                           return Text(
                             ("${value}th"),
-                            style: MainTheme.h2White,
+                            style: textStyle,
                           );
                         },
                         reservedSize: 30,
@@ -76,11 +82,11 @@ class GraphBox extends StatelessWidget{
                 ),
                 borderData: FlBorderData(
                   show: true,
-                  border: Border(
-                    top: BorderSide(color: MainTheme.luminaBlue, width: 2),
-                    left: const BorderSide(color: Colors.white, width: 2),
-                    right: BorderSide(color: MainTheme.luminaBlue, width: 2),
-                    bottom: const BorderSide(color: Colors.white, width: 2),
+                  border: const Border(
+                    top: BorderSide(color: Colors.transparent, width: 2),
+                    left: BorderSide(color: Colors.white, width: 2),
+                    right: BorderSide(color: Colors.transparent, width: 2),
+                    bottom: BorderSide(color: Colors.white, width: 2),
                   ),),
                 lineBarsData: [
                   LineChartBarData(
@@ -89,9 +95,9 @@ class GraphBox extends StatelessWidget{
                     shadow: Shadow(
                       color: MainTheme.luminaBlue,
                       blurRadius: 10,
-                      offset: Offset(0, 5),
+                      offset: const Offset(0, 5),
                     ),
-                    color: MainTheme.luminaLightGreen,
+                    color: lineColor,
                     barWidth: 4,
                     isStrokeCapRound: true,
                     dotData: const FlDotData(show: false),
