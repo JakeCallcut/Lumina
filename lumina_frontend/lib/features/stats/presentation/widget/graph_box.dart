@@ -5,13 +5,15 @@ import 'package:lumina_frontend/core/themes/main_theme.dart';
 class GraphBox extends StatelessWidget{
   final List<FlSpot> spots;
   final Color lineColor;
+  final Color borderColor;
   final TextStyle textStyle;
   
   const GraphBox(
     {super.key,
     required this.spots,
     required this.lineColor,
-    required this.textStyle,});
+    required this.textStyle,
+    required this.borderColor,});
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +35,9 @@ class GraphBox extends StatelessWidget{
                   verticalInterval: 7,
                   getDrawingVerticalLine: (value) {
                     return FlLine(
-                      color: Colors.white.withAlpha(128),
+                      color: borderColor.withAlpha(64),
                       strokeWidth: 2,
+                      dashArray: [5,5],
                     );
                   },
                 ),
@@ -82,18 +85,18 @@ class GraphBox extends StatelessWidget{
                 ),
                 borderData: FlBorderData(
                   show: true,
-                  border: const Border(
-                    top: BorderSide(color: Colors.transparent, width: 2),
-                    left: BorderSide(color: Colors.white, width: 2),
-                    right: BorderSide(color: Colors.transparent, width: 2),
-                    bottom: BorderSide(color: Colors.white, width: 2),
+                  border: Border(
+                    top: const BorderSide(color: Colors.transparent, width: 2),
+                    left: BorderSide(color: borderColor, width: 2),
+                    right:  const BorderSide(color: Colors.transparent, width: 2),
+                    bottom: BorderSide(color: borderColor, width: 2),
                   ),),
                 lineBarsData: [
                   LineChartBarData(
                     spots: spots,
                     isCurved: false,
                     shadow: Shadow(
-                      color: MainTheme.luminaBlue,
+                      color: borderColor.withAlpha(64),
                       blurRadius: 10,
                       offset: const Offset(0, 5),
                     ),
