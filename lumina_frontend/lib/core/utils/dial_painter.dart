@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'package:lumina_frontend/core/themes/main_theme.dart';
-
-
 ///Class to paint the sweeping portion of a dial used in various places in our app
 ///
 ///Parameters:
@@ -29,7 +26,8 @@ class DialPainter extends CustomPainter {
     final center = Offset(size.width / 2, size.height / 2);
     final sweepAngle = 2 * -pi * portion;
 
-    canvas.drawArc(Rect.fromCircle(center: center, radius: radius), -pi / 2, sweepAngle, false, paint);
+    canvas.drawArc(Rect.fromCircle(center: center, radius: radius), -pi / 2,
+        sweepAngle, false, paint);
   }
 
   @override

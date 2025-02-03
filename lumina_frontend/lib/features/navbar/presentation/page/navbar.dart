@@ -2,7 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/routes.dart';
 
+//enumerator to keep track of the current page
+enum NavPage { home, devices, stats, config } 
+
 class Navbar extends StatelessWidget {
+
+  //parameter to contain the current page
+  //input the page on which the navbar is being displayed
+  NavPage selectedPage;
+  Navbar({super.key, required this.selectedPage});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -11,10 +20,10 @@ class Navbar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _navButton(context, true, "home", Routes.home),
-          _navButton(context, false, "devices", Routes.devices),
-          _navButton(context, false, "stats", Routes.stats),
-          _navButton(context, false, "settings", Routes.config),
+          _navButton(context, (selectedPage == NavPage.home), "home", Routes.home),
+          _navButton(context, (selectedPage == NavPage.devices), "devices", Routes.devices),
+          _navButton(context, (selectedPage == NavPage.stats), "stats", Routes.stats),
+          _navButton(context, (selectedPage == NavPage.config), "settings", Routes.config),
         ],
       ),
     );
