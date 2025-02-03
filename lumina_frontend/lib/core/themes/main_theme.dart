@@ -14,6 +14,7 @@ class MainTheme {
   //Status Colours
   static Color luminaRed = const Color(0xFFEB3526);
   static Color luminaYellow = const Color(0xFFFFC35A);
+  static Color luminaPurple = const Color(0xFF332538);
   static Color luminaGreen = const Color(0xFF409A29);
 
   //Font configs

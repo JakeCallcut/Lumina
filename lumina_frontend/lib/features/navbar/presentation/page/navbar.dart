@@ -31,8 +31,8 @@ class Navbar extends StatelessWidget {
 
   Widget _navButton(BuildContext context, bool _isSelected, String _page, String _route) {
     return GestureDetector(
-        onTap: () => {
-            Navigator.pushNamed(context, _route),
+        onTap: () {
+          Navigator.of(context).pushReplacementNamed(_route);
         },
         child: _isSelected
             ? Container(
