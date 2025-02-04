@@ -212,7 +212,9 @@ class StatsPage extends StatelessWidget {
             ),
           ],
         ),
-        Navbar(),
+        Navbar(
+          selectedPage: Navpage.stats,
+        ),
       ],
     );
   }
