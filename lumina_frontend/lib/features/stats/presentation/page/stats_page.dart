@@ -90,7 +90,7 @@ class StatsPage extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Image.asset("/images/logo64.png"),
+                  child: Image.asset("assets/images/logo64.png"),
                 ),
                 Text("Usage and stats", style: MainTheme.h1Black,),
               ],

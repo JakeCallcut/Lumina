@@ -12,8 +12,8 @@ class LandingPage extends StatelessWidget {
           children: [
             Column(
               children: [
-                Image.asset('/images/logo_raw.png'),
-                Image.asset('/images/text_logo.png'),
+                Image.asset('assets/images/logo_raw.png'),
+                Image.asset('assets/images/text_logo.png'),
                 Text('The Guiding Light of Modern Living',
                     style: MainTheme.h2White),
               ],
@@ -34,7 +34,9 @@ class LandingPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 10,),
+                const SizedBox(
+                  height: 10,
+                ),
                 SizedBox(
                   height: 40,
                   width: 310,
@@ -68,7 +70,7 @@ class LandingPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset('/images/google_logo.png',
+                          Image.asset('assets/images/google_logo.png',
                               width: 20, height: 20),
                           const SizedBox(
                             width: 10,
