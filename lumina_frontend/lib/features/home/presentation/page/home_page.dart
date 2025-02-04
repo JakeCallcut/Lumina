@@ -7,7 +7,7 @@ import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 
 class HomePage extends StatelessWidget {
   //Dummy values
-  String _address = "11/15 Kingfisher Street";
+  final String _address = "11/15 Kingfisher Street";
 
   @override
   Widget build(BuildContext context) {
