@@ -18,9 +18,10 @@ class InfoBox extends StatelessWidget {
         @override
         Widget build(BuildContext context) {
           return Stack(children: [
+            const Padding(padding: EdgeInsets.all(16)),
             Container(
-                    height: 175,
-                    width: 250,
+                    // height: 175,
+                    // width: 250,
                     decoration: BoxDecoration(
                     color: boxColor,
                     borderRadius: BorderRadius.circular(10), // Rounded edges
@@ -33,27 +34,41 @@ class InfoBox extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: Column(
+                      child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(title, style: textStyle[1]),
-                          ],
+                        const Padding(padding: EdgeInsets.all(4)),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(title, style: textStyle[1]),
+                            ],
+                          ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("\$$valueMoney", style: textStyle[0]),
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text("\$$valueMoney", style: textStyle[0]),
+                            ],
+                          ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("($valueUnit kWh)", style: textStyle[1]),
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text("($valueUnit kWh)", style: textStyle[1]),
+                            ],
+                          ),
                         ),
+                        const Padding(padding: EdgeInsets.all(4)),
                       ],
                     ),
                    )
