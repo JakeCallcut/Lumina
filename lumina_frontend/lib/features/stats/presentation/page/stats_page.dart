@@ -6,12 +6,10 @@ import 'package:lumina_frontend/features/stats/presentation/widget/info_box.dart
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 
 class StatsPage extends StatelessWidget {
-
-  const StatsPage({super.key}); 
+  const StatsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     final List<FlSpot> energyUsage = [
       FlSpot(1, 0.1),
       FlSpot(2, 0.2),
@@ -85,66 +83,77 @@ class StatsPage extends StatelessWidget {
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-           Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Image.asset("assets/images/logo64.png"),
-                ),
-                Text("Usage and stats", style: MainTheme.h1Black,),
-              ],
-            ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text("Title", style: MainTheme.h1Black,),
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset("assets/images/logo64.png"),
+                ),
+                Text(
+                  "Usage and stats",
+                  style: MainTheme.h1Black,
                 ),
               ],
             ),
-
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Title",
+                    style: MainTheme.h1Black,
+                  ),
+                ),
+              ],
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-               Column(
-                 children: [
-                  InfoBox(
-                    title: "You've used",
-                    valueMoney: 2.67,
-                    valueUnit: 4.7,
-                    boxColor: MainTheme.luminaBlue,
-                    textStyle: [MainTheme.h1White, MainTheme.h2White],
+                const Padding(padding: EdgeInsets.all(16.0)),
+                Expanded(
+                  child: Column(
+                    children: [
+                      InfoBox(
+                      title: "You've used",
+                      valueMoney: 2.67,
+                      valueUnit: 4.7,
+                      boxColor: MainTheme.luminaBlue,
+                      textStyle: [MainTheme.h1White, MainTheme.h2White],
+                      ),
+                    ]
+                  ) 
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    children: [
+                      InfoBox(
+                        title: "You've saved",
+                        valueMoney: 0.89,
+                        valueUnit: 2.14,
+                        boxColor: MainTheme.luminaLightGreen,
+                        textStyle: [MainTheme.h1Black, MainTheme.h2Black],
+                      ),
+                    ],
                   ),
-                ]
-              ),
-
-               Column(
-                 children: [
-                  InfoBox(
-                    title: "You've saved",
-                    valueMoney: 0.89,
-                    valueUnit: 2.14,
-                    boxColor: MainTheme.luminaLightGreen,
-                    textStyle: [MainTheme.h1Black, MainTheme.h2Black],
-                  ),
-                 ],
-               ),
+                ),
+                const Padding(padding: EdgeInsets.all(16.0)),
               ],
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                 padding: const EdgeInsets.all(16.0),
-                  child: Text("Energy Usage (kWh)", style: MainTheme.h2Black,),
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    "Energy Usage (kWh)",
+                    style: MainTheme.h2Black,
+                  ),
                 ),
               ],
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -160,29 +169,30 @@ class StatsPage extends StatelessWidget {
                         spreadRadius: 5,
                         blurRadius: 7,
                         offset: Offset(0, 3),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
+                  ),
                   child: GraphBox(
-                  spots: energyUsage,
-                  lineColor: MainTheme.luminaLightGreen,
-                  textStyle: MainTheme.h2White,
-                  borderColor: Colors.white,
+                    spots: energyUsage,
+                    lineColor: MainTheme.luminaLightGreen,
+                    textStyle: MainTheme.h2White,
+                    borderColor: Colors.white,
                   ),
                 ),
               ],
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Text("Energy Generation (kWh)", style: MainTheme.h2Black,),
+                  child: Text(
+                    "Energy Generation (kWh)",
+                    style: MainTheme.h2Black,
+                  ),
                 ),
               ],
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -198,9 +208,9 @@ class StatsPage extends StatelessWidget {
                         spreadRadius: 5,
                         blurRadius: 7,
                         offset: Offset(0, 3),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
+                  ),
                   child: GraphBox(
                     spots: energyGeneration,
                     lineColor: MainTheme.luminaBlue,
