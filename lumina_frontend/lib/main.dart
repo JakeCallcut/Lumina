@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:lumina_frontend/services/integration_Funcs.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -11,6 +12,9 @@ void main() async {
   options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  var instance = Integration();
+  instance.setTestData();
+  instance.addTestData();
   runApp(const MyApp());
 }
 
