@@ -79,9 +79,9 @@ class StatsPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Stats")
-        ),
+      // appBar: AppBar(
+      //   title: const Text("Stats")
+      //   ),
         body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
