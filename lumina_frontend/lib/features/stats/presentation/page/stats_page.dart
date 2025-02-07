@@ -78,9 +78,12 @@ class StatsPage extends StatelessWidget {
       FlSpot(31, 0.4),
     ];
 
-    return Column(
-      children: [
-        Column(
+    return Scaffold(
+      // appBar: AppBar(
+      //   title: const Text("Stats")
+      //   ),
+        body: SingleChildScrollView(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
@@ -102,7 +105,7 @@ class StatsPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Title",
+                    "Today",
                     style: MainTheme.h1Black,
                   ),
                 ),
@@ -154,32 +157,37 @@ class StatsPage extends StatelessWidget {
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  height: 300,
-                  width: 500,
-                  decoration: BoxDecoration(
-                    color: MainTheme.luminaBlue,
-                    borderRadius: BorderRadius.circular(10), // Rounded edges
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset(0, 3),
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: 300,
+                      decoration: BoxDecoration(
+                        color: MainTheme.luminaBlue,
+                        borderRadius: BorderRadius.circular(10), // Rounded edges
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.grey,
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
                       ),
-                    ],
+                      child: GraphBox(
+                        spots: energyUsage,
+                        lineColor: MainTheme.luminaLightGreen,
+                        textStyle: MainTheme.h2White,
+                        borderColor: Colors.white,
+                      ),
+                    ),
                   ),
-                  child: GraphBox(
-                    spots: energyUsage,
-                    lineColor: MainTheme.luminaLightGreen,
-                    textStyle: MainTheme.h2White,
-                    borderColor: Colors.white,
-                  ),
-                ),
-              ],
+                  const SizedBox(width: 16),
+                ],
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -193,39 +201,44 @@ class StatsPage extends StatelessWidget {
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  height: 300,
-                  width: 500,
-                  decoration: BoxDecoration(
-                    color: MainTheme.luminaLightGreen,
-                    borderRadius: BorderRadius.circular(10), // Rounded edges
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset(0, 3),
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: 300,
+                      decoration: BoxDecoration(
+                        color: MainTheme.luminaLightGreen,
+                        borderRadius: BorderRadius.circular(10), // Rounded edges
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.grey,
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
                       ),
-                    ],
+                      child: GraphBox(
+                        spots: energyGeneration,
+                        lineColor: MainTheme.luminaBlue,
+                        textStyle: MainTheme.h2Black,
+                        borderColor: Colors.black,
+                      ),
+                    ),
                   ),
-                  child: GraphBox(
-                    spots: energyGeneration,
-                    lineColor: MainTheme.luminaBlue,
-                    textStyle: MainTheme.h2Black,
-                    borderColor: Colors.black,
-                  ),
-                ),
-              ],
+                  const SizedBox(width: 16),
+                ],
+              ),
             ),
           ],
+          ),
         ),
-        Navbar(
-          selectedPage: NavPage.stats,
-        ),
-      ],
+        bottomNavigationBar: Navbar(
+        selectedPage: NavPage.stats,
+      ),
     );
   }
 }
