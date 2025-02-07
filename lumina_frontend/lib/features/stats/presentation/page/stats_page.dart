@@ -78,9 +78,12 @@ class StatsPage extends StatelessWidget {
       FlSpot(31, 0.4),
     ];
 
-    return Column(
-      children: [
-        Column(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Stats")
+        ),
+        body: SingleChildScrollView(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
@@ -102,7 +105,7 @@ class StatsPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Title",
+                    "Today",
                     style: MainTheme.h1Black,
                   ),
                 ),
@@ -231,11 +234,11 @@ class StatsPage extends StatelessWidget {
               ),
             ),
           ],
+          ),
         ),
-        Navbar(
-          selectedPage: NavPage.stats,
-        ),
-      ],
+        bottomNavigationBar: Navbar(
+        selectedPage: NavPage.stats,
+      ),
     );
   }
 }
