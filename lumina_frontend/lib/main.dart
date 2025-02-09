@@ -15,6 +15,8 @@ void main() async {
   var instance = Integration();
   instance.setTestData();
   instance.addTestData();
+  instance.testTopLevel();
+  instance.setTestDataSubCollection();
   runApp(const MyApp());
 }
 
