@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
+import 'package:lumina_frontend/features/devicelist/presentation/widget/adddevice.dart';
+import 'package:lumina_frontend/features/devicelist/presentation/widget/devicedroplist.dart';
+import 'package:lumina_frontend/features/devicelist/presentation/widget/devicelist.dart';
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 
 class deviceList extends StatelessWidget {
@@ -19,7 +22,7 @@ class deviceList extends StatelessWidget {
               SizedBox(width: 8),
               Text("Manage Your Devices",
               style: TextStyle(
-                fontFamily: MainTheme.luminaFont,
+                fontFamily: 'Montserrat',
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
@@ -29,16 +32,16 @@ class deviceList extends StatelessWidget {
               
               const SizedBox(height: 16),
 
-              const devicedroplist(),
+              const Devicedroplist(),
 
               const SizedBox(height: 16),
 
-              Expanded(child: DeviceList(),
+              Expanded(child: Devicelist(),
               ),
 
               const SizedBox(height: 16),
 
-              DeviceAddButton(),
+              AddDevice(),
             ],
           ),
         ),
