@@ -7,7 +7,7 @@ import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 
 class HomePage extends StatelessWidget {
   //Dummy values
-  String _address = "11/15 Kingfisher Street";
+  final String _address = "11/15 Kingfisher Street";
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Image.asset("/images/logo64.png"),
+              child: Image.asset("assets/images/logo64.png"),
             ),
             Text(
               _address,

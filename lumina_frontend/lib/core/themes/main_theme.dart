@@ -85,7 +85,7 @@ class MainTheme {
     color: Colors.white,
     decoration: TextDecoration.none
   );
-
+  
   //Button Styles
   static ButtonStyle luminaDarkButton = ButtonStyle(
     backgroundColor: WidgetStateProperty.all<Color>(luminaBlue),
@@ -116,7 +116,6 @@ class MainTheme {
       EdgeInsets.symmetric(horizontal: 20, vertical: 10)
     )
   );
-
 
   static Container divider = Container(
     height: 1,

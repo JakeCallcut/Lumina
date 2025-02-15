@@ -40,10 +40,10 @@ class Navbar extends StatelessWidget {
                 width: 80,
                 decoration: BoxDecoration(
                     color: MainTheme.luminaLightGreen, shape: BoxShape.circle),
-                child: Image.asset("/images/nav_bar/${_page}_black.png"),
+                child: Image.asset("assets/images/nav_bar/${_page}_black.png"),
               )
             : Container(
-                child: Image.asset("/images/nav_bar/${_page}_white.png"),
+                child: Image.asset("assets/images/nav_bar/${_page}_white.png"),
               ));
   }
 }
