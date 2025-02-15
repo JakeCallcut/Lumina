@@ -1,0 +1,75 @@
+dart
+
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _emailFocus = FocusNode();
+  final _passwordFocus = FocusNode();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _emailFocus.dispose();
+    _passwordFocus.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: MainTheme.luminaBlue,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/images/text_logo.png'),
+            const SizedBox(height: 20),
+            Text('Enter Your Details', style: MainTheme.h2White),
+            const SizedBox(height: 20),
+            TextField(
+              controller: _emailController,
+              focusNode: _emailFocus,
+              enabled: true,
+              decoration: MainTheme.luminaInputDecoration(hintText: "Email"),
+              style: TextStyle(color: Colors.white),
+              cursorColor: Colors.white,
+              onEditingComplete: () {
+                FocusScope.of(context).requestFocus(_passwordFocus);
+              },
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: _passwordController,
+              focusNode: _passwordFocus,
+              enabled: true,
+              obscureText: true,
+              decoration: MainTheme.luminaInputDecoration(hintText: "Password"),
+              style: TextStyle(color: Colors.white),
+              cursorColor: Colors.white,
+              onEditingComplete: () {
+                _passwordFocus.unfocus();
+              },
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.home);
+              },
+              style: MainTheme.luminaLightButton,
+              child: Text(
+                'Go to Home Page',
+                style: MainTheme.h3Black,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
