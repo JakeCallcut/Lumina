@@ -21,7 +21,7 @@ class SettingsPage extends StatelessWidget {
                   Row(
                     children: [
                       Image.asset('assets/images/logo64.png'),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Text('Settings', style: MainTheme.h2Black),
                     ],
                   ),
