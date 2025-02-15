@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
+import 'package:lumina_frontend/routes.dart';
 
 class LandingPage extends StatelessWidget {
   @override
@@ -26,7 +27,7 @@ class LandingPage extends StatelessWidget {
                   child: ElevatedButton(
                     style: MainTheme.luminaLightButton,
                     onPressed: () {
-                      Navigator.pushNamed(context, '/home');
+                      Navigator.pushNamed(context, Routes.login);
                     },
                     child: Text(
                       'Log In',
