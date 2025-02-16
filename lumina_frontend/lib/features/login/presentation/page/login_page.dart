@@ -65,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text(
-                    'Continue',
+                    'Log In',
                     style: MainTheme.h3Black,
                   ),
                 ),
