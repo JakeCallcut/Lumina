@@ -44,7 +44,7 @@ class LandingPage extends StatelessWidget {
                   child: ElevatedButton(
                       style: MainTheme.luminaDarkButton,
                       onPressed: () {
-                        //When the register page is created put it here
+                        Navigator.pushNamed(context, Routes.register);
                       },
                       child: Text(
                         'Create an Account',

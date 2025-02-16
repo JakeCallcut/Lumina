@@ -84,6 +84,13 @@ class MainTheme {
       color: Colors.grey[400],
       decoration: TextDecoration.none);
 
+  static TextStyle smallerPrint = TextStyle(
+      fontSize: 8,
+      fontFamily: 'Montserrat',
+      fontWeight: FontWeight.w400,
+      color: Colors.grey[400],
+      decoration: TextDecoration.none);
+
   static TextStyle linkText = const TextStyle(
       fontSize: 10,
       fontFamily: 'Montserrat',

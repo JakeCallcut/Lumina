@@ -3,6 +3,7 @@ import 'package:lumina_frontend/features/error/presentation/page/error_page.dart
 import 'package:lumina_frontend/features/home/presentation/page/home_page.dart';
 import 'package:lumina_frontend/features/landing/presentation/page/landing_page.dart';
 import 'package:lumina_frontend/features/login/presentation/page/login_page.dart';
+import 'package:lumina_frontend/features/register/presentation/page/register_step_1.dart';
 import 'package:lumina_frontend/features/settings/presentation/page/settings_page.dart';
 
 class NoTransitionPageRoute extends PageRoute {
@@ -62,7 +63,7 @@ class Routes {
       case login:
         return NoTransitionPageRoute(builder: (_) => LoginPage());
       case register:
-        return NoTransitionPageRoute(builder: (_) => ErrorPage());
+        return NoTransitionPageRoute(builder: (_) => RegisterStep1());
       default:
         return NoTransitionPageRoute(builder: (_) => ErrorPage());
     }
