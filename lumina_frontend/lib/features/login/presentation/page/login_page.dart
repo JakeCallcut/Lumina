@@ -35,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
           child: Center(
             child: Column(
-              mainAxisAlignment: MainTheme.h2White != null ? MainAxisAlignment.center : MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset('assets/images/text_logo.png'),
                 const SizedBox(height: 20),
@@ -68,6 +68,18 @@ class _LoginPageState extends State<LoginPage> {
                     'Continue',
                     style: MainTheme.h3Black,
                   ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Dont have an account? ", style: MainTheme.smallPrint),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, Routes.register);
+                      },
+                      child: Text("Create One", style: MainTheme.linkText)),
+                  ],
                 ),
               ],
             ),

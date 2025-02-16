@@ -77,6 +77,22 @@ class MainTheme {
       color: Colors.white,
       decoration: TextDecoration.none);
 
+  static TextStyle smallPrint = TextStyle(
+      fontSize: 10,
+      fontFamily: 'Montserrat',
+      fontWeight: FontWeight.w400,
+      color: Colors.grey[400],
+      decoration: TextDecoration.none);
+
+  static TextStyle linkText = const TextStyle(
+      fontSize: 10,
+      fontFamily: 'Montserrat',
+      fontWeight: FontWeight.w400,
+      color: Color(0xFF8AA4A9),
+      decoration: TextDecoration.underline,
+      decorationColor: Color(0xFF8AA4A9),
+    );
+
   //Button Styles
   static ButtonStyle luminaDarkButton = ButtonStyle(
       backgroundColor: WidgetStateProperty.all<Color>(luminaBlue),
