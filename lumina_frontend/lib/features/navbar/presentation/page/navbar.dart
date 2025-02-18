@@ -29,21 +29,19 @@ class Navbar extends StatelessWidget {
     );
   }
 
-  Widget _navButton(BuildContext context, bool _isSelected, String _page, String _route) {
+  Widget _navButton(BuildContext context, bool isSelected, String page, String route) {
     return GestureDetector(
         onTap: () {
-          Navigator.of(context).pushReplacementNamed(_route);
+          Navigator.of(context).pushReplacementNamed(route);
         },
-        child: _isSelected
+        child: isSelected
             ? Container(
                 height: 80,
                 width: 80,
                 decoration: BoxDecoration(
                     color: MainTheme.luminaLightGreen, shape: BoxShape.circle),
-                child: Image.asset("assets/images/nav_bar/${_page}_black.png"),
+                child: Image.asset("assets/images/nav_bar/${page}_black.png"),
               )
-            : Container(
-                child: Image.asset("assets/images/nav_bar/${_page}_white.png"),
-              ));
+            : Image.asset("assets/images/nav_bar/${page}_white.png"));
   }
 }
