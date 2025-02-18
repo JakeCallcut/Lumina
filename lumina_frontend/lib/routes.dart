@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lumina_frontend/features/error/presentation/page/error_page.dart';
 import 'package:lumina_frontend/features/home/presentation/page/home_page.dart';
 import 'package:lumina_frontend/features/landing/presentation/page/landing_page.dart';
+import 'package:lumina_frontend/features/loading/presentation/page/loading_page.dart';
 import 'package:lumina_frontend/features/login/presentation/page/login_page.dart';
 import 'package:lumina_frontend/features/register/presentation/page/register_step_1.dart';
 import 'package:lumina_frontend/features/register/presentation/page/register_step_2.dart';
@@ -43,6 +44,7 @@ class Routes {
   static const String config = '/config';
   
   //edge case routes
+  static const String loading = '/loading';
   static const String error = '/error';
   static const String login = '/login';
   static const String register = '/register';
@@ -77,7 +79,9 @@ class Routes {
       case register4:
         return NoTransitionPageRoute(builder: (_) => RegisterStep4());
 
-
+      //edge case pages
+      case loading:
+        return NoTransitionPageRoute(builder: (_) => LoadingPage());
       default:
         return NoTransitionPageRoute(builder: (_) => ErrorPage());
     }
