@@ -94,7 +94,7 @@ class ManagerStatsPage extends StatelessWidget {
                   child: Image.asset("assets/images/logo64.png"),
                 ),
                 Text(
-                  "Usage and stats",
+                  "lorem ipsum",
                   style: MainTheme.h1Black,
                 ),
               ],

@@ -35,7 +35,7 @@ class ManagerSettingsPage extends StatelessWidget {
               children: [
                 SettingTile(
                   title: "Edit Address",
-                  subtitle: "11/15 Kingisher Street",
+                  subtitle: "lorem ipsum",
                   icon: Icon(
                     Icons.location_on,
                     color: MainTheme.luminaWhite,

@@ -85,15 +85,15 @@ class ManagerHomePage extends StatelessWidget {
         const Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            DeviceWidget(deviceName: 'Phillips Iris',),
-            DeviceWidget(deviceName: 'Roomba',),
+            DeviceWidget(deviceName: 'lorem ipsum',),
+            DeviceWidget(deviceName: 'lorem ipsum',),
           ],
         ),
         const Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            DeviceWidget(deviceName: 'TIM Assistant',),
-            DeviceWidget(deviceName: 'GHD Straigteners',),
+            DeviceWidget(deviceName: 'lorem ipsum',),
+            DeviceWidget(deviceName: 'lorem ipsum',),
           ],
         ),
         Navbar(
