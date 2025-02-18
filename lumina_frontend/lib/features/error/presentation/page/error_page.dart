@@ -20,6 +20,7 @@ class ErrorPage extends StatelessWidget {
                 Text(
                   'We\'re sorry, something went wrong',
                   style: MainTheme.h1White,
+                  textAlign: TextAlign.center,
                 ),
               ],
             ),
