@@ -13,13 +13,14 @@ void main() async {
   options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  var instance = Integration();
+  //var instance = Integration();
   var instanceCreate = Create();
-  instance.setTestData();
-  instance.addTestData();
-  instance.testTopLevel();
-  instance.setTestDataSubCollection();
-  instanceCreate.createTopLevelHome();
+  //instance.setTestData();
+  //instance.addTestData();
+  //instance.testTopLevel();
+  //instance.setTestDataSubCollection();
+  //instanceCreate.createTopLevelHome();
+  instanceCreate.createHomeowner();
   runApp(const MyApp());
 }
 

@@ -19,4 +19,17 @@ class Create {
     db.collection("Top Level Homes").add(tLH).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
   }
 
+    void createHomeowner() {
+    final owner = {
+      "firstname" : "Lumina",
+      "surname" : "Haven",
+      "phoneNumber" : "1234567890",
+      "email" : "mrHavensSolution@gmail.com",
+      "password" : "ShiningL1ght",
+      "topHouseId" : "gogPwWrvOuUeNVWNHsrs",
+      "hasGoolgeLogin" : false
+    };
+    db.collection("Homeowner").add(owner).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
+    
+  }
 }
