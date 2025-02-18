@@ -6,6 +6,7 @@ import 'package:lumina_frontend/features/_account_resident/home/presentation/wid
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 
 class ResidentHomePage extends StatelessWidget {
+   const ResidentHomePage({super.key});
   //Dummy values
   final String _address = "11/15 Kingfisher Street";
 
