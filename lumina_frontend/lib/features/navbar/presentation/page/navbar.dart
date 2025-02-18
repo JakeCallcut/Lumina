@@ -5,6 +5,7 @@ import 'package:lumina_frontend/routes.dart';
 //enumerator to keep track of the current page
 enum NavPage { home, devices, stats, config } 
 
+// ignore: must_be_immutable
 class Navbar extends StatelessWidget {
 
   //parameter to contain the current page
