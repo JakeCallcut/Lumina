@@ -20,7 +20,11 @@ void main() async {
   //instance.testTopLevel();
   //instance.setTestDataSubCollection();
   //instanceCreate.createTopLevelHome();
-  instanceCreate.createHomeowner();
+  //instanceCreate.createHomeowner();
+  //instanceCreate.createHousehold();
+  //instanceCreate.createResident();
+  //instanceCreate.createRooms();
+  instanceCreate.createEnergy();
   runApp(const MyApp());
 }
 
