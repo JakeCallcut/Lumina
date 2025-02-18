@@ -5,8 +5,8 @@ import 'package:lumina_frontend/features/_account_resident/stats/presentation/wi
 import 'package:lumina_frontend/features/_account_resident/stats/presentation/widget/info_box.dart';
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 
-class StatsPage extends StatelessWidget {
-  const StatsPage({super.key});
+class ManagerStatsPage extends StatelessWidget {
+  const ManagerStatsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

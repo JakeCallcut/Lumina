@@ -4,8 +4,8 @@ import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 import 'package:lumina_frontend/features/_account_home_manager/settings/presentation/widget/setting_tile.dart';
 import 'package:lumina_frontend/features/_account_home_manager/settings/presentation/widget/theme_switch.dart';
 
-class ManagerSettingsPage extends StatelessWidget {
-  const ManagerSettingsPage({super.key});
+class ResidentSettingsPage extends StatelessWidget {
+  const ResidentSettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

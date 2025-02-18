@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+
+import 'package:lumina_frontend/features/_account_resident/home/presentation/widget/home_dial.dart';
+import 'package:lumina_frontend/features/_account_home_manager/home/presentation/widget/home_dial.dart';
+import 'package:lumina_frontend/features/_account_resident/home/presentation/page/home_page.dart';
+import 'package:lumina_frontend/features/_account_home_manager/home/presentation/page/home_page.dart';
+import 'package:lumina_frontend/features/_account_resident/settings/presentation/page/settings_page.dart';
+import 'package:lumina_frontend/features/_account_home_manager/settings/presentation/page/settings_page.dart';
+
 import 'package:lumina_frontend/features/_account_resident/stats/presentation/page/stats_page.dart';
 import 'package:lumina_frontend/features/error/presentation/page/error_page.dart';
-import 'package:lumina_frontend/features/_account_resident/home/presentation/page/home_page.dart';
 import 'package:lumina_frontend/features/landing/presentation/page/landing_page.dart';
 import 'package:lumina_frontend/features/login/presentation/page/login_page.dart';
 import 'package:lumina_frontend/features/register/presentation/page/register_step_1.dart';
 import 'package:lumina_frontend/features/register/presentation/page/register_step_2.dart';
 import 'package:lumina_frontend/features/register/presentation/page/register_step_3.dart';
 import 'package:lumina_frontend/features/register/presentation/page/register_step_4.dart';
-import 'package:lumina_frontend/features/_account_resident/settings/presentation/page/settings_page.dart';
-
 class NoTransitionPageRoute extends PageRoute {
   final WidgetBuilder builder;
   
@@ -65,19 +70,20 @@ class Routes {
       case landing:
         return NoTransitionPageRoute(builder: (_) => LandingPage());
       case home:
-        // debugPrint("Navigating to Home Page");
-        // debugPrint("User Role: $userRole");
         return NoTransitionPageRoute(
             builder: (_) => userRole == 'manager'
-                ? SettingsPage() //HomeManagerPage.HomePage()
-                : HomePage());
+                ? ManagerHomePage()
+                : ResidentHomePage());
       case devices:
         return NoTransitionPageRoute(builder: (_) => ErrorPage());
       case stats:
-        return NoTransitionPageRoute(builder: (_) => StatsPage());
+        return NoTransitionPageRoute(builder: (_) => userRole == 'manager'
+                ? ManagerHomePage() 
+                : ResidentHomePage());
       case config:
-        return NoTransitionPageRoute(builder: (_) => SettingsPage());
-
+        return NoTransitionPageRoute(builder: (_) => userRole == 'manager'
+                ? ManagerHomePage()
+                : ResidentHomePage());
       //register and login pages
       case login:
         return NoTransitionPageRoute(builder: (_) => LoginPage());
