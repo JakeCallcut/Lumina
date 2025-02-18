@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Lumina',
-      initialRoute: Routes.landing,
+      initialRoute: Routes.loading,
       onGenerateRoute: Routes.generateRoute,
       //theme: MainTheme.data(),
     );
