@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/routes.dart';
 
-class RegisterStep1 extends StatefulWidget {
+class RegisterStep4 extends StatefulWidget {
   @override
-  _RegisterStep1State createState() => _RegisterStep1State();
+  _RegisterStep4State createState() => _RegisterStep4State();
 }
 
-class _RegisterStep1State extends State<RegisterStep1> {
+class _RegisterStep4State extends State<RegisterStep4> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode _emailFocusNode = FocusNode();
@@ -63,7 +63,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.register2);
+                    Navigator.pushNamed(context, Routes.home);
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text(
