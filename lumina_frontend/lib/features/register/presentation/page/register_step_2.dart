@@ -30,6 +30,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Image.asset('assets/images/register_progress/progress_2.png'),
                 Image.asset('assets/images/text_logo.png'),
                 const SizedBox(height: 20),
                 Text('Select Your Account Type', style: MainTheme.h2White),

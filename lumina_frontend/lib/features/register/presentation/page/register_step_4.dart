@@ -8,17 +8,13 @@ class RegisterStep4 extends StatefulWidget {
 }
 
 class _RegisterStep4State extends State<RegisterStep4> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final FocusNode _emailFocusNode = FocusNode();
-  final FocusNode _passwordFocusNode = FocusNode();
+  final TextEditingController _inviteCodeController = TextEditingController();
+  final FocusNode _inviteCodeFocusNode = FocusNode();
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    _emailFocusNode.dispose();
-    _passwordFocusNode.dispose();
+    _inviteCodeController.dispose();
+    _inviteCodeFocusNode.dispose();
     super.dispose();
   }
 
@@ -37,26 +33,17 @@ class _RegisterStep4State extends State<RegisterStep4> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Image.asset('assets/images/register_progress/progress_4.png'),
                 Image.asset('assets/images/text_logo.png'),
                 const SizedBox(height: 20),
-                Text('Enter Your Details', style: MainTheme.h2White),
+                Text('Enter the invite code given by your home manager', style: MainTheme.h2White, textAlign: TextAlign.center,),
                 const SizedBox(height: 20),
                 TextField(
-                  controller: _emailController,
-                  focusNode: _emailFocusNode,
-                  keyboardType: TextInputType.emailAddress,
+                  controller: _inviteCodeController,
+                  focusNode: _inviteCodeFocusNode,
+                  keyboardType: TextInputType.text,
                   decoration:
-                      MainTheme.luminaInputDecoration(hintText: "Email"),
-                  style: const TextStyle(color: Colors.white),
-                  cursorColor: Colors.white,
-                ),
-                const SizedBox(height: 16),
-                TextField(
-                  controller: _passwordController,
-                  focusNode: _passwordFocusNode,
-                  obscureText: true,
-                  decoration:
-                      MainTheme.luminaInputDecoration(hintText: "Password"),
+                      MainTheme.luminaInputDecoration(hintText: "Invite Code"),
                   style: const TextStyle(color: Colors.white),
                   cursorColor: Colors.white,
                 ),
@@ -67,7 +54,7 @@ class _RegisterStep4State extends State<RegisterStep4> {
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text(
-                    'Continue',
+                    'Finish',
                     style: MainTheme.h3Black,
                   ),
                 ),
