@@ -15,6 +15,14 @@ class _RegisterStep2State extends State<RegisterStep2> {
     super.dispose();
   }
 
+  void _continueRegistration() {
+    // Set the role globally
+    Routes.setUserRole(_accountType);
+
+    // Navigate to the next step
+    Navigator.pushNamed(context, Routes.register3);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +55,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                           onChanged: (value) {
                             setState(() {
                               _accountType = value.toString();
+                              _continueRegistration();
                             });
                           },
                           fillColor: WidgetStateProperty.all(Colors.white),
@@ -64,6 +73,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                           onChanged: (value) {
                             setState(() {
                               _accountType = value.toString();
+                              _continueRegistration();
                             });
                           },
                           fillColor: WidgetStateProperty.all(Colors.white),

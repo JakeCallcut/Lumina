@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:lumina_frontend/features/_account_resident/stats/presentation/page/stats_page.dart';
 import 'package:lumina_frontend/features/error/presentation/page/error_page.dart';
-import 'package:lumina_frontend/features/home/presentation/page/home_page.dart';
+import 'package:lumina_frontend/features/_account_resident/home/presentation/page/home_page.dart';
 import 'package:lumina_frontend/features/landing/presentation/page/landing_page.dart';
 import 'package:lumina_frontend/features/login/presentation/page/login_page.dart';
 import 'package:lumina_frontend/features/register/presentation/page/register_step_1.dart';
 import 'package:lumina_frontend/features/register/presentation/page/register_step_2.dart';
 import 'package:lumina_frontend/features/register/presentation/page/register_step_3.dart';
 import 'package:lumina_frontend/features/register/presentation/page/register_step_4.dart';
-import 'package:lumina_frontend/features/settings/presentation/page/settings_page.dart';
+import 'package:lumina_frontend/features/_account_resident/settings/presentation/page/settings_page.dart';
 
 class NoTransitionPageRoute extends PageRoute {
   final WidgetBuilder builder;
@@ -50,6 +51,13 @@ class Routes {
   static const String register3 = '/register/3';
   static const String register4 = '/register/4';
 
+  //user role for routing
+  static String userRole = 'resident';
+
+  static void setUserRole(String role) {
+    userRole = role;
+  }
+
   //TODO: undefined routes set to error page for now, change when added
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -57,11 +65,16 @@ class Routes {
       case landing:
         return NoTransitionPageRoute(builder: (_) => LandingPage());
       case home:
-        return NoTransitionPageRoute(builder: (_) => HomePage());
+        // debugPrint("Navigating to Home Page");
+        // debugPrint("User Role: $userRole");
+        return NoTransitionPageRoute(
+            builder: (_) => userRole == 'manager'
+                ? SettingsPage() //HomeManagerPage.HomePage()
+                : HomePage());
       case devices:
         return NoTransitionPageRoute(builder: (_) => ErrorPage());
       case stats:
-        return NoTransitionPageRoute(builder: (_) => ErrorPage());
+        return NoTransitionPageRoute(builder: (_) => StatsPage());
       case config:
         return NoTransitionPageRoute(builder: (_) => SettingsPage());
 

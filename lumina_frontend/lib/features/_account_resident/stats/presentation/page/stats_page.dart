@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
-import 'package:lumina_frontend/features/stats/presentation/widget/graph_box.dart';
-import 'package:lumina_frontend/features/stats/presentation/widget/info_box.dart';
+import 'package:lumina_frontend/features/_account_resident/stats/presentation/widget/graph_box.dart';
+import 'package:lumina_frontend/features/_account_resident/stats/presentation/widget/info_box.dart';
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 
 class StatsPage extends StatelessWidget {

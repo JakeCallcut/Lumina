@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
-import 'package:lumina_frontend/features/settings/presentation/widget/setting_tile.dart';
-import 'package:lumina_frontend/features/settings/presentation/widget/theme_switch.dart';
+import 'package:lumina_frontend/features/_account_resident/settings/presentation/widget/setting_tile.dart';
+import 'package:lumina_frontend/features/_account_resident/settings/presentation/widget/theme_switch.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
