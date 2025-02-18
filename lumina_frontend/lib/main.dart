@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lumina_frontend/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:lumina_frontend/services/integration_Funcs.dart';
+import 'package:lumina_frontend/services/create_Database.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -13,10 +14,12 @@ void main() async {
   );
 
   var instance = Integration();
+  var instanceCreate = Create();
   instance.setTestData();
   instance.addTestData();
   instance.testTopLevel();
   instance.setTestDataSubCollection();
+  instanceCreate.createTopLevelHome();
   runApp(const MyApp());
 }
 
