@@ -32,22 +32,44 @@ class Integration {
     
     db.collection("testCollection").doc("testDocument").collection("testSubCollection").doc("testSubDocument").set(testSubField).onError((e, _) => print ("error $e"));
   }
-    //<String, String> getTestData() {
+
+  void getTestData() {
       //final testRef = db.collection("testCollection");
       //final query = testRef.where("testField", isEqualTo: "Success!");
       
-      //final docRef = db.collection("testCollection").doc("testDocument");
-      //docRef.get().then(
-        //(DocumentSnapshot doc) {
-        //  final data = doc.data() as Map<String, dynamic>;
-        //  print(data);
-        //  return data;
-        //  // ...
-        //},
-       // onError: (e) => print("Error getting document: $e"),
-      //);
-      //return "";
+      final docRef = db.collection("Homeowner").doc("vAYUGygxXkiyYZmtMv3I");
+      docRef.get().then(
+        (DocumentSnapshot doc) {
+          final data = doc.data() as Map<String, dynamic>;
+          print(data);
 
+          // ...
+        },
+        onError: (e) => print("Error getting document: $e"),
+      );
 
-    //}
+  }
+
+    void getBothResidents() {
+      
+      final docRef2 = db.collection("Top Level Homes").doc("gogPwWrvOuUeNVWNHsrs").collection("Household").doc("RyWdVEdWzHdOotkTK4n6").collection("Residents").doc("7VJYi9v1v9pstJAix9hr");
+      docRef2.get().then(
+        (DocumentSnapshot doc) {
+          final data2 = doc.data() as Map<String, dynamic>;
+          print(data2);
+
+        },
+        onError: (e) => print("Error getting document: $e"),
+      );
+
+      final docRef3 = db.collection("Top Level Homes").doc("gogPwWrvOuUeNVWNHsrs").collection("Household").doc("RyWdVEdWzHdOotkTK4n6").collection("Residents").doc("w5AqgU2fPFAkjZq7Q9CI");
+      docRef3.get().then(
+        (DocumentSnapshot doc) {
+          final data3 = doc.data() as Map<String, dynamic>;
+          print(data3);
+
+        },
+        onError: (e) => print("Error getting document: $e"),
+      );
+  }
 }

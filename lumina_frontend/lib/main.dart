@@ -13,7 +13,7 @@ void main() async {
   options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  //var instance = Integration();
+  var instance = Integration();
   var instanceCreate = Create();
   //instance.setTestData();
   //instance.addTestData();
@@ -24,7 +24,10 @@ void main() async {
   //instanceCreate.createHousehold();
   //instanceCreate.createResident();
   //instanceCreate.createRooms();
-  instanceCreate.createEnergy();
+  //instanceCreate.createEnergy();
+  //instanceCreate.createSecondResident();
+  instance.getTestData();
+  instance.getBothResidents();
   runApp(const MyApp());
 }
 
