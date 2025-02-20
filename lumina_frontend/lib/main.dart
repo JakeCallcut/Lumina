@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:lumina_frontend/model/HomeOwner.dart';
 import 'package:lumina_frontend/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:lumina_frontend/services/integration_Funcs.dart';
@@ -30,16 +31,20 @@ void main() async {
   //instance.getBothResidents();
   //instance.getOwnerId();
   //instance.getHousehold();
-  print("aaaa");
-  var docId = await instance.getHomeOwner("Lumina", "Haven");
-  print("aaaa2");
-  print(docId);
-  var docId2 = await instance.getHomeOwner("Lumina2", "Haven2");
-  // print("bbb");
-  print(docId2);
+  List<HomeOwner> homeowner = await instance.getallHomeOwners();
+  int a =1;
+  // print("aaaa");
+   HomeOwner docId = await instance.getHomeOwner("Lumina", "Haven");
+  // print("aaaa2");
+   print(docId.firstname);
+  // HomeOwner docId2 = await instance.getHomeOwner("Lumina2", "Haven2");
+  // // print("bbb");
+  // print(docId2.firstname);
   //var docId3 = await instance.getHomeOwner("Lumina3", "Haven3");
   //print(docId3);
   runApp(const MyApp());
+
+  int b = 1;
 }
 
 

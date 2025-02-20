@@ -75,11 +75,11 @@ class Integration {
       );
   }
 
- void getOwnerId() {
+  void getOwnerId() {
 
-  //  final owners = db.collection('Homeowner').document(widget.data['Document Id'].toString()).get();
-  final owners = db.collection('Homeowner').get().then((value) => value.docs.map((e)=> e.id).toList());
-   print(owners);
+    //  final owners = db.collection('Homeowner').document(widget.data['Document Id'].toString()).get();
+    final owners = db.collection('Homeowner').get().then((value) => value.docs.map((e)=> e.id).toList());
+    print(owners);
 
   }
 
@@ -96,35 +96,49 @@ class Integration {
       );
   }
 
-  // Future<HomeOwner> getHomeOwner(String firstname, String lastname) async
+  Future<HomeOwner> getHomeOwner(String firstname, String lastname) async {
+     var querySnapshot =  await db.collection("Homeowner").where("firstname", isEqualTo: firstname)
+                                                  .where("surname", isEqualTo: lastname).get();
+      var value;
+      for (var docSnapshot in querySnapshot.docs)  {
+        value = docSnapshot.data();
+      }                                          
+      
+       print (value['firstname']) ;        
+     HomeOwner h = HomeOwner.basic(value['firstname'],value['surname']);
+
+     print ("zzz");
+     print (h.firstname);
+     return h;
+
+  }
+
+  //   Future<String> getHomeOwner(String firstname, String lastname) async
   // {
-  //    var querySnapshot =  await db.collection("HomeOwner").where("firstname", isEqualTo: firstname)
-  //                                                 .where("lastname", isEqualTo: lastname).get();
-  //     var value;
+  //    var querySnapshot =  await db.collection("Homeowner").where("firstname", isEqualTo: firstname)
+  //                                                .where("surname", isEqualTo: lastname).get();
+  //     //print("ACG");
+  //     String value="";
   //     for (var docSnapshot in querySnapshot.docs)  {
-  //       value = docSnapshot.data();
+  //       value = docSnapshot.id;
+  //      // print ("CG");
+  //       //print (value);
   //     }                                          
                                            
-  //    return HomeOwner(
-  //     firstname: value['firstname'],
-  //     surname: value['surname']
-  //    );
+  //    return value;
 
   // }
 
-    Future<String> getHomeOwner(String firstname, String lastname) async
-  {
-     var querySnapshot =  await db.collection("Homeowner").where("firstname", isEqualTo: firstname)
-                                                 .where("surname", isEqualTo: lastname).get();
-      //print("ACG");
-      String value="";
-      for (var docSnapshot in querySnapshot.docs)  {
-        value = docSnapshot.id;
-       // print ("CG");
-        //print (value);
-      }                                          
-                                           
-     return value;
+  Future<List<HomeOwner>> getallHomeOwners() async {
+    var querySnapshot =  await db.collection("Homeowner").get();
+     
+    List<HomeOwner> homeowners = [];
+    for (var docSnapshot in querySnapshot.docs)  {
+      Map<String, dynamic> value = docSnapshot.data();
+      HomeOwner h = HomeOwner(docSnapshot.id, value['firstname'], value['surname'], value['email'], value['password'], value['phoneNumber'], value['topHouseId'], value['hasGoolgeLogin']);
+      homeowners.add(h);
+    }                                          
 
+    return homeowners;
   }
 }
