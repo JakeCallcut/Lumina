@@ -107,8 +107,6 @@ class Integration {
        print (value['firstname']) ;        
      HomeOwner h = HomeOwner.basic(value['firstname'],value['surname']);
 
-     print ("zzz");
-     print (h.firstname);
      return h;
 
   }
@@ -135,10 +133,37 @@ class Integration {
     List<HomeOwner> homeowners = [];
     for (var docSnapshot in querySnapshot.docs)  {
       Map<String, dynamic> value = docSnapshot.data();
-      HomeOwner h = HomeOwner(docSnapshot.id, value['firstname'], value['surname'], value['email'], value['password'], value['phoneNumber'], value['topHouseId'], value['hasGoolgeLogin']);
+      HomeOwner h = HomeOwner(docSnapshot.id, value['firstname'], value['surname'], value['email'], value['password'], value['phoneNumber'], value['topHouseId'], value['hasGoogleLogin']);
       homeowners.add(h);
     }                                          
 
     return homeowners;
+  }
+
+  bool addHomeowner(HomeOwner ho)  {
+
+ final oo = {
+      "firstname" : "Lumina",
+      "surname" : "test",
+      "phoneNumber" : "1234567890",
+      "email" : "mrHavensSolution@gmail.com",
+      "password" : "ShiningL1ght",
+      "topHouseId" : "gogPwWrvOuUeNVWNHsrs",
+      "hasGoogleLogin" : false
+    };
+
+    Map<String, dynamic> owner = {};
+int a=1;
+
+    owner["firstname"] = (ho.firstname);
+    owner["surname"] = (ho.surname);
+    owner["email"] = (ho.email);
+    owner["password"] = (ho.encryptedPassword);
+    owner["phoneNumber"] = (ho.phoneNumber);
+    owner["topHouseId"] = (ho.topHouseholdDocumentId);
+    owner["hasGoogleLogin"] = (ho.hasGoogleLogin);
+    //var aa =  db.collection("Homeowner").add(oo);
+    var ab =  db.collection("Homeowner").add(owner);           
+    return true;
   }
 }

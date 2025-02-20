@@ -18,7 +18,7 @@ class Create {
       "email" : "mrHavensSolution@gmail.com",
       "password" : "ShiningL1ght",
       "topHouseId" : "gogPwWrvOuUeNVWNHsrs",
-      "hasGoolgeLogin" : false
+      "hasGoogleLogin" : false
     };
        final owner2 = {
       "firstname" : "Lumina2",
@@ -27,9 +27,9 @@ class Create {
       "email" : "mrHavensSolution2@gmail.com",
       "password" : "ShiningL1ght2",
       "topHouseId" : "gogPwWrvOuUeNVWNHsrs",
-      "hasGoolgeLogin" : false
+      "hasGoogleLogin" : false
     };
-    //db.collection("Homeowner").add(owner).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
+    db.collection("Homeowner").add(owner).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
     db.collection("Homeowner").add(owner2).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
   }
 
@@ -57,9 +57,9 @@ class Create {
       "firstname" : "Old",
       "surname" : "Person",
       "phoneNumber" : "123123123",
-      "email" : "needscare24@gmail.com",
+      "email" : "needscare24/7@gmail.com",
       "password" : "Sos0Old97",
-      "hasGoolgeLogin" : true
+      "hasGoogleLogin" : true
     };
     db.collection("Top Level Homes").doc("gogPwWrvOuUeNVWNHsrs").collection("Household").doc("RyWdVEdWzHdOotkTK4n6").collection("Residents").add(resident).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
   }
@@ -71,7 +71,7 @@ class Create {
       "phoneNumber" : "456456456",
       "email" : "cares2much@gmail.com",
       "password" : "Help1ngHand!",
-      "hasGoolgeLogin" : false
+      "hasGoogleLogin" : false
     };
     db.collection("Top Level Homes").doc("gogPwWrvOuUeNVWNHsrs").collection("Household").doc("RyWdVEdWzHdOotkTK4n6").collection("Residents").add(residentTwo).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
   }
