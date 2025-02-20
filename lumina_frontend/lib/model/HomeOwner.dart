@@ -5,11 +5,11 @@ class HomeOwner{
   String firstname = "";
   String surname = "";
   bool hasGoogleLogin = false;
-  String encryptedPassword = "";
+  String password = "";
   String phoneNumber ="";
-  String topHouseholdDocumentId = "";
+  String topHouseId = "";
 
-  HomeOwner(this.id, this.firstname, this.surname, this.email, this.encryptedPassword, this.phoneNumber, this.topHouseholdDocumentId, this.hasGoogleLogin);
+  HomeOwner(this.id, this.firstname, this.surname, this.email, this.password, this.phoneNumber, this.topHouseId, this.hasGoogleLogin);
   
   HomeOwner.basic(this.firstname, this.surname);
 

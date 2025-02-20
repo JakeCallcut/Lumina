@@ -31,20 +31,13 @@ void main() async {
   //instance.getBothResidents();
   //instance.getOwnerId();
   //instance.getHousehold();
-  List<HomeOwner> homeowners = await instance.getallHomeOwners();
-  HomeOwner homeowner = homeowners[0];
-  homeowner.firstname = "testname";
-  instance.addHomeowner(homeowner);
+  //List<HomeOwner> homeowners = await instance.getallHomeOwners();
+  //HomeOwner homeowner = homeowners[0];
+  //homeowner.firstname = "testname";
+  //HomeOwner homeowner = HomeOwner("fSGAFFMD2U1Ezvo4LCnM", "Lumina", "", "", "", "", "", false);
+  //instance.updateHomeowner(homeowner);
   //HomeOwner docId = await instance.getHomeOwner("Lumina", "Haven");
-  // print("aaaa2");
-  //print(docId.firstname);
-  // HomeOwner docId2 = await instance.getHomeOwner("Lumina2", "Haven2");
-  // print(docId2.firstname);
-  //var docId3 = await instance.getHomeOwner("Lumina3", "Haven3");
-  //print(docId3);
   runApp(const MyApp());
-
-  int b = 1;
 }
 
 

@@ -141,29 +141,30 @@ class Integration {
   }
 
   bool addHomeowner(HomeOwner ho)  {
-
- final oo = {
-      "firstname" : "Lumina",
-      "surname" : "test",
-      "phoneNumber" : "1234567890",
-      "email" : "mrHavensSolution@gmail.com",
-      "password" : "ShiningL1ght",
-      "topHouseId" : "gogPwWrvOuUeNVWNHsrs",
-      "hasGoogleLogin" : false
-    };
-
     Map<String, dynamic> owner = {};
-int a=1;
 
     owner["firstname"] = (ho.firstname);
     owner["surname"] = (ho.surname);
     owner["email"] = (ho.email);
-    owner["password"] = (ho.encryptedPassword);
+    owner["password"] = (ho.password);
     owner["phoneNumber"] = (ho.phoneNumber);
-    owner["topHouseId"] = (ho.topHouseholdDocumentId);
+    owner["topHouseId"] = (ho.topHouseId);
     owner["hasGoogleLogin"] = (ho.hasGoogleLogin);
-    //var aa =  db.collection("Homeowner").add(oo);
-    var ab =  db.collection("Homeowner").add(owner);           
+    db.collection("Homeowner").add(owner);
+    return true;
+  }
+
+    bool updateHomeowner(HomeOwner ho)  {
+    Map<String, dynamic> owner = {};
+
+    if (ho.firstname.trim().isNotEmpty) {owner["firstname"] = (ho.firstname);}
+    if (ho.surname.trim().isNotEmpty) {owner["surname"] = (ho.surname);}
+    if (ho.email.trim().isNotEmpty) {owner["email"] = (ho.email);}
+    if (ho.password.trim().isNotEmpty) {owner["password"] = (ho.password);}
+    if (ho.phoneNumber.trim().isNotEmpty) {owner["phoneNumber"] = (ho.phoneNumber);}
+    if (ho.topHouseId.trim().isNotEmpty) {owner["topHouseId"] = (ho.topHouseId);}
+    owner["hasGoogleLogin"] = (ho.hasGoogleLogin);
+    db.collection("Homeowner").doc(ho.id).update(owner);        
     return true;
   }
 }
