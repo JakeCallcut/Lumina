@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:lumina_frontend/model/HomeOwner.dart';
+
 
 class Integration {
   var db = FirebaseFirestore.instance;
@@ -71,5 +73,58 @@ class Integration {
         },
         onError: (e) => print("Error getting document: $e"),
       );
+  }
+
+ void getOwnerId() {
+
+  //  final owners = db.collection('Homeowner').document(widget.data['Document Id'].toString()).get();
+  final owners = db.collection('Homeowner').get().then((value) => value.docs.map((e)=> e.id).toList());
+   print(owners);
+
+  }
+
+  void getHousehold() {
+      final docRefH = db.collection("Top Level Homes").doc("gogPwWrvOuUeNVWNHsrs").collection("Household").doc("RyWdVEdWzHdOotkTK4n6");
+      docRefH.get().then(
+        (DocumentSnapshot doc) {
+          final dataH = doc.data() as Map<String, dynamic>;
+   
+          print(dataH);
+
+        },
+        onError: (e) => print("Error getting document: $e"),
+      );
+  }
+
+  // Future<HomeOwner> getHomeOwner(String firstname, String lastname) async
+  // {
+  //    var querySnapshot =  await db.collection("HomeOwner").where("firstname", isEqualTo: firstname)
+  //                                                 .where("lastname", isEqualTo: lastname).get();
+  //     var value;
+  //     for (var docSnapshot in querySnapshot.docs)  {
+  //       value = docSnapshot.data();
+  //     }                                          
+                                           
+  //    return HomeOwner(
+  //     firstname: value['firstname'],
+  //     surname: value['surname']
+  //    );
+
+  // }
+
+    Future<String> getHomeOwner(String firstname, String lastname) async
+  {
+     var querySnapshot =  await db.collection("Homeowner").where("firstname", isEqualTo: firstname)
+                                                 .where("surname", isEqualTo: lastname).get();
+      //print("ACG");
+      String value="";
+      for (var docSnapshot in querySnapshot.docs)  {
+        value = docSnapshot.id;
+       // print ("CG");
+        //print (value);
+      }                                          
+                                           
+     return value;
+
   }
 }

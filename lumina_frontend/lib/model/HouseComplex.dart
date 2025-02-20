@@ -4,5 +4,5 @@ class houseComplex{
 
   String id = "";
   String name = "";
-  List<HouseHolds> households = [];
+  
 }

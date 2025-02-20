@@ -26,8 +26,19 @@ void main() async {
   //instanceCreate.createRooms();
   //instanceCreate.createEnergy();
   //instanceCreate.createSecondResident();
-  instance.getTestData();
-  instance.getBothResidents();
+  //instance.getTestData();
+  //instance.getBothResidents();
+  //instance.getOwnerId();
+  //instance.getHousehold();
+  print("aaaa");
+  var docId = await instance.getHomeOwner("Lumina", "Haven");
+  print("aaaa2");
+  print(docId);
+  var docId2 = await instance.getHomeOwner("Lumina2", "Haven2");
+  // print("bbb");
+  print(docId2);
+  //var docId3 = await instance.getHomeOwner("Lumina3", "Haven3");
+  //print(docId3);
   runApp(const MyApp());
 }
 

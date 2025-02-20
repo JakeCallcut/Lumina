@@ -20,8 +20,17 @@ class Create {
       "topHouseId" : "gogPwWrvOuUeNVWNHsrs",
       "hasGoolgeLogin" : false
     };
-    db.collection("Homeowner").add(owner).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
-    
+       final owner2 = {
+      "firstname" : "Lumina2",
+      "surname" : "Haven2",
+      "phoneNumber" : "2345678901",
+      "email" : "mrHavensSolution2@gmail.com",
+      "password" : "ShiningL1ght2",
+      "topHouseId" : "gogPwWrvOuUeNVWNHsrs",
+      "hasGoolgeLogin" : false
+    };
+    //db.collection("Homeowner").add(owner).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
+    db.collection("Homeowner").add(owner2).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
   }
 
   void createHousehold() {
