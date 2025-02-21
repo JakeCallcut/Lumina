@@ -67,15 +67,23 @@ class ManagerHomePage extends StatelessWidget {
         const Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            DeviceWidget(homeName: '11 Wallaby Way',),
-            DeviceWidget(homeName: '14 East Field',),
+            DeviceWidget(
+              homeName: '11 Wallaby Way',
+              homeUsage: 0.40,),
+            DeviceWidget(
+              homeName: '14 East Field',
+              homeUsage: 0.80,),
           ],
         ),
         const Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            DeviceWidget(homeName: '12/7 hereford Lane',),
-            DeviceWidget(homeName: '91 WallStreet)',),
+            DeviceWidget(
+              homeName: '12/7 hereford Lane',
+              homeUsage: 0.76,),
+            DeviceWidget(
+              homeName: '91 WallStreet',
+              homeUsage: 0.60,),
           ],
         ),
         Navbar(

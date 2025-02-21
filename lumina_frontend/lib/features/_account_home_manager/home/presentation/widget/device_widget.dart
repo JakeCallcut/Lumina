@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
-import 'package:lumina_frontend/core/utils/switch.dart';
 
 class DeviceWidget extends StatefulWidget {
   @override
   _DeviceWidgetState createState() => _DeviceWidgetState();
   final String homeName;
+  final double homeUsage;
 
-  const DeviceWidget({super.key, required this.homeName});
+  const DeviceWidget({super.key,
+                    required this.homeName,
+                    required this.homeUsage});
 }
 
 class _DeviceWidgetState extends State<DeviceWidget> {
@@ -31,24 +33,15 @@ class _DeviceWidgetState extends State<DeviceWidget> {
           ],
       ),
       child: Column(
+        
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              const Icon(Icons.lightbulb_outline_rounded, size: 40, color: Colors.white,),
-              LuminaSwitch(
-                initialValue: _isOn, // Pass the current state to the switch as the initial value
-                onChanged: (value) {
-                  setState(() {
-                    _isOn = value; // Update the state and rebuild the widget
-                  });
-                },
-              ),
-            ],
-          ),
           Text(
             widget.homeName,
+            style: MainTheme.h3White,
+          ),
+          Text(
+            widget.homeUsage.toString(),
             style: MainTheme.h3White,
           ),
         ],
