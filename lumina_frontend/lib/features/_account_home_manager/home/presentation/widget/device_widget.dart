@@ -5,9 +5,9 @@ import 'package:lumina_frontend/core/utils/switch.dart';
 class DeviceWidget extends StatefulWidget {
   @override
   _DeviceWidgetState createState() => _DeviceWidgetState();
-  final String deviceName;
+  final String homeName;
 
-  const DeviceWidget({super.key, required this.deviceName});
+  const DeviceWidget({super.key, required this.homeName});
 }
 
 class _DeviceWidgetState extends State<DeviceWidget> {
@@ -48,7 +48,7 @@ class _DeviceWidgetState extends State<DeviceWidget> {
             ],
           ),
           Text(
-            widget.deviceName,
+            widget.homeName,
             style: MainTheme.h3White,
           ),
         ],

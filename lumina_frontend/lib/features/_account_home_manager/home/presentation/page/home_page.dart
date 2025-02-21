@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
-import 'package:lumina_frontend/features/_account_resident/home/presentation/widget/device_widget.dart';
-import 'package:lumina_frontend/features/_account_resident/home/presentation/widget/home_dial.dart';
-import 'package:lumina_frontend/features/_account_resident/home/presentation/widget/room_list.dart';
+import 'package:lumina_frontend/features/_account_home_manager/home/presentation/widget/device_widget.dart';
+import 'package:lumina_frontend/features/_account_home_manager/home/presentation/widget/home_dial.dart';
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 
 class ManagerHomePage extends StatelessWidget {
@@ -50,22 +49,6 @@ class ManagerHomePage extends StatelessWidget {
             Column(
               children: [
                 const HomeDial(
-                  value: 50,
-                  maxValue: 100,
-                  unit: "/hr",
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "Generation",
-                  style: MainTheme.h4Black,
-                )
-              ],
-            ),
-            Column(
-              children: [
-                const HomeDial(
                   value: 40,
                   maxValue: 100,
                   unit: null,
@@ -81,19 +64,18 @@ class ManagerHomePage extends StatelessWidget {
             ),
           ],
         ),
-        RoomList(),
         const Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            DeviceWidget(deviceName: 'lorem ipsum',),
-            DeviceWidget(deviceName: 'lorem ipsum',),
+            DeviceWidget(homeName: '11 Wallaby Way',),
+            DeviceWidget(homeName: '14 East Field',),
           ],
         ),
         const Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            DeviceWidget(deviceName: 'lorem ipsum',),
-            DeviceWidget(deviceName: 'lorem ipsum',),
+            DeviceWidget(homeName: '12/7 hereford Lane',),
+            DeviceWidget(homeName: '91 WallStreet)',),
           ],
         ),
         Navbar(
