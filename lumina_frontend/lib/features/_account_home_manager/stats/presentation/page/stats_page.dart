@@ -1,16 +1,51 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/features/_account_home_manager/stats/presentation/widget/graph_box.dart';
+import 'package:lumina_frontend/features/_account_home_manager/stats/presentation/widget/drop_down.dart';
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 
-class ManagerStatsPage extends StatelessWidget {
+
+class ManagerStatsPage extends StatefulWidget {
   const ManagerStatsPage({super.key});
+
+  @override
+  _ManagerStatsPageState createState() => _ManagerStatsPageState();
+}
+
+class _ManagerStatsPageState extends State<ManagerStatsPage> {
+  final String homeName = "1 Lumina Care";
+   OverlayEntry? _overlayEntry;
+
+  OverlayEntry _createOverlayEntry() {
+    return OverlayEntry(
+      builder: (context) => const Positioned(
+        top: 100.0,
+        right: 20.0,
+        child: Material(
+          color: Colors.transparent,
+          child: DropDown(),
+        ),
+      ),
+    );
+  }
+
+  void _toggleDropDown() {
+    if (_overlayEntry == null) {
+      _overlayEntry = _createOverlayEntry();
+      Overlay.of(context).insert(_overlayEntry!);
+    } else {
+      _overlayEntry!.remove();
+      _overlayEntry = null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final List<FlSpot> energyUsage = [
-      FlSpot(1, 0.1),
+      FlSpot(1, Random().nextDouble() * 2.5),
       FlSpot(2, 0.2),
       FlSpot(3, 0.3),
       FlSpot(4, 0.4),
@@ -93,16 +128,22 @@ class ManagerStatsPage extends StatelessWidget {
                   child: Image.asset("assets/images/logo64.png"),
                 ),
                 Text(
-                  "lorem ipsum",
+                  homeName,
                   style: MainTheme.h1Black,
                 ),
+                const Spacer(),
+                IconButton(
+                  icon: const Icon(Icons.arrow_drop_down, size: 40, color: Colors.black),
+                  onPressed: _toggleDropDown,
+                ),
+                const DropDown()
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(32.0),
                   child: Text(
                     "Energy Usage (kWh)",
                     style: MainTheme.h2Black,
