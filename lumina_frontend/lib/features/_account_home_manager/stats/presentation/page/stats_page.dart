@@ -103,52 +103,6 @@ class ManagerStatsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Today",
-                    style: MainTheme.h1Black,
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const Padding(padding: EdgeInsets.all(16.0)),
-                Expanded(
-                  child: Column(
-                    children: [
-                      InfoBox(
-                      title: "You've used",
-                      valueMoney: 2.67,
-                      valueUnit: 4.7,
-                      boxColor: MainTheme.luminaBlue,
-                      textStyle: [MainTheme.h1White, MainTheme.h2White],
-                      ),
-                    ]
-                  ) 
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    children: [
-                      InfoBox(
-                        title: "You've saved",
-                        valueMoney: 0.89,
-                        valueUnit: 2.14,
-                        boxColor: MainTheme.luminaLightGreen,
-                        textStyle: [MainTheme.h1Black, MainTheme.h2Black],
-                      ),
-                    ],
-                  ),
-                ),
-                const Padding(padding: EdgeInsets.all(16.0)),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
                     "Energy Usage (kWh)",
