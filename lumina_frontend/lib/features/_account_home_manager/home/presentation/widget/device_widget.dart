@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 
 class DeviceWidget extends StatefulWidget {
@@ -13,15 +14,15 @@ class DeviceWidget extends StatefulWidget {
 }
 
 class _DeviceWidgetState extends State<DeviceWidget> {
-  bool _isOn = false; //TODO: change this to a value from the backend, false for now
 
   @override
   Widget build(BuildContext context) {
+    final formattedUsage = NumberFormat('0.00').format(widget.homeUsage);
     return Container(
       height: 130,
       width: 180,
       decoration: BoxDecoration(
-        color: _isOn ? MainTheme.luminaLightBlue : MainTheme.luminaBlue, //chage bg color based on state
+        color: MainTheme.luminaBlue,
         borderRadius: BorderRadius.circular(20.0),
         boxShadow: const [
             BoxShadow(
@@ -41,7 +42,7 @@ class _DeviceWidgetState extends State<DeviceWidget> {
             style: MainTheme.h3White,
           ),
           Text(
-            widget.homeUsage.toString(),
+            '£$formattedUsage/hr',
             style: MainTheme.h3White,
           ),
         ],

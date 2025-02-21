@@ -5,6 +5,9 @@ import 'package:lumina_frontend/routes.dart';
 //enumerator to keep track of the current page
 enum NavPage { home, devices, stats, config } 
 
+//variable to keep track of the user role
+String userRole = 'resident';
+
 // ignore: must_be_immutable
 class Navbar extends StatelessWidget {
 
@@ -12,6 +15,10 @@ class Navbar extends StatelessWidget {
   //input the page on which the navbar is being displayed
   NavPage selectedPage;
   Navbar({super.key, required this.selectedPage});
+
+static void setUserRole(String role) {
+    userRole = role;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +29,8 @@ class Navbar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _navButton(context, (selectedPage == NavPage.home), "home", Routes.home),
-          _navButton(context, (selectedPage == NavPage.devices), "devices", Routes.devices),
+          if (userRole == 'resident')
+            _navButton(context, (selectedPage == NavPage.devices), "devices", Routes.devices),
           _navButton(context, (selectedPage == NavPage.stats), "stats", Routes.stats),
           _navButton(context, (selectedPage == NavPage.config), "settings", Routes.config),
         ],
