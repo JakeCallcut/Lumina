@@ -13,8 +13,8 @@ class DropDown extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(36.0),
         decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 50.0), // White color
-          borderRadius: BorderRadius.circular(10), // Rounded edges        ],
+          color: Colors.white.withValues(alpha: 50.0),
+          borderRadius: BorderRadius.circular(10), // Rounded edges
         ),
         child: Row(
           children: [
