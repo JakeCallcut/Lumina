@@ -17,16 +17,24 @@ class DropDown extends StatelessWidget {
           borderRadius: BorderRadius.circular(10), // Rounded edges        ],
         ),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Your Homes',
-                style: MainTheme.h1Black,
-              ),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Your Homes',
+                    style: MainTheme.h1Black,
+                  ),
+                ),
+              ],
             ),
-            const NameBox(name: '1 Lumina Care')
+            const Row(
+              children: [
+                NameBox(name: '1 Lumina Care'),
+              ],
+            )
             // Add more content here
           ],
         ),
