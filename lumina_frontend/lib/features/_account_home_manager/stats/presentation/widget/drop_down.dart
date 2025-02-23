@@ -26,7 +26,7 @@ class DropDown extends StatelessWidget {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Text(
                           'Your Homes',
                           style: MainTheme.h1Black,
@@ -35,8 +35,44 @@ class DropDown extends StatelessWidget {
                     ],
                   ),
                   const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: NameBox(name: '1 Lumina Care'),
+                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: NameBox(name: '1 Lumina Care'),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: NameBox(name: '2 Lumina Care'),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: NameBox(name: '3 Lumina Care'),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: NameBox(name: '4 Lumina Care'),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
