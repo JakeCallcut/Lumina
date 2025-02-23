@@ -30,11 +30,10 @@ class DropDown extends StatelessWidget {
                 ),
               ],
             ),
-            const Row(
-              children: [
-                NameBox(name: '1 Lumina Care'),
-              ],
-            )
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: NameBox(name: '1 Lumina Care'),
+            ),
             // Add more content here
           ],
         ),
