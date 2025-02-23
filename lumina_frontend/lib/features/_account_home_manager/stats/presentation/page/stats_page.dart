@@ -136,7 +136,6 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
                   icon: const Icon(Icons.arrow_drop_down, size: 40, color: Colors.black),
                   onPressed: _toggleDropDown,
                 ),
-                const DropDown()
               ],
             ),
             Row(
