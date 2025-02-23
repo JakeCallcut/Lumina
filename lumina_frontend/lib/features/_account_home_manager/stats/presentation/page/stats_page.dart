@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -6,7 +7,6 @@ import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/features/_account_home_manager/stats/presentation/widget/graph_box.dart';
 import 'package:lumina_frontend/features/_account_home_manager/stats/presentation/widget/drop_down.dart';
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
-
 
 class ManagerStatsPage extends StatefulWidget {
   const ManagerStatsPage({super.key});
@@ -17,7 +17,7 @@ class ManagerStatsPage extends StatefulWidget {
 
 class _ManagerStatsPageState extends State<ManagerStatsPage> {
   final String homeName = "1 Lumina Care";
-  bool _isDropDownOpen = false; 
+  bool _isDropDownOpen = false;
   OverlayEntry? _overlayEntry;
 
   OverlayEntry _createOverlayEntry() {
@@ -35,7 +35,8 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
               ),
               Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0), // Adjust the padding as needed
+                  padding: const EdgeInsets.all(
+                      20.0), // Adjust the padding as needed
                   child: Stack(
                     children: [
                       const DropDown(),
@@ -43,7 +44,8 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
                         top: 10,
                         right: 10,
                         child: IconButton(
-                          icon: const Icon(Icons.arrow_drop_up, size: 40, color: Colors.black),
+                          icon: const Icon(Icons.arrow_drop_up,
+                              size: 40, color: Colors.black),
                           onPressed: _toggleDropDown,
                         ),
                       ),
@@ -145,125 +147,135 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
     ];
 
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text("Stats")
-      //   ),
-        body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset("assets/images/logo64.png"),
-                ),
-                Text(
-                  homeName,
-                  style: MainTheme.h1Black,
-                ),
-                const Spacer(),
-                if (!_isDropDownOpen)
-                      IconButton(
-                        icon: const Icon(Icons.arrow_drop_down, size: 40, color: Colors.black),
-                        onPressed: _toggleDropDown,
-                      ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(32.0),
-                  child: Text(
-                    "Energy Usage (kWh)",
-                    style: MainTheme.h2Black,
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+      body: Stack(children: [
+        SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: Container(
-                      height: 300,
-                      decoration: BoxDecoration(
-                        color: MainTheme.luminaBlue,
-                        borderRadius: BorderRadius.circular(10), // Rounded edges
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.grey,
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: GraphBox(
-                        spots: energyUsage,
-                        lineColor: MainTheme.luminaLightGreen,
-                        textStyle: MainTheme.h2White,
-                        borderColor: Colors.white,
-                      ),
-                    ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset("assets/images/logo64.png"),
                   ),
-                  const SizedBox(width: 16),
+                  Text(
+                    homeName,
+                    style: MainTheme.h1Black,
+                  ),
+                  const Spacer(),
+                  if (!_isDropDownOpen)
+                    IconButton(
+                      icon: const Icon(Icons.arrow_drop_down,
+                          size: 40, color: Colors.black),
+                      onPressed: _toggleDropDown,
+                    ),
                 ],
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    "Energy Generation (kWh)",
-                    style: MainTheme.h2Black,
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: Container(
-                      height: 300,
-                      decoration: BoxDecoration(
-                        color: MainTheme.luminaLightGreen,
-                        borderRadius: BorderRadius.circular(10), // Rounded edges
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.grey,
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: GraphBox(
-                        spots: energyGeneration,
-                        lineColor: MainTheme.luminaBlue,
-                        textStyle: MainTheme.h2Black,
-                        borderColor: Colors.black,
-                      ),
+                  Padding(
+                    padding: const EdgeInsets.all(32.0),
+                    child: Text(
+                      "Energy Usage (kWh)",
+                      style: MainTheme.h2Black,
                     ),
                   ),
-                  const SizedBox(width: 16),
                 ],
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: 300,
+                        decoration: BoxDecoration(
+                          color: MainTheme.luminaBlue,
+                          borderRadius:
+                              BorderRadius.circular(10), // Rounded edges
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.grey,
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: GraphBox(
+                          spots: energyUsage,
+                          lineColor: MainTheme.luminaLightGreen,
+                          textStyle: MainTheme.h2White,
+                          borderColor: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                  ],
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      "Energy Generation (kWh)",
+                      style: MainTheme.h2Black,
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: 300,
+                        decoration: BoxDecoration(
+                          color: MainTheme.luminaLightGreen,
+                          borderRadius:
+                              BorderRadius.circular(10), // Rounded edges
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.grey,
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: GraphBox(
+                          spots: energyGeneration,
+                          lineColor: MainTheme.luminaBlue,
+                          textStyle: MainTheme.h2Black,
+                          borderColor: Colors.black,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
-        bottomNavigationBar: Navbar(
+        if (_isDropDownOpen)
+          BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+            child: Container(
+              color: Colors.transparent,
+            ),
+          ),
+      ]),
+      bottomNavigationBar: Navbar(
         selectedPage: NavPage.stats,
+        isBlurred: _isDropDownOpen,
       ),
     );
   }
