@@ -16,25 +16,43 @@ class DropDown extends StatelessWidget {
           color: Colors.white.withValues(alpha: 50.0), // White color
           borderRadius: BorderRadius.circular(10), // Rounded edges        ],
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Row(
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Your Homes',
-                    style: MainTheme.h1Black,
-                  ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Your Homes',
+                        style: MainTheme.h1Black,
+                      ),
+                    ),
+                  ],
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: NameBox(name: '1 Lumina Care'),
                 ),
               ],
             ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: NameBox(name: '1 Lumina Care'),
-            ),
-            // Add more content here
+            const Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 10,
+                  height: 100,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),
