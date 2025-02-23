@@ -17,16 +17,42 @@ class ManagerStatsPage extends StatefulWidget {
 
 class _ManagerStatsPageState extends State<ManagerStatsPage> {
   final String homeName = "1 Lumina Care";
-   OverlayEntry? _overlayEntry;
+  bool _isDropDownOpen = false; 
+  OverlayEntry? _overlayEntry;
 
   OverlayEntry _createOverlayEntry() {
     return OverlayEntry(
-      builder: (context) => const Positioned(
-        top: 100.0,
-        right: 20.0,
+      builder: (context) => Positioned.fill(
         child: Material(
           color: Colors.transparent,
-          child: DropDown(),
+          child: Stack(
+            children: [
+              GestureDetector(
+                onTap: _toggleDropDown,
+                child: Container(
+                  color: Colors.black54, // Semi-transparent background
+                ),
+              ),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0), // Adjust the padding as needed
+                  child: Stack(
+                    children: [
+                      const DropDown(),
+                      Positioned(
+                        top: 10,
+                        right: 10,
+                        child: IconButton(
+                          icon: const Icon(Icons.arrow_drop_up, size: 40, color: Colors.black),
+                          onPressed: _toggleDropDown,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -36,9 +62,15 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
     if (_overlayEntry == null) {
       _overlayEntry = _createOverlayEntry();
       Overlay.of(context).insert(_overlayEntry!);
+      setState(() {
+        _isDropDownOpen = true;
+      });
     } else {
       _overlayEntry!.remove();
       _overlayEntry = null;
+      setState(() {
+        _isDropDownOpen = false;
+      });
     }
   }
 
@@ -132,10 +164,11 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
                   style: MainTheme.h1Black,
                 ),
                 const Spacer(),
-                IconButton(
-                  icon: const Icon(Icons.arrow_drop_down, size: 40, color: Colors.black),
-                  onPressed: _toggleDropDown,
-                ),
+                if (!_isDropDownOpen)
+                      IconButton(
+                        icon: const Icon(Icons.arrow_drop_down, size: 40, color: Colors.black),
+                        onPressed: _toggleDropDown,
+                      ),
               ],
             ),
             Row(
