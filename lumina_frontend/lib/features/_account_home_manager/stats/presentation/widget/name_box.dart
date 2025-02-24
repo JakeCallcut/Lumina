@@ -26,8 +26,10 @@ class NameBox extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (context) => ManagerStatsPage(name: name),
+           PageRouteBuilder(
+              pageBuilder: (context, animation1, animation2) => ManagerStatsPage(name: name),
+              transitionDuration: Duration.zero,
+              reverseTransitionDuration: Duration.zero,
             ),
           );
         },
