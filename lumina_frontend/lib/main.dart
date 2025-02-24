@@ -16,12 +16,8 @@ void main() async {
 
   var instance = Integration();
   var instanceCreate = Create();
-  //instance.setTestData();
-  //instance.addTestData();
-  //instance.testTopLevel();
-  //instance.setTestDataSubCollection();
   //instanceCreate.createTopLevelHome();
-  //instanceCreate.createHomeowner();z
+  //instanceCreate.createHomeowner();
   //instanceCreate.createHousehold();
   //instanceCreate.createResident();
   //instanceCreate.createRooms();
@@ -31,10 +27,11 @@ void main() async {
   //instance.getBothResidents();
   //instance.getOwnerId();
   //instance.getHousehold();
-  List<HomeOwner> homeowners = await instance.getallHomeOwners();
-  HomeOwner homeowner = homeowners[0];
+  //List<HomeOwner> homeowners = await instance.getallHomeOwners();
+  //HomeOwner homeowner = homeowners[0];
   //homeowner.firstname = "testname";
   //HomeOwner homeowner = HomeOwner("fSGAFFMD2U1Ezvo4LCnM", "Lumina", "", "", "", "", "", false);
+  //bool worked = instance.addHomeowner(homeowner);
   //instance.updateHomeowner(homeowner);
   //HomeOwner docId = await instance.getHomeOwner("Lumina", "Haven");
   runApp(const MyApp());
