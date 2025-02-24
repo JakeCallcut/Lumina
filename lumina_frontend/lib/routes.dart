@@ -76,7 +76,7 @@ class Routes {
         return NoTransitionPageRoute(builder: (_) => const ErrorPage());
       case stats:
         return NoTransitionPageRoute(builder: (_) => userRole == 'manager'
-                ? const ManagerStatsPage() 
+                ? ManagerStatsPage() 
                 : const ResidentStatsPage());
       case config:
         return NoTransitionPageRoute(builder: (_) => userRole == 'manager'
