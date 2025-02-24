@@ -4,8 +4,9 @@ import 'package:lumina_frontend/features/_account_home_manager/stats/presentatio
 
 class DropDown extends StatelessWidget {
   final VoidCallback onToggleDropDown;
+  final ScrollController _scrollController = ScrollController();
 
-  const DropDown({super.key, required this.onToggleDropDown});
+  DropDown({super.key, required this.onToggleDropDown});
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +41,13 @@ class DropDown extends StatelessWidget {
                   ),
                   Expanded(
                     child: Scrollbar(
+                      controller: _scrollController,
                       thumbVisibility: true,
                       trackVisibility: true,
                       thickness: 8.0,
                       radius: const Radius.circular(10),
                       child: SingleChildScrollView(
+                        controller: _scrollController,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: Column(
