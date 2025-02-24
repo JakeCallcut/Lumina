@@ -128,43 +128,61 @@ class Integration {
   // }
 
   Future<List<HomeOwner>> getallHomeOwners() async {
-    var querySnapshot =  await db.collection("Homeowner").get();
-     
+
     List<HomeOwner> homeowners = [];
-    for (var docSnapshot in querySnapshot.docs)  {
-      Map<String, dynamic> value = docSnapshot.data();
-      HomeOwner h = HomeOwner(docSnapshot.id, value['firstname'], value['surname'], value['email'], value['password'], value['phoneNumber'], value['topHouseId'], value['hasGoogleLogin']);
-      homeowners.add(h);
-    }                                          
+    try {
+      var querySnapshot =  await db.collection("Homeowner").get();
+      for (var docSnapshot in querySnapshot.docs)  {
+        Map<String, dynamic> value = docSnapshot.data();
+        HomeOwner h = HomeOwner(docSnapshot.id, value['firstname'], value['surname'], value['email'], value['password'], value['phoneNumber'], value['topHouseId'], value['hasGoogleLogin']);
+        homeowners.add(h);
+      }
+    }    
+    catch(e) {
+      //log error here
+      //returns empty list
+      return homeowners;
+    }
 
     return homeowners;
   }
 
   bool addHomeowner(HomeOwner ho)  {
     Map<String, dynamic> owner = {};
+    //uses object data to create new field in the database
+    try {
+      owner["firstname"] = (ho.firstname);
+      owner["surname"] = (ho.surname);
+      owner["email"] = (ho.email);
+      owner["password"] = (ho.password);
+      owner["phoneNumber"] = (ho.phoneNumber);
+      owner["topHouseId"] = (ho.topHouseId);
+      owner["hasGoogleLogin"] = (ho.hasGoogleLogin);
+      db.collection("Homeowner").add(owner);
+    }
+    catch(e) {
+      return false;
+    }
 
-    owner["firstname"] = (ho.firstname);
-    owner["surname"] = (ho.surname);
-    owner["email"] = (ho.email);
-    owner["password"] = (ho.password);
-    owner["phoneNumber"] = (ho.phoneNumber);
-    owner["topHouseId"] = (ho.topHouseId);
-    owner["hasGoogleLogin"] = (ho.hasGoogleLogin);
-    db.collection("Homeowner").add(owner);
     return true;
   }
 
-    bool updateHomeowner(HomeOwner ho)  {
+  bool updateHomeowner(HomeOwner ho)  {
     Map<String, dynamic> owner = {};
-
-    if (ho.firstname.trim().isNotEmpty) {owner["firstname"] = (ho.firstname);}
-    if (ho.surname.trim().isNotEmpty) {owner["surname"] = (ho.surname);}
-    if (ho.email.trim().isNotEmpty) {owner["email"] = (ho.email);}
-    if (ho.password.trim().isNotEmpty) {owner["password"] = (ho.password);}
-    if (ho.phoneNumber.trim().isNotEmpty) {owner["phoneNumber"] = (ho.phoneNumber);}
-    if (ho.topHouseId.trim().isNotEmpty) {owner["topHouseId"] = (ho.topHouseId);}
-    owner["hasGoogleLogin"] = (ho.hasGoogleLogin);
-    db.collection("Homeowner").doc(ho.id).update(owner);        
+    //updates any feilds in the database where the incoming object isn't the empty string
+    try {
+      if (ho.firstname.trim().isNotEmpty) {owner["firstname"] = (ho.firstname);}
+      if (ho.surname.trim().isNotEmpty) {owner["surname"] = (ho.surname);}
+      if (ho.email.trim().isNotEmpty) {owner["email"] = (ho.email);}
+      if (ho.password.trim().isNotEmpty) {owner["password"] = (ho.password);}
+      if (ho.phoneNumber.trim().isNotEmpty) {owner["phoneNumber"] = (ho.phoneNumber);}
+      if (ho.topHouseId.trim().isNotEmpty) {owner["topHouseId"] = (ho.topHouseId);}
+      owner["hasGoogleLogin"] = (ho.hasGoogleLogin);
+      db.collection("Homeowner").doc(ho.id).update(owner);  
+    }
+    catch(e) {
+      return false;
+    }       
     return true;
   }
 }

@@ -21,7 +21,7 @@ void main() async {
   //instance.testTopLevel();
   //instance.setTestDataSubCollection();
   //instanceCreate.createTopLevelHome();
-  //instanceCreate.createHomeowner();
+  //instanceCreate.createHomeowner();z
   //instanceCreate.createHousehold();
   //instanceCreate.createResident();
   //instanceCreate.createRooms();
@@ -31,8 +31,8 @@ void main() async {
   //instance.getBothResidents();
   //instance.getOwnerId();
   //instance.getHousehold();
-  //List<HomeOwner> homeowners = await instance.getallHomeOwners();
-  //HomeOwner homeowner = homeowners[0];
+  List<HomeOwner> homeowners = await instance.getallHomeOwners();
+  HomeOwner homeowner = homeowners[0];
   //homeowner.firstname = "testname";
   //HomeOwner homeowner = HomeOwner("fSGAFFMD2U1Ezvo4LCnM", "Lumina", "", "", "", "", "", false);
   //instance.updateHomeowner(homeowner);
