@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/features/_account_home_manager/account_home_manager.dart';
+import 'package:lumina_frontend/features/_account_home_manager/stats/presentation/page/stats_page.dart';
 
 class NameBox extends StatelessWidget {
   final String name;
+  final VoidCallback onToggleDropDown;
 
-  const NameBox({super.key, required this.name});
+  const NameBox({super.key, required this.name, required this.onToggleDropDown});
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class NameBox extends StatelessWidget {
       ),
       child: ElevatedButton(
         onPressed: () {
+          onToggleDropDown();
           Navigator.of(context).pushReplacement(
            PageRouteBuilder(
               pageBuilder: (context, animation1, animation2) => ManagerStatsPage(name: name),

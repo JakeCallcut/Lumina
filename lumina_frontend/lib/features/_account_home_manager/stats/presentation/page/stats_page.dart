@@ -11,7 +11,7 @@ import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 class ManagerStatsPage extends StatefulWidget {
   final String name;
 
-  ManagerStatsPage({super.key, this.name = "1 Lumina Care"});
+  const ManagerStatsPage({super.key, this.name = "1 Lumina Care"});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -21,7 +21,6 @@ class ManagerStatsPage extends StatefulWidget {
 class _ManagerStatsPageState extends State<ManagerStatsPage> {
 
   late final String homeName = widget.name;
-
   bool _isDropDownOpen = false;
   OverlayEntry? _overlayEntry;
 
@@ -44,7 +43,7 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
                       20.0), // Adjust the padding as needed
                   child: Stack(
                     children: [
-                      const DropDown(),
+                      DropDown(onToggleDropDown: _toggleDropDown),
                       Positioned(
                         top: 10,
                         right: 10,
@@ -84,9 +83,11 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
       }
     }
   }
+  
 
   @override
   Widget build(BuildContext context) {
+
     final List<FlSpot> energyUsage = [
       FlSpot(1, Random().nextDouble() * 2.5),
       FlSpot(2, 0.2),
