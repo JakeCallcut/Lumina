@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/routes.dart';
+import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 
 class RegisterStep2 extends StatefulWidget {
   @override
@@ -13,6 +14,15 @@ class _RegisterStep2State extends State<RegisterStep2> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void _continueRegistration() {
+    // Set the role globally
+    Routes.setUserRole(_accountType);
+    Navbar.setUserRole(_accountType);
+
+    // Navigate to the next step
+    Navigator.pushNamed(context, Routes.register3);
   }
 
   @override
@@ -47,6 +57,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                           onChanged: (value) {
                             setState(() {
                               _accountType = value.toString();
+                              _continueRegistration();
                             });
                           },
                           fillColor: WidgetStateProperty.all(Colors.white),
@@ -64,6 +75,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                           onChanged: (value) {
                             setState(() {
                               _accountType = value.toString();
+                              _continueRegistration();
                             });
                           },
                           fillColor: WidgetStateProperty.all(Colors.white),
