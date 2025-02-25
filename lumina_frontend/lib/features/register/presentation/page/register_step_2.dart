@@ -57,7 +57,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                           onChanged: (value) {
                             setState(() {
                               _accountType = value.toString();
-                              _continueRegistration();
+                              //_continueRegistration();
                             });
                           },
                           fillColor: WidgetStateProperty.all(Colors.white),
@@ -75,7 +75,6 @@ class _RegisterStep2State extends State<RegisterStep2> {
                           onChanged: (value) {
                             setState(() {
                               _accountType = value.toString();
-                              _continueRegistration();
                             });
                           },
                           fillColor: WidgetStateProperty.all(Colors.white),
@@ -88,7 +87,8 @@ class _RegisterStep2State extends State<RegisterStep2> {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.register3);
+                    _continueRegistration();
+                    //Navigator.pushNamed(context, Routes.register3);
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text('Continue', style: MainTheme.h3Black,),
