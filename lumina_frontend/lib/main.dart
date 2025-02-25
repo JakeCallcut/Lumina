@@ -1,10 +1,20 @@
-import 'package:flutter/material.dart';
-import 'package:lumina_frontend/features/home/presentation/page/home_page.dart';
-import 'package:lumina_frontend/routes.dart';
+// ignore_for_file: prefer_const_constructors
 
-void main() {
+import 'package:flutter/material.dart';
+import 'package:lumina_frontend/routes.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -14,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Lumina',
-      initialRoute: Routes.home,
+      initialRoute: Routes.loading,
       onGenerateRoute: Routes.generateRoute,
       //theme: MainTheme.data(),
     );

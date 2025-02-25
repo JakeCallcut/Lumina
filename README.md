@@ -8,11 +8,13 @@
 
 <div style="text-align: center;">
     <img src="https://img.shields.io/badge/Status-WIP-orange">
+    <img src="https://img.shields.io/badge/Build-Passing-green">
+    <img src="https://img.shields.io/badge/Tests-Failing-red">
 </div>
 <div style="text-align: center;">
     <img src="https://img.shields.io/badge/Frontend-Dart-lightblue">
     <img src="https://img.shields.io/badge/Framework-Flutter-teal">
-    <img src="https://img.shields.io/badge/Backend-C-purple">
+    <img src="https://img.shields.io/badge/Backend-Firebase-orange">
 </div>
 
 ## Overview
@@ -30,6 +32,7 @@ Lumina is a smart home application developed by Haven Solutions. Designed for bo
 
 - **Flutter**: For building the cross-platform user interface.
 - **Dart**: Programming language for Flutter development.
+- **Firebase**: Backend-as-a-service we use
 - **C**: Utilised for real-time data simulation.
 - **Icons8**: Source of application icons.
 

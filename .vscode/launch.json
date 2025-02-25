@@ -5,24 +5,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "lumina_frontend",
-            "cwd": "lumina_frontend",
+            "type": "chrome",
             "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "lumina_frontend (profile mode)",
-            "cwd": "lumina_frontend",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "lumina_frontend (release mode)",
-            "cwd": "lumina_frontend",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
+            "name": "Launch Chrome against localhost",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceFolder}"
         }
     ]
 }
