@@ -1,0 +1,3 @@
+class EnergyUsage {
+  String id = ""; 
+}
