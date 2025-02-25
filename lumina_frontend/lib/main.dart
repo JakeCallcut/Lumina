@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:lumina_frontend/model/Homeowner.dart';
+import 'package:lumina_frontend/model/HomeOwner.dart';
 import 'package:lumina_frontend/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:lumina_frontend/services/integration_Funcs.dart';
