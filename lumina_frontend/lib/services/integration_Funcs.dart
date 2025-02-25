@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lumina_frontend/model/HomeOwner.dart';
 import 'package:lumina_frontend/model/Household.dart';
+import 'package:lumina_frontend/model/Resident.dart';
+import 'package:lumina_frontend/model/Room.dart';
 import 'package:lumina_frontend/model/TopLevelHome.dart';
 
 
@@ -254,14 +256,14 @@ class Integration {
     return households;
   }
 
-  bool addHousehold(Household home)  {
+  bool addHousehold(Household home, String tlhId)  {
     Map<String, dynamic> house = {};
     //uses object data to create new field in the database
     try {
       house["name"] = (home.name);
       house["Home Details"] = (home.homeDetails);
       house["Settings"] = (home.settings);
-      db.collection("Top Level Homes").add(house);
+      db.collection("Top Level Homes").doc(tlhId).collection("Household").add(house);
     }
     catch(e) {
       return false;
@@ -278,6 +280,105 @@ class Integration {
       if (home.homeDetails.isNotEmpty) {house["Home Detais"] = (home.homeDetails);}
       if (home.settings.isNotEmpty) {house["bLDevices"] = (home.settings);}
       db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(home.id).update(house);
+    }
+    catch(e) {
+      return false;
+    }       
+    return true;
+  }
+
+  Future<List<Resident>> getResidents(String tlhId, hId) async {
+    List<Resident> residents = [];
+    try {
+      var querySnapshot =  await db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).collection("Residents").get();
+      for (var docSnapshot in querySnapshot.docs)  {
+        Map<String, dynamic> value = docSnapshot.data();
+        Resident resident = Resident(docSnapshot.id, value['firstname'], value['surname'], value['email'], value['password'], value['phoneNumber'], value['hasGoogleLogin']);
+        residents.add(resident);
+      }
+    }    
+    catch(e) {
+      //log error here
+      //returns empty list
+      return residents;
+    }
+    return residents;
+  }
+
+  bool addResident(Resident person, String tlhId, hId)  {
+    Map<String, dynamic> resident = {};
+    //uses object data to create new field in the database
+    try {
+      resident["firstname"] = (person.firstname);
+      resident["surname"] = (person.surname);
+      resident["email"] = (person.email);
+      resident["password"] = (person.password);
+      resident["phoneNumber"] = (person.phoneNumber);
+      resident["hasGoogleLogin"] = (person.hasGoogleLogin);
+      db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).collection("Residents").add(resident);
+    }
+    catch(e) {
+      return false;
+    }
+    return true;
+  }
+
+  bool updateResident(Resident person, String tlhId, hId)  {
+    Map<String, dynamic> resident = {};
+    //updates any feilds in the database where the incoming object isn't the empty string
+    try {
+      if (person.firstname.trim().isNotEmpty) {resident["firstname"] = (person.firstname);}
+      if (person.surname.trim().isNotEmpty) {resident["surname"] = (person.surname);}
+      if (person.email.trim().isNotEmpty) {resident["email"] = (person.email);}
+      if (person.password.trim().isNotEmpty) {resident["password"] = (person.password);}
+      if (person.phoneNumber.trim().isNotEmpty) {resident["phoneNumber"] = (person.phoneNumber);}
+      resident["hasGoogleLogin"] = (person.hasGoogleLogin);
+      db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).collection("Residents").doc(person.id).update(resident);
+    }
+    catch(e) {
+      return false;
+    }       
+    return true;
+  }
+
+  Future<List<Room>> getRooms(String tlhId, hId) async {
+    List<Room> rooms = [];
+    try {
+      var querySnapshot =  await db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).collection("Rooms").get();
+      for (var docSnapshot in querySnapshot.docs)  {
+        Map<String, dynamic> value = docSnapshot.data();
+        Room room = Room(docSnapshot.id, value['Room Name']);
+        rooms.add(room);
+      }
+    }    
+    catch(e) {
+      //log error here
+      //returns empty list
+      return rooms;
+    }
+    return rooms;
+  }
+
+  bool addRoom(Room place, String tlhId, hId)  {
+    Map<String, dynamic> room = {};
+    //uses object data to create new field in the database
+    try {
+      room["Room Name"] = (place.name);
+      db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).collection("Rooms").add(room);
+    }
+    catch(e) {
+      return false;
+    }
+    return true;
+  }
+
+  bool updateRoom(Room place, String tlhId, hId)  {
+    Map<String, dynamic> room = {};
+    //updates any feilds in the database where the incoming object isn't the empty string
+    try {
+      if (place.name.trim().isNotEmpty) {room["Room Name"] = (place.name);}
+
+      db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).collection("Residents").doc(place.id).update(room);
     }
     catch(e) {
       return false;
