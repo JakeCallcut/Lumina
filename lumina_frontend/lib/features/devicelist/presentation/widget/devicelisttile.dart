@@ -3,9 +3,9 @@ import 'package:lumina_frontend/core/themes/main_theme.dart';
 
 
 class DeviceListTile extends StatelessWidget{
-  final DeviceItem device;
+  //final DeviceItem device; 
   const DeviceListTile({
-    required this.device,
+    //required this.device,
     Key? key,
   }) : super( key: key);
 
@@ -24,8 +24,8 @@ Widget build(BuildContext context){
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              device.name,
-              style: const TextStyle(color: MainTheme.luminaRed,
+              "device.name",
+              style: TextStyle(color: MainTheme.luminaRed,
               fontSize: 16,
               ),
             ),
@@ -36,11 +36,10 @@ Widget build(BuildContext context){
 
             },
           ),
-          Button(
-            Image.asset("assets/images/logo64.png")
+          ElevatedButton(
             onPressed: (){
-
             },
+            child: Image.asset("assets/images/logo64.png"),
           ),
         ],
       ),

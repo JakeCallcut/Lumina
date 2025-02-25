@@ -17,17 +17,15 @@ class deviceList extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-              children: [ child: asset("assets/images/logo64.png"),]
+                children: [ Image.asset("assets/images/logo64.png"),]
               ),
               SizedBox(width: 8),
               Text("Manage Your Devices",
-              style: TextStyle(
-                fontFamily: 'Montserrat',
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-              ),
-              ],
+                style: TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               
               const SizedBox(height: 16),
@@ -46,6 +44,6 @@ class deviceList extends StatelessWidget {
           ),
         ),
       );
-    }
+  }
 }
 
