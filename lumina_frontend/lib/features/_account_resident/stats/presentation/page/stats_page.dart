@@ -10,6 +10,7 @@ class ResidentStatsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final List<FlSpot> energyUsage = [
       FlSpot(1, 0.1),
       FlSpot(2, 0.2),
