@@ -8,10 +8,13 @@ import 'package:lumina_frontend/features/_account_home_manager/stats/presentatio
 import 'package:lumina_frontend/features/_account_home_manager/stats/presentation/widget/drop_down.dart';
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 
-class ManagerStatsPage extends StatefulWidget {
-  final String name;
+import 'package:lumina_frontend/services/integration_Funcs.dart';
+import 'package:lumina_frontend/model/models.dart';
 
-  const ManagerStatsPage({super.key, this.name = "1 Lumina Care"});
+class ManagerStatsPage extends StatefulWidget {
+  String name;
+
+  ManagerStatsPage({super.key, this.name = "1 Lumina Care"});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -23,6 +26,7 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
   late final String homeName = widget.name;
   bool _isDropDownOpen = false;
   OverlayEntry? _overlayEntry;
+  var instance = Integration();
 
   OverlayEntry _createOverlayEntry() {
     return OverlayEntry(
@@ -84,6 +88,15 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
     }
   }
   
+  void getHomeOwnerData() async {
+    List<HomeOwner> homeOwners = await instance.getallHomeOwners();
+    HomeOwner homeOwner = homeOwners[0];
+    String homeOwnerTHId = homeOwner.topHouseId;
+    List<Household> households = await instance.getHouseholds(homeOwnerTHId);
+    Household household0 = households[0];
+    String householdName = household0.name;
+    //homeName = householdName;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -155,6 +168,8 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
       FlSpot(30, 0.4),
       FlSpot(31, 0.4),
     ];
+  
+    getHomeOwnerData();
 
     return Scaffold(
       body: Stack(children: [

@@ -1,9 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:lumina_frontend/model/HomeOwner.dart';
-import 'package:lumina_frontend/model/Household.dart';
-import 'package:lumina_frontend/model/Resident.dart';
-import 'package:lumina_frontend/model/Room.dart';
-import 'package:lumina_frontend/model/TopLevelHome.dart';
+import 'package:lumina_frontend/model/models.dart';
 
 
 class Integration {

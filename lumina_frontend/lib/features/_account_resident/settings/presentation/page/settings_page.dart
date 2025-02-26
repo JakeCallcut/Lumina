@@ -34,8 +34,8 @@ class ResidentSettingsPage extends StatelessWidget {
             Column(
               children: [
                 SettingTile(
-                  title: "Edit Address",
-                  subtitle: "11/15 Kingisher Street",
+                  title: "Edit Details",
+                  subtitle: "Name and Phone Number",
                   icon: Icon(
                     Icons.location_on,
                     color: MainTheme.luminaWhite,
@@ -69,14 +69,23 @@ class ResidentSettingsPage extends StatelessWidget {
                   ),
                   addSwitch: true,
                 ),
+                // SettingTile(
+                //   title: "Advanced View",
+                //   subtitle: "",
+                //   icon: Icon(
+                //     Icons.verified_user,
+                //     color: MainTheme.luminaWhite,
+                //   ),
+                //   addSwitch: true,
+                // ),
                 SettingTile(
-                  title: "Advanced View",
-                  subtitle: "",
+                  title: "Delete Account",
+                  subtitle: "You want to leave us?",
                   icon: Icon(
-                    Icons.verified_user,
-                    color: MainTheme.luminaWhite,
+                    Icons.delete,
+                    color: MainTheme.luminaRed,
                   ),
-                  addSwitch: true,
+                  addSwitch: false,
                 ),
                 SettingTile(
                   title: "Set Budgets",

@@ -2,14 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/features/_account_home_manager/stats/presentation/widget/name_box.dart';
 
+import 'package:lumina_frontend/services/integration_Funcs.dart';
+import 'package:lumina_frontend/model/models.dart';
+
 class DropDown extends StatelessWidget {
   final VoidCallback onToggleDropDown;
   final ScrollController _scrollController = ScrollController();
+  var instance = Integration();
+  String name = "Default Home";
 
   DropDown({super.key, required this.onToggleDropDown});
 
+   void getHomeOwnerData() async {
+    List<HomeOwner> homeOwners = await instance.getallHomeOwners();
+    HomeOwner homeOwner = homeOwners[0];
+    String homeOwnerTHId = homeOwner.topHouseId;
+    List<Household> households = await instance.getHouseholds(homeOwnerTHId);
+    Household household0 = households[0];
+    String householdName = household0.name;
+    name = householdName;
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    getHomeOwnerData();
 
     return FractionallySizedBox(
       widthFactor: 0.9,
@@ -59,7 +76,7 @@ class DropDown extends StatelessWidget {
                                   children: [
                                     Expanded(
                                       child: NameBox(
-                                          name: '1 Lumina Care',
+                                          name: name,
                                           onToggleDropDown: onToggleDropDown),
                                     ),
                                     const SizedBox(
