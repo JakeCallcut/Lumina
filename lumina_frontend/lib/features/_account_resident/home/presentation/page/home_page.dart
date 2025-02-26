@@ -12,94 +12,98 @@ class ResidentHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Image.asset("assets/images/logo64.png"),
-            ),
-            Text(
-              _address,
-              style: MainTheme.h1Black,
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Column(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const HomeDial(
-                  value: 70,
-                  maxValue: 100,
-                  unit: "kWh",
-                ),
-                const SizedBox(
-                  height: 10,
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Image.asset("assets/images/logo64.png"),
                 ),
                 Text(
-                  "Usage",
-                  style: MainTheme.h4Black,
+                  _address,
+                  style: MainTheme.h1Black,
                 ),
               ],
             ),
-            Column(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const HomeDial(
-                  value: 50,
-                  maxValue: 100,
-                  unit: "/hr",
+                Column(
+                  children: [
+                    const HomeDial(
+                      value: 70,
+                      maxValue: 100,
+                      unit: "kWh",
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Usage",
+                      style: MainTheme.h4Black,
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  height: 10,
+                Column(
+                  children: [
+                    const HomeDial(
+                      value: 50,
+                      maxValue: 100,
+                      unit: "/hr",
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Generation",
+                      style: MainTheme.h4Black,
+                    )
+                  ],
                 ),
-                Text(
-                  "Generation",
-                  style: MainTheme.h4Black,
-                )
+                Column(
+                  children: [
+                    const HomeDial(
+                      value: 40,
+                      maxValue: 100,
+                      unit: null,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Devices Connected",
+                      style: MainTheme.h4Black,
+                    )
+                  ],
+                ),
               ],
             ),
-            Column(
+            RoomList(),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const HomeDial(
-                  value: 40,
-                  maxValue: 100,
-                  unit: null,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "Devices Connected",
-                  style: MainTheme.h4Black,
-                )
+                DeviceWidget(deviceName: 'Phillips Iris',),
+                DeviceWidget(deviceName: 'Roomba',),
+              ],
+            ),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                DeviceWidget(deviceName: 'TIM Assistant',),
+                DeviceWidget(deviceName: 'GHD Straigteners',),
               ],
             ),
           ],
         ),
-        RoomList(),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            DeviceWidget(deviceName: 'Phillips Iris',),
-            DeviceWidget(deviceName: 'Roomba',),
-          ],
-        ),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            DeviceWidget(deviceName: 'TIM Assistant',),
-            DeviceWidget(deviceName: 'GHD Straigteners',),
-          ],
-        ),
-        Navbar(
-          selectedPage: NavPage.home,
-        )
-      ],
+      ),
+      bottomNavigationBar: Navbar(
+        selectedPage: NavPage.home,
+      ),
     );
   }
 }
