@@ -145,7 +145,7 @@ class Integration {
     return users;
   }
 
-  bool addHomeowner(User us)  {
+  bool addUser(User us)  {
     Map<String, dynamic> user = {};
     //uses object data to create new field in the database
     try {
@@ -165,7 +165,7 @@ class Integration {
     return true;
   }
 
-  bool updateHomeowner(User us)  {
+  bool updateUser(User us)  {
     Map<String, dynamic> owner = {};
     //updates any feilds in the database where the incoming object isn't the empty string
     try {
@@ -283,60 +283,6 @@ class Integration {
     return true;
   }
 
-  Future<List<Resident>> getResidents(String tlhId, hId) async {
-    List<Resident> residents = [];
-    try {
-      var querySnapshot =  await db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).collection("Residents").get();
-      for (var docSnapshot in querySnapshot.docs)  {
-        Map<String, dynamic> value = docSnapshot.data();
-        Resident resident = Resident(docSnapshot.id, value['firstname'], value['surname'], value['email'], value['password'], value['phoneNumber'], value['hasGoogleLogin']);
-        residents.add(resident);
-      }
-    }    
-    catch(e) {
-      //log error here
-      //returns empty list
-      return residents;
-    }
-    return residents;
-  }
-
-  bool addResident(Resident person, String tlhId, hId)  {
-    Map<String, dynamic> resident = {};
-    //uses object data to create new field in the database
-    try {
-      resident["firstname"] = (person.firstname);
-      resident["surname"] = (person.surname);
-      resident["email"] = (person.email);
-      resident["password"] = (person.password);
-      resident["phoneNumber"] = (person.phoneNumber);
-      resident["hasGoogleLogin"] = (person.hasGoogleLogin);
-      db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).collection("Residents").add(resident);
-    }
-    catch(e) {
-      return false;
-    }
-    return true;
-  }
-
-  bool updateResident(Resident person, String tlhId, hId)  {
-    Map<String, dynamic> resident = {};
-    //updates any feilds in the database where the incoming object isn't the empty string
-    try {
-      if (person.firstname.trim().isNotEmpty) {resident["firstname"] = (person.firstname);}
-      if (person.surname.trim().isNotEmpty) {resident["surname"] = (person.surname);}
-      if (person.email.trim().isNotEmpty) {resident["email"] = (person.email);}
-      if (person.password.trim().isNotEmpty) {resident["password"] = (person.password);}
-      if (person.phoneNumber.trim().isNotEmpty) {resident["phoneNumber"] = (person.phoneNumber);}
-      resident["hasGoogleLogin"] = (person.hasGoogleLogin);
-      db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).collection("Residents").doc(person.id).update(resident);
-    }
-    catch(e) {
-      return false;
-    }       
-    return true;
-  }
-
   Future<List<Room>> getRooms(String tlhId, hId) async {
     List<Room> rooms = [];
     try {
@@ -381,4 +327,64 @@ class Integration {
     }       
     return true;
   }
+
+  Future<List<EnergyUsage>> getEnergyUsage() async {
+    List<EnergyUsage> energys = [];
+    try {
+      var querySnapshot =  await db.collection("EnergyUsage").get();
+      for (var docSnapshot in querySnapshot.docs)  {
+        Map<String, dynamic> value = docSnapshot.data();
+        EnergyUsage energy = EnergyUsage(docSnapshot.id, value['topHouseId'], value['householdId'], value['unused'], value['worth'], value['amount'], value['price'], value['monthEnergyIn'], value['monthEnergyOut']);
+        energys.add(energy);
+      }
+    }    
+    catch(e) {
+      //log error here
+      //returns empty list
+      return energys;
+    }
+    return energys;
+  }
+
+  bool addEnergyUsage(EnergyUsage en)  {
+    Map<String, dynamic> energy = {};
+    //uses object data to create new field in the database
+    try {
+      energy["topHouseId"] = (en.topHouseId);
+      energy["householdId"] = (en.householdId);
+      energy["unused"] = (en.unused);
+      energy["worth"] = (en.worth);
+      energy["amount"] = (en.amount);
+      energy["price"] = (en.price);
+      energy["monthEnergyIn"] = (en.monthEnergyIn);
+      energy["monthEnergyOut"] = (en.monthEnergyOut);     
+      db.collection("Energy Usage").add(energy);
+    }
+    catch(e) {
+      return false;
+    }
+
+    return true;
+  }
+
+  bool updateEnergyUsage(User us)  {
+    Map<String, dynamic> owner = {};
+    //updates any feilds in the database where the incoming object isn't the empty string
+    try {
+      if (us.topHouseId.trim().isNotEmpty) {owner["topHouseId"] = (us.topHouseId);}
+      if (us.householdId.trim().isNotEmpty) {owner["password"] = (us.householdId);}
+      if (us.loginId.trim().isNotEmpty) {owner["loginId"] = (us.loginId);}
+      if (us.firstname.trim().isNotEmpty) {owner["firstname"] = (us.firstname);}
+      if (us.surname.trim().isNotEmpty) {owner["surname"] = (us.surname);}
+      if (us.phoneNumber.trim().isNotEmpty) {owner["phoneNumber"] = (us.phoneNumber);}
+
+      owner["hasGoogleLogin"] = (us.hasGoogleLogin);
+      db.collection("User").doc(us.id).update(owner);
+    }
+    catch(e) {
+      return false;
+    }       
+    return true;
+  }
+
 }
