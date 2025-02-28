@@ -14,10 +14,10 @@ class DropDown extends StatelessWidget {
   DropDown({super.key, required this.onToggleDropDown});
 
    void getHomeOwnerData() async {
-    List<HomeOwner> homeOwners = await instance.getallHomeOwners();
-    HomeOwner homeOwner = homeOwners[0];
-    String homeOwnerTHId = homeOwner.topHouseId;
-    List<Household> households = await instance.getHouseholds(homeOwnerTHId);
+    // List<User> homeOwners = await instance.getallUsers();
+    // User homeOwner = homeOwners[0];
+    // String homeOwnerTHId = homeOwner.topHouseId;
+    List<Household> households = await instance.getHouseholds("gogPwWrvOuUeNVWNHsrs");
     Household household0 = households[0];
     String householdName = household0.name;
     name = householdName;
