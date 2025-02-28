@@ -38,7 +38,7 @@ class _SplashPageState extends State<SplashPage>
         setState(() {});
       });
 
-    _tipTimer = Timer.periodic(Duration(seconds: 2), (timer) {
+    _tipTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (mounted) {
         setState(() {
           _currentTip =
