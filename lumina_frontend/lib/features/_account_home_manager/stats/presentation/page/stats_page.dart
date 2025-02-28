@@ -87,16 +87,6 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
       }
     }
   }
-  
-  void getHomeOwnerData() async {
-    List<HomeOwner> homeOwners = await instance.getallHomeOwners();
-    HomeOwner homeOwner = homeOwners[0];
-    String homeOwnerTHId = homeOwner.topHouseId;
-    List<Household> households = await instance.getHouseholds(homeOwnerTHId);
-    Household household0 = households[0];
-    String householdName = household0.name;
-    //homeName = householdName;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -168,8 +158,6 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
       FlSpot(30, 0.4),
       FlSpot(31, 0.4),
     ];
-  
-    getHomeOwnerData();
 
     return Scaffold(
       body: Stack(children: [
