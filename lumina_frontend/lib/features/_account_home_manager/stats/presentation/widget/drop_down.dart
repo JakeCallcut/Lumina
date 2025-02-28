@@ -5,22 +5,36 @@ import 'package:lumina_frontend/features/_account_home_manager/stats/presentatio
 import 'package:lumina_frontend/services/integration_Funcs.dart';
 import 'package:lumina_frontend/model/models.dart';
 
-class DropDown extends StatelessWidget {
+class DropDown extends StatefulWidget {
   final VoidCallback onToggleDropDown;
+
+  const DropDown({super.key, required this.onToggleDropDown});
+
+  @override
+  _DropDownState createState() => _DropDownState();
+}
+
+class _DropDownState extends State<DropDown> {
   final ScrollController _scrollController = ScrollController();
   var instance = Integration();
   String name = "Default Home";
 
-  DropDown({super.key, required this.onToggleDropDown});
-
-   void getHomeOwnerData() async {
-    // List<User> homeOwners = await instance.getallUsers();
-    // User homeOwner = homeOwners[0];
-    // String homeOwnerTHId = homeOwner.topHouseId;
-    // List<Household> households = await instance.getHouseholds("gogPwWrvOuUeNVWNHsrs");
-    // Household household0 = households[0];
-    // String householdName = household0.name;
-    // name = householdName;
+  @override
+  void initState() {
+    super.initState();
+    getHomeOwnerData();
+  }
+  
+  void getHomeOwnerData() async {
+    List<TopLevelHome> tlh = await instance.getallTopLevelHomes();
+    if (tlh.isNotEmpty) {
+      TopLevelHome home = tlh[0];
+      setState(() {
+        name = home.name;
+      });
+    } else {
+      print("No top level homes found.");
+    }
   }
 
   @override
@@ -77,7 +91,7 @@ class DropDown extends StatelessWidget {
                                     Expanded(
                                       child: NameBox(
                                           name: name,
-                                          onToggleDropDown: onToggleDropDown),
+                                          onToggleDropDown: widget.onToggleDropDown),
                                     ),
                                     const SizedBox(
                                         width:
@@ -93,7 +107,7 @@ class DropDown extends StatelessWidget {
                                     Expanded(
                                       child: NameBox(
                                           name: '2 Lumina Care',
-                                          onToggleDropDown: onToggleDropDown),
+                                          onToggleDropDown: widget.onToggleDropDown),
                                     ),
                                     const SizedBox(
                                         width:
@@ -109,7 +123,7 @@ class DropDown extends StatelessWidget {
                                     Expanded(
                                       child: NameBox(
                                           name: '3 Lumina Care',
-                                          onToggleDropDown: onToggleDropDown),
+                                          onToggleDropDown: widget.onToggleDropDown),
                                     ),
                                     const SizedBox(
                                         width:
@@ -125,7 +139,7 @@ class DropDown extends StatelessWidget {
                                     Expanded(
                                       child: NameBox(
                                           name: '4 Lumina Care',
-                                          onToggleDropDown: onToggleDropDown),
+                                          onToggleDropDown: widget.onToggleDropDown),
                                     ),
                                     const SizedBox(
                                         width:
@@ -141,7 +155,7 @@ class DropDown extends StatelessWidget {
                                     Expanded(
                                       child: NameBox(
                                           name: '5 Lumina Care',
-                                          onToggleDropDown: onToggleDropDown),
+                                          onToggleDropDown: widget.onToggleDropDown),
                                     ),
                                     const SizedBox(
                                         width:
@@ -157,7 +171,7 @@ class DropDown extends StatelessWidget {
                                     Expanded(
                                       child: NameBox(
                                           name: '6 Lumina Care',
-                                          onToggleDropDown: onToggleDropDown),
+                                          onToggleDropDown: widget.onToggleDropDown),
                                     ),
                                     const SizedBox(
                                         width:
@@ -173,7 +187,7 @@ class DropDown extends StatelessWidget {
                                     Expanded(
                                       child: NameBox(
                                           name: '7 Lumina Care',
-                                          onToggleDropDown: onToggleDropDown),
+                                          onToggleDropDown: widget.onToggleDropDown),
                                     ),
                                     const SizedBox(
                                         width:
@@ -189,7 +203,7 @@ class DropDown extends StatelessWidget {
                                     Expanded(
                                       child: NameBox(
                                           name: '8 Lumina Care',
-                                          onToggleDropDown: onToggleDropDown),
+                                          onToggleDropDown: widget.onToggleDropDown),
                                     ),
                                     const SizedBox(
                                         width:
@@ -205,7 +219,7 @@ class DropDown extends StatelessWidget {
                                     Expanded(
                                       child: NameBox(
                                           name: '9 Lumina Care',
-                                          onToggleDropDown: onToggleDropDown),
+                                          onToggleDropDown: widget.onToggleDropDown),
                                     ),
                                     const SizedBox(
                                         width:
@@ -221,7 +235,7 @@ class DropDown extends StatelessWidget {
                                     Expanded(
                                       child: NameBox(
                                           name: '10 Lumina Care',
-                                          onToggleDropDown: onToggleDropDown),
+                                          onToggleDropDown: widget.onToggleDropDown),
                                     ),
                                     const SizedBox(
                                         width:

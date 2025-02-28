@@ -200,23 +200,45 @@ class Integration {
     return true;
   }
 
-  Future<List<TopLevelHome>> getallTopLevelHomes() async {
-    List<TopLevelHome> topLevelHomes = [];
-    try {
-      var querySnapshot = await db.collection("Top Level Homes").get();
-      for (var docSnapshot in querySnapshot.docs) {
-        Map<String, dynamic> value = docSnapshot.data();
-        TopLevelHome tlh =
-            TopLevelHome(docSnapshot.id, value['name'], value['bLDevices']);
+  // Future<List<TopLevelHome>> getallTopLevelHomes() async {
+  //   List<TopLevelHome> topLevelHomes = [];
+  //   try {
+  //     var querySnapshot = await db.collection("Top Level Homes").get();
+  //     for (var docSnapshot in querySnapshot.docs) {
+  //       Map<String, dynamic> value = docSnapshot.data();
+  //       TopLevelHome tlh = TopLevelHome(docSnapshot.id, value['name'], value['bLDevices']);
+  //       topLevelHomes.add(tlh);
+  //     }
+  //   } catch (e) {
+  //     //log error here
+  //     //returns empty list
+  //     return topLevelHomes;
+  //   }
+  //   return topLevelHomes;
+  // }
+
+ Future<List<TopLevelHome>> getallTopLevelHomes() async {
+  List<TopLevelHome> topLevelHomes = [];
+  try {
+    var querySnapshot = await db.collection("Top Level Homes").get();
+    for (var docSnapshot in querySnapshot.docs) {
+      Map<String, dynamic> value = docSnapshot.data();
+      if (value['name'] != null && value['bLDevices'] != null) {
+        List<String> bLDevices = List<String>.from(value['bLDevices']);
+        TopLevelHome tlh = TopLevelHome(docSnapshot.id, value['name'], bLDevices);
         topLevelHomes.add(tlh);
+      } else {
+        print("Missing required fields in document: ${docSnapshot.id}");
       }
-    } catch (e) {
-      //log error here
-      //returns empty list
-      return topLevelHomes;
     }
+  } catch (e) {
+    print("Error getting top level homes: $e");
+    //log error here
+    //returns empty list
     return topLevelHomes;
   }
+  return topLevelHomes;
+}
 
   bool addTopLevelHomes(TopLevelHome tlh) {
     Map<String, dynamic> tlhome = {};
