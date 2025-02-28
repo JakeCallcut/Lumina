@@ -262,7 +262,7 @@ class Integration {
       } else {
         for (var docSnapshot in querySnapshot.docs) {
           Map<String, dynamic> value = docSnapshot.data();
-          Household home = Household(docSnapshot.id, value['name'],
+          Household home = Household(docSnapshot.id,
               value['Home Details'], value['Settings']);
           households.add(home);
         }
@@ -280,7 +280,6 @@ class Integration {
     Map<String, dynamic> house = {};
     //uses object data to create new field in the database
     try {
-      house["name"] = (home.name);
       house["Home Details"] = (home.homeDetails);
       house["Settings"] = (home.settings);
       db
@@ -299,9 +298,6 @@ class Integration {
     Map<String, dynamic> house = {};
     //updates any feilds in the database where the incoming object isn't the empty string
     try {
-      if (home.name.trim().isNotEmpty) {
-        house["name"] = (home.name);
-      }
       if (home.homeDetails.isNotEmpty) {
         house["Home Detais"] = (home.homeDetails);
       }
@@ -439,8 +435,8 @@ class Integration {
       energy["worth"] = (en.worth);
       energy["amount"] = (en.amount);
       energy["price"] = (en.price);
-      energy["monthEnergyIn"] = (en.monthEnergyIn);
-      energy["monthEnergyOut"] = (en.monthEnergyOut);
+      if (en.householdId.trim().isNotEmpty) {energy["monthEnergyIn"] = (en.monthEnergyIn);}
+      if (en.householdId.trim().isNotEmpty) {energy["monthEnergyOut"] = (en.monthEnergyOut);}
       db.collection("Energy Usage").doc(en.id).update(energy);
     }
     catch(e) {

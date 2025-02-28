@@ -17,10 +17,10 @@ class DropDown extends StatelessWidget {
     // List<User> homeOwners = await instance.getallUsers();
     // User homeOwner = homeOwners[0];
     // String homeOwnerTHId = homeOwner.topHouseId;
-    List<Household> households = await instance.getHouseholds("gogPwWrvOuUeNVWNHsrs");
-    Household household0 = households[0];
-    String householdName = household0.name;
-    name = householdName;
+    // List<Household> households = await instance.getHouseholds("gogPwWrvOuUeNVWNHsrs");
+    // Household household0 = households[0];
+    // String householdName = household0.name;
+    // name = householdName;
   }
 
   @override
