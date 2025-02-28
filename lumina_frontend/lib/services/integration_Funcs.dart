@@ -367,19 +367,19 @@ class Integration {
     return true;
   }
 
-  bool updateEnergyUsage(User us)  {
-    Map<String, dynamic> owner = {};
+  bool updateEnergyUsage(EnergyUsage en)  {
+    Map<String, dynamic> energy = {};
     //updates any feilds in the database where the incoming object isn't the empty string
     try {
-      if (us.topHouseId.trim().isNotEmpty) {owner["topHouseId"] = (us.topHouseId);}
-      if (us.householdId.trim().isNotEmpty) {owner["password"] = (us.householdId);}
-      if (us.loginId.trim().isNotEmpty) {owner["loginId"] = (us.loginId);}
-      if (us.firstname.trim().isNotEmpty) {owner["firstname"] = (us.firstname);}
-      if (us.surname.trim().isNotEmpty) {owner["surname"] = (us.surname);}
-      if (us.phoneNumber.trim().isNotEmpty) {owner["phoneNumber"] = (us.phoneNumber);}
-
-      owner["hasGoogleLogin"] = (us.hasGoogleLogin);
-      db.collection("User").doc(us.id).update(owner);
+      if (en.topHouseId.trim().isNotEmpty) {energy["topHouseId"] = (en.topHouseId);}
+      if (en.householdId.trim().isNotEmpty) {energy["password"] = (en.householdId);}
+      energy["unused"] = (en.unused);
+      energy["worth"] = (en.worth);
+      energy["amount"] = (en.amount);
+      energy["price"] = (en.price);
+      energy["monthEnergyIn"] = (en.monthEnergyIn);
+      energy["monthEnergyOut"] = (en.monthEnergyOut);
+      db.collection("Energy Usage").doc(en.id).update(energy);
     }
     catch(e) {
       return false;
