@@ -37,10 +37,16 @@ class _SplashPageState extends State<SplashPage>
       ..addListener(() {
         setState(() {});
       });
-
+    
+    int cycles = 1;
     _tipTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (cycles == 5) {
+        timer.cancel();
+        Navigator.pushReplacementNamed(context, Routes.landing);
+      }
       if (mounted) {
         setState(() {
+          cycles++;
           _currentTip =
               LoadingTips.tips[_random.nextInt(LoadingTips.tips.length)];
         });
