@@ -6,7 +6,7 @@ import 'package:lumina_frontend/features/devicelist/presentation/widget/deviceli
 
 import 'package:lumina_frontend/features/error/presentation/page/error_page.dart';
 import 'package:lumina_frontend/features/landing/presentation/page/landing_page.dart';
-import 'package:lumina_frontend/features/loading/presentation/page/loading_page.dart';
+import 'package:lumina_frontend/features/loading/presentation/page/splash_page.dart';
 import 'package:lumina_frontend/features/login/presentation/page/login_page.dart';
 import 'package:lumina_frontend/features/register/presentation/page/register_step_1.dart';
 import 'package:lumina_frontend/features/register/presentation/page/register_step_2.dart';
@@ -97,7 +97,7 @@ class Routes {
 
       //edge case pages
       case loading:
-        return NoTransitionPageRoute(builder: (_) => LoadingPage());
+        return NoTransitionPageRoute(builder: (_) => SplashPage());
       default:
         return NoTransitionPageRoute(builder: (_) => const ErrorPage());
     }
