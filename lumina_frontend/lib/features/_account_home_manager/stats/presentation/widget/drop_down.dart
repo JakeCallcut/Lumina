@@ -17,20 +17,20 @@ class DropDown extends StatefulWidget {
 class _DropDownState extends State<DropDown> {
   final ScrollController _scrollController = ScrollController();
   var instance = Integration();
-  String name = "Default Home";
+  List<TopLevelHome> homes = [];
 
   @override
   void initState() {
     super.initState();
     getHomeOwnerData();
   }
-  
+
   void getHomeOwnerData() async {
     List<TopLevelHome> tlh = await instance.getallTopLevelHomes();
     if (tlh.isNotEmpty) {
       TopLevelHome home = tlh[0];
       setState(() {
-        name = home.name;
+        homes = tlh;
       });
     } else {
       print("No top level homes found.");
@@ -39,7 +39,6 @@ class _DropDownState extends State<DropDown> {
 
   @override
   Widget build(BuildContext context) {
-
     getHomeOwnerData();
 
     return FractionallySizedBox(
@@ -77,175 +76,28 @@ class _DropDownState extends State<DropDown> {
                       trackVisibility: true,
                       thickness: 8.0,
                       radius: const Radius.circular(10),
-                      child: SingleChildScrollView(
+                      child: ListView.builder(
                         controller: _scrollController,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: NameBox(
-                                          name: name,
-                                          onToggleDropDown: widget.onToggleDropDown),
-                                    ),
-                                    const SizedBox(
-                                        width:
-                                            16), // Add space between NameBox and scrollbar
-                                  ],
+                        itemCount: homes.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: NameBox(
+                                    name: homes[index].name,
+                                    onToggleDropDown: widget.onToggleDropDown,
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: NameBox(
-                                          name: '2 Lumina Care',
-                                          onToggleDropDown: widget.onToggleDropDown),
-                                    ),
-                                    const SizedBox(
-                                        width:
-                                            16), // Add space between NameBox and scrollbar
-                                  ],
+                                const SizedBox(
+                                  width:
+                                      16, // Add space between NameBox and scrollbar
                                 ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: NameBox(
-                                          name: '3 Lumina Care',
-                                          onToggleDropDown: widget.onToggleDropDown),
-                                    ),
-                                    const SizedBox(
-                                        width:
-                                            16), // Add space between NameBox and scrollbar
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: NameBox(
-                                          name: '4 Lumina Care',
-                                          onToggleDropDown: widget.onToggleDropDown),
-                                    ),
-                                    const SizedBox(
-                                        width:
-                                            16), // Add space between NameBox and scrollbar
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: NameBox(
-                                          name: '5 Lumina Care',
-                                          onToggleDropDown: widget.onToggleDropDown),
-                                    ),
-                                    const SizedBox(
-                                        width:
-                                            16), // Add space between NameBox and scrollbar
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: NameBox(
-                                          name: '6 Lumina Care',
-                                          onToggleDropDown: widget.onToggleDropDown),
-                                    ),
-                                    const SizedBox(
-                                        width:
-                                            16), // Add space between NameBox and scrollbar
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: NameBox(
-                                          name: '7 Lumina Care',
-                                          onToggleDropDown: widget.onToggleDropDown),
-                                    ),
-                                    const SizedBox(
-                                        width:
-                                            16), // Add space between NameBox and scrollbar
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: NameBox(
-                                          name: '8 Lumina Care',
-                                          onToggleDropDown: widget.onToggleDropDown),
-                                    ),
-                                    const SizedBox(
-                                        width:
-                                            16), // Add space between NameBox and scrollbar
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: NameBox(
-                                          name: '9 Lumina Care',
-                                          onToggleDropDown: widget.onToggleDropDown),
-                                    ),
-                                    const SizedBox(
-                                        width:
-                                            16), // Add space between NameBox and scrollbar
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: NameBox(
-                                          name: '10 Lumina Care',
-                                          onToggleDropDown: widget.onToggleDropDown),
-                                    ),
-                                    const SizedBox(
-                                        width:
-                                            16), // Add space between NameBox and scrollbar
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                              ],
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),
