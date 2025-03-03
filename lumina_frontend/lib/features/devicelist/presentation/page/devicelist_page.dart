@@ -19,8 +19,8 @@ class deviceList extends StatelessWidget {
               Row(
                 children: [ Image.asset("assets/images/logo64.png"),]
               ),
-              SizedBox(width: 8),
-              Text("Manage Your Devices",
+              const SizedBox(width: 8),
+              const Text("Manage Your Devices",
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontSize: 24,

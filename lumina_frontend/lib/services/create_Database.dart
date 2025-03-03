@@ -5,19 +5,20 @@ class Create {
 
   void createTopLevelHome() {
     final tLH = {
+      "name" : "1st carehome",
       "bLDevices" : ["drone", "fryer"]
     };
     db.collection("Top Level Homes").add(tLH).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
   }
 
-  void createHomeowner() {
+  void createUser() {
     final owner = {
       "firstname" : "Lumina",
       "surname" : "Haven",
       "phoneNumber" : "1234567890",
       "email" : "mrHavensSolution@gmail.com",
       "password" : "ShiningL1ght",
-      "topHouseId" : "gogPwWrvOuUeNVWNHsrs",
+      "topHouseId" : "",
       "hasGoogleLogin" : false
     };
        final owner2 = {
@@ -26,11 +27,11 @@ class Create {
       "phoneNumber" : "2345678901",
       "email" : "mrHavensSolution2@gmail.com",
       "password" : "ShiningL1ght2",
-      "topHouseId" : "gogPwWrvOuUeNVWNHsrs",
+      "topHouseId" : "",
       "hasGoogleLogin" : false
     };
-    db.collection("Homeowner").add(owner).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
-    db.collection("Homeowner").add(owner2).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
+    db.collection("User").add(owner).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
+    db.collection("User").add(owner2).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
   }
 
   void createHousehold() {
@@ -49,7 +50,7 @@ class Create {
     houseData["Home Details"] = homeDetails;
     houseData["Settings"] = settings;
     
-    db.collection("Top Level Homes").doc("gogPwWrvOuUeNVWNHsrs").collection("Household").add(houseData).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
+    db.collection("Top Level Homes").doc("oFoh7ELw1kJHjuJ6nYrJ").collection("Household").add(houseData).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
   }
   
   void createResident() {

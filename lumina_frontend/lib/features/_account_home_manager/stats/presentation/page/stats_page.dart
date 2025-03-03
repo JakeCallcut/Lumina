@@ -8,10 +8,13 @@ import 'package:lumina_frontend/features/_account_home_manager/stats/presentatio
 import 'package:lumina_frontend/features/_account_home_manager/stats/presentation/widget/drop_down.dart';
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 
-class ManagerStatsPage extends StatefulWidget {
-  final String name;
+import 'package:lumina_frontend/services/integration_Funcs.dart';
+import 'package:lumina_frontend/model/models.dart';
 
-  const ManagerStatsPage({super.key, this.name = "1 Lumina Care"});
+class ManagerStatsPage extends StatefulWidget {
+  String name;
+
+  ManagerStatsPage({super.key, this.name = "1 Lumina Care"});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -23,6 +26,7 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
   late final String homeName = widget.name;
   bool _isDropDownOpen = false;
   OverlayEntry? _overlayEntry;
+  var instance = Integration();
 
   OverlayEntry _createOverlayEntry() {
     return OverlayEntry(
@@ -83,7 +87,6 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
       }
     }
   }
-  
 
   @override
   Widget build(BuildContext context) {

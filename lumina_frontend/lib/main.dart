@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:lumina_frontend/model/HomeOwner.dart';
+import 'package:lumina_frontend/model/models.dart';
 import 'package:lumina_frontend/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:lumina_frontend/services/integration_Funcs.dart';
@@ -27,6 +27,7 @@ void main() async {
   //instance.getBothResidents();
   //instance.getOwnerId();
   //instance.getHousehold();
+  //List<TopLevelHome> TLH = await instance.getallTopLevelHomes();
   //List<HomeOwner> homeowners = await instance.getallHomeOwners();
   //HomeOwner homeowner = homeowners[0];
   //homeowner.firstname = "testname";
