@@ -6,8 +6,9 @@ import 'package:lumina_frontend/model/models.dart';
 
 class DropDown extends StatefulWidget {
   final VoidCallback onToggleDropDown;
+  final String tlhID;
 
-  const DropDown({super.key, required this.onToggleDropDown});
+  const DropDown({super.key, required this.onToggleDropDown, required this.tlhID});
 
   @override
   _DropDownState createState() => _DropDownState();
@@ -16,14 +17,15 @@ class DropDown extends StatefulWidget {
 class _DropDownState extends State<DropDown> {
   final ScrollController _scrollController = ScrollController();
   var instance = Integration();
+  late final String tlhID = widget.tlhID;
 
-  Future<List<TopLevelHome>> getHomeOwnerData() async {
-    return await instance.getallTopLevelHomes();
+  Future<List<Household>> getHomeOwnerData() async {
+    return await instance.getHouseholds(tlhID);
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<TopLevelHome>>(
+    return FutureBuilder<List<Household>>(
       future: getHomeOwnerData(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -33,7 +35,7 @@ class _DropDownState extends State<DropDown> {
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return const Center(child: Text('No top level homes found.'));
         } else {
-          List<TopLevelHome> homes = snapshot.data!;
+          List<Household> homes = snapshot.data!;
           return FractionallySizedBox(
             widthFactor: 0.9,
             heightFactor: 0.9,
@@ -78,7 +80,7 @@ class _DropDownState extends State<DropDown> {
                                     children: [
                                       Expanded(
                                         child: NameBox(
-                                          name: homes[index].name,
+                                          name: homes[index].homeDetails['addressOrNum'] ?? 'Unknown',
                                           onToggleDropDown: widget.onToggleDropDown,
                                         ),
                                       ),
