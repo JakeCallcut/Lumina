@@ -38,7 +38,7 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
           child: Stack(
             children: [
               GestureDetector(
-                onTap: _toggleDropDown,
+                onTap: () => _toggleDropDown(tlhID),
                 child: Container(
                   color: Colors.black54, // Semi-transparent background
                 ),
@@ -50,7 +50,7 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
                   child: Stack(
                     children: [
                       DropDown(
-                          onToggleDropDown: _toggleDropDown,
+                          onToggleDropDown: () => _toggleDropDown(tlhID),
                           tlhID: tlhID),
                       Positioned(
                         top: 10,
@@ -58,7 +58,7 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
                         child: IconButton(
                           icon: const Icon(Icons.arrow_drop_up,
                               size: 40, color: Colors.black),
-                          onPressed: () => _toggleDropDown
+                          onPressed: () => _toggleDropDown(tlhID),
                         ),
                       ),
                     ],
@@ -72,9 +72,9 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
     );
   }
 
-  void _toggleDropDown() {
+  void _toggleDropDown(String tlhID) {
     if (_overlayEntry == null) {
-      _overlayEntry = _createOverlayEntry("defaultID");
+      _overlayEntry = _createOverlayEntry(tlhID);
       Overlay.of(context).insert(_overlayEntry!);
       if (mounted) {
         setState(() {
