@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 
+//Dropdownlist widget structure for devicelist page
+
 class Devicedroplist extends StatelessWidget {
   const Devicedroplist({Key? key}) : super(key: key);
 
