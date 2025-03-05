@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
+import 'package:lumina_frontend/features/user_auth/login_details.dart';
 import 'package:lumina_frontend/routes.dart';
 
 class RegisterStep2 extends StatefulWidget {
+  final LoginDetails loginDetails; 
+
+  const RegisterStep2({Key? key, required this.loginDetails}) : super(key: key);
+  
   @override
   _RegisterStep2State createState() => _RegisterStep2State();
 }
@@ -17,6 +22,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
 
   @override
   Widget build(BuildContext context) {
+    // You can access the login details with widget.loginDetails
     return Scaffold(
       backgroundColor: MainTheme.luminaBlue,
       body: GestureDetector(
@@ -76,7 +82,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.register3);
+                    continueRegistration();
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text('Continue', style: MainTheme.h3Black,),
@@ -93,8 +99,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Already have an account? ",
-                        style: MainTheme.smallPrint),
+                    Text("Already have an account? ", style: MainTheme.smallPrint),
                     GestureDetector(
                         onTap: () {
                           Navigator.pushNamed(context, Routes.login);
@@ -107,6 +112,16 @@ class _RegisterStep2State extends State<RegisterStep2> {
           ),
         ),
       ),
-    );
+    );    
+  }
+
+  void continueRegistration() {
+    if (_accountType == 'manager') {
+      widget.loginDetails.isManager = true;
+    } else if (_accountType == 'resident') {
+      widget.loginDetails.isManager = false;
+    }
+
+    Navigator.pushNamed(context, Routes.register3, arguments: widget.loginDetails);
   }
 }

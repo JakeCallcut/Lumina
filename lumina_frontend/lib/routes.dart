@@ -9,6 +9,7 @@ import 'package:lumina_frontend/features/register/presentation/page/register_ste
 import 'package:lumina_frontend/features/register/presentation/page/register_step_3.dart';
 import 'package:lumina_frontend/features/register/presentation/page/register_step_4.dart';
 import 'package:lumina_frontend/features/settings/presentation/page/settings_page.dart';
+import 'package:lumina_frontend/features/user_auth/login_details.dart';
 
 class NoTransitionPageRoute extends PageRoute {
   final WidgetBuilder builder;
@@ -73,11 +74,11 @@ class Routes {
       case register:
         return NoTransitionPageRoute(builder: (_) => RegisterStep1());
       case register2:
-        return NoTransitionPageRoute(builder: (_) => RegisterStep2());
+        return NoTransitionPageRoute(builder: (_) => RegisterStep2(loginDetails:  settings.arguments as LoginDetails));
       case register3:
-        return NoTransitionPageRoute(builder: (_) => RegisterStep3());
+        return NoTransitionPageRoute(builder: (_) => RegisterStep3(loginDetails:  settings.arguments as LoginDetails));
       case register4:
-        return NoTransitionPageRoute(builder: (_) => RegisterStep4());
+        return NoTransitionPageRoute(builder: (_) => RegisterStep4(loginDetails:  settings.arguments as LoginDetails));
 
       //edge case pages
       case loading:

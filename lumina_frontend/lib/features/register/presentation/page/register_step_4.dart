@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
+import 'package:lumina_frontend/features/user_auth/login_details.dart';
 import 'package:lumina_frontend/routes.dart';
 
 class RegisterStep4 extends StatefulWidget {
+  final LoginDetails loginDetails;
+
+  const RegisterStep4({super.key, required this.loginDetails});
+
   @override
   _RegisterStep4State createState() => _RegisterStep4State();
 }
@@ -84,5 +89,11 @@ class _RegisterStep4State extends State<RegisterStep4> {
         ),
       ),
     );
+  }
+
+  void finishRegistration() {
+    if (_inviteCodeController.text.isNotEmpty) {
+      Navigator.pushNamed(context, Routes.home);
+    }
   }
 }

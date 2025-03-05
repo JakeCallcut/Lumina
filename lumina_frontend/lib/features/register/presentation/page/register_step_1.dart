@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
+import 'package:lumina_frontend/features/user_auth/login_details.dart';
 import 'package:lumina_frontend/routes.dart';
 
 class RegisterStep1 extends StatefulWidget {
@@ -64,7 +65,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.register2);
+                    beginRegistration();
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text(
@@ -98,5 +99,17 @@ class _RegisterStep1State extends State<RegisterStep1> {
         ),
       ),
     );
+  }
+
+  void beginRegistration() async {
+
+    String email = _emailController.text;
+    String password = _passwordController.text;
+
+    
+
+    LoginDetails _loginDetails = LoginDetails(email, password, false, '', '', ''); // Provide empty strings for remaining required fields
+
+    Navigator.pushNamed(context, Routes.register2, arguments: _loginDetails);
   }
 }
