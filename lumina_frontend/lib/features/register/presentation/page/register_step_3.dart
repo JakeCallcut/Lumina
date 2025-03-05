@@ -87,7 +87,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.register4);
+                    continueRegistration();
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text(

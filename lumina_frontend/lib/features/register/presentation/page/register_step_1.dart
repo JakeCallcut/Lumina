@@ -102,13 +102,10 @@ class _RegisterStep1State extends State<RegisterStep1> {
   }
 
   void beginRegistration() async {
-
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    
-
-    LoginDetails _loginDetails = LoginDetails(email, password, false, '', '', ''); // Provide empty strings for remaining required fields
+    LoginDetails _loginDetails = LoginDetails(email, password, false, '', '', '', '', ''); // Provide empty strings for new fields
 
     Navigator.pushNamed(context, Routes.register2, arguments: _loginDetails);
   }

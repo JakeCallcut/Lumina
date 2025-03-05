@@ -1,11 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/features/user_auth/login_details.dart';
+import 'package:lumina_frontend/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:lumina_frontend/routes.dart';
 
 class RegisterStep4 extends StatefulWidget {
   final LoginDetails loginDetails;
-
+  
   const RegisterStep4({super.key, required this.loginDetails});
 
   @override
@@ -13,6 +15,8 @@ class RegisterStep4 extends StatefulWidget {
 }
 
 class _RegisterStep4State extends State<RegisterStep4> {
+  final FirebaseAuthService _auth = FirebaseAuthService();
+
   final TextEditingController _inviteCodeController = TextEditingController();
   final FocusNode _inviteCodeFocusNode = FocusNode();
 
@@ -55,7 +59,7 @@ class _RegisterStep4State extends State<RegisterStep4> {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.home);
+                    finishRegistration();
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text(
@@ -93,7 +97,29 @@ class _RegisterStep4State extends State<RegisterStep4> {
 
   void finishRegistration() {
     if (_inviteCodeController.text.isNotEmpty) {
+      widget.loginDetails.inviteCode = _inviteCodeController.text; // Update inviteCode
+      _signUp();
+      
       Navigator.pushNamed(context, Routes.home);
     }
   }
+
+  void _signUp() async {
+    String email = widget.loginDetails.email;
+    String password = widget.loginDetails.password;
+
+    User? user = await _auth.signUpWithEmailAndPassword(email, password);
+
+    if (user != null) {
+      print("Account is successfully created");
+      widget.loginDetails.userID = user.uid;   // This part fetches the userID 
+      print(widget.loginDetails.userID);
+      Navigator.pushNamed(context, Routes.home);
+    }
+  }
+
+
+
+
+
 }

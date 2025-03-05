@@ -5,6 +5,8 @@ class LoginDetails {
   String firstname;
   String lastname;
   String phoneNumber;
+  String userID;
+  String inviteCode;
 
   LoginDetails(
     this.email,
@@ -13,5 +15,8 @@ class LoginDetails {
     this.firstname,
     this.lastname,
     this.phoneNumber,
+    this.userID,
+    this.inviteCode,
   );
 }
+

@@ -4,10 +4,10 @@ import 'package:lumina_frontend/features/user_auth/login_details.dart';
 import 'package:lumina_frontend/routes.dart';
 
 class RegisterStep2 extends StatefulWidget {
-  final LoginDetails loginDetails; 
+  final LoginDetails loginDetails;
 
   const RegisterStep2({Key? key, required this.loginDetails}) : super(key: key);
-  
+
   @override
   _RegisterStep2State createState() => _RegisterStep2State();
 }
