@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:lumina_frontend/features/_account_home_manager/account_home_manager.dart'; //Collection of all manager pages
 import 'package:lumina_frontend/features/_account_resident/account_resident.dart'; //Collection of all resident pages
-import 'package:lumina_frontend/features/devicelist/presentation/page/devicelist.dart';
+import 'package:lumina_frontend/features/_account_resident/devicelist/presentation/page/devicelist.dart';
 
 import 'package:lumina_frontend/features/error/presentation/page/error_page.dart';
 import 'package:lumina_frontend/features/landing/presentation/page/landing_page.dart';

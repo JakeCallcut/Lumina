@@ -69,14 +69,23 @@ class ManagerSettingsPage extends StatelessWidget {
                   ),
                   addSwitch: true,
                 ),
+                // SettingTile(
+                //   title: "Advanced View",
+                //   subtitle: "",
+                //   icon: Icon(
+                //     Icons.verified_user,
+                //     color: MainTheme.luminaWhite,
+                //   ),
+                //   addSwitch: true,
+                // ),
                 SettingTile(
-                  title: "Advanced View",
-                  subtitle: "",
+                  title: "Delete Account",
+                  subtitle: "You want to leave us?",
                   icon: Icon(
-                    Icons.verified_user,
-                    color: MainTheme.luminaWhite,
+                    Icons.delete,
+                    color: MainTheme.luminaRed,
                   ),
-                  addSwitch: true,
+                  addSwitch: false,
                 ),
                 SettingTile(
                   title: "Set Budgets",

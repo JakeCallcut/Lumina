@@ -91,7 +91,7 @@ class ResidentStatsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Image.asset("assets/images/logo64.png"),
                 ),
                 Text(
