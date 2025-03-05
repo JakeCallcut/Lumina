@@ -54,26 +54,11 @@ void navigateToAddDevice() async {
               // Header with logo and title
               Row(
                 children: [
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: MainTheme.luminaBlue,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.dashboard_customize,
-                      color: MainTheme.luminaShadedWhite,
-                      size: 24,
-                    ),
-                  ),
+                  Image.asset("assets/images/logo64.png"),
                   const SizedBox(width: 12),
                   Text(
                     'Manage Your Devices',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: MainTheme.h1Black,
                   ),
                 ],
               ),
@@ -94,7 +79,9 @@ void navigateToAddDevice() async {
                     items: filterOptions.map((String option) {
                       return DropdownMenuItem<String>(
                         value: option,
-                        child: Text(option),
+                        child: Text(option,
+                        style: MainTheme.h2Black,),
+                        
                       );
                     }).toList(),
                     onChanged: (String? newValue) {
@@ -127,9 +114,7 @@ void navigateToAddDevice() async {
                         ),
                         title: Text(
                           devices[index].name,
-                          style: const TextStyle(
-                            color: Colors.white,
-                          ),
+                          style: MainTheme.h2White,
                         ),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
@@ -148,7 +133,7 @@ void navigateToAddDevice() async {
                                 });
                               },
                               activeColor: MainTheme.luminaShadedWhite,
-                              activeTrackColor: MainTheme.luminaShadedWhite.withOpacity(0.5),
+                              activeTrackColor: MainTheme.luminaShadedWhite.withValues(alpha: 0.5)
                             ),
                           ],
                         ),
