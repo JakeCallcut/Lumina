@@ -18,22 +18,35 @@ class Create {
       "phoneNumber" : "1234567890",
       "email" : "mrHavensSolution@gmail.com",
       "password" : "ShiningL1ght",
-      "topHouseId" : "oFoh7ELw1kJHjuJ6nYrJ",
-      "houseHoldId" : "",
+      "houseCode" : "ugKv1HL3hP8Dz5xuWumf",      
       "hasGoogleLogin" : true
     };
-       final resident = {
+    final resident = {
       "firstname" : "Old",
       "surname" : "Person",
       "phoneNumber" : "77644328976",
       "email" : "needsCare247@gmail.com",
       "password" : "50SoOld97",
-      "topHouseId" : "oFoh7ELw1kJHjuJ6nYrJ",
-      "houseHoldId" : "iPjhMCjaZiBkmygJ0fKo",
+      "houseCode" : "h0cXEEbXP2BPHWX1tyW0",
       "hasGoogleLogin" : false
     };
     db.collection("User").add(owner).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
     db.collection("User").add(resident).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
+  }
+
+  void createHouseCode() {
+    final code = {
+      "invitecode" : "ABC123",
+      "topHouseId" : "oFoh7ELw1kJHjuJ6nYrJ",
+      "houseHoldId" : "iPjhMCjaZiBkmygJ0fKo"
+    };
+    final topCode = {
+      "invitecode" : "top1",
+      "topHouseId" : "oFoh7ELw1kJHjuJ6nYrJ",
+      "houseHoldId" : ""
+    };
+    db.collection("HouseCodes").add(code).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
+    db.collection("HouseCodes").add(topCode).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
   }
 
   void createHousehold() {

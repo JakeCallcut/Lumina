@@ -17,9 +17,9 @@ void main() async {
   var instance = Integration();
   var instanceCreate = Create();
   //instanceCreate.createTopLevelHome();
+  //instanceCreate.createHouseCode();
   //instanceCreate.createUser();
   //instanceCreate.createHousehold();
-  //instanceCreate.createResident();
   //instanceCreate.createRooms();
   //instanceCreate.createEnergy();
   //instanceCreate.createDevice();

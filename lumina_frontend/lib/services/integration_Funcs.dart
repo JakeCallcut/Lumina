@@ -319,7 +319,7 @@ class Integration {
         house["Home Detais"] = (home.homeDetails);
       }
       if (home.settings.isNotEmpty) {
-        house["bLDevices"] = (home.settings);
+        house["Settings"] = (home.settings);
       }
       db
           .collection("Top Level Homes")
@@ -447,18 +447,41 @@ class Integration {
     //updates any feilds in the database where the incoming object isn't the empty string
     try {
       if (en.topHouseId.trim().isNotEmpty) {energy["topHouseId"] = (en.topHouseId);}
-      if (en.householdId.trim().isNotEmpty) {energy["password"] = (en.householdId);}
+      if (en.householdId.trim().isNotEmpty) {energy["householdId"] = (en.householdId);}
       energy["unused"] = (en.unused);
       energy["worth"] = (en.worth);
       energy["amount"] = (en.amount);
       energy["price"] = (en.price);
-      if (en.householdId.trim().isNotEmpty) {energy["monthEnergyIn"] = (en.monthEnergyIn);}
-      if (en.householdId.trim().isNotEmpty) {energy["monthEnergyOut"] = (en.monthEnergyOut);}
+      if (en.monthEnergyIn.isNotEmpty) {energy["monthEnergyIn"] = (en.monthEnergyIn);}
+      if (en.monthEnergyOut.isNotEmpty) {energy["monthEnergyOut"] = (en.monthEnergyOut);}
       db.collection("Energy Usage").doc(en.id).update(energy);
     }
     catch(e) {
       return false;
     }
     return true;
+  }
+
+  Future<List<Device>> getDevices() async {
+    List<Device> devices = [];
+    try {
+      var querySnapshot = await db.collection("Devices").get();
+      for (var docSnapshot in querySnapshot.docs) {
+        Map<String, dynamic> value = docSnapshot.data();
+        Device device = Device(
+            docSnapshot.id,
+            value['deviceName'],
+            value['typeName'],
+            value['imageId'],
+            value['mainAction'],
+            value['actionList']);
+        devices.add(device);
+      }
+    } catch (e) {
+      //log error here
+      //returns empty list
+      return devices;
+    }
+    return devices;
   }
 }
