@@ -17,12 +17,12 @@ void main() async {
   var instance = Integration();
   var instanceCreate = Create();
   //instanceCreate.createTopLevelHome();
-  //instanceCreate.createHomeowner();
+  //instanceCreate.createUser();
   //instanceCreate.createHousehold();
   //instanceCreate.createResident();
   //instanceCreate.createRooms();
   //instanceCreate.createEnergy();
-  //instanceCreate.createSecondResident();
+  //instanceCreate.createDevice();
   //instance.getTestData();
   //instance.getBothResidents();
   //instance.getOwnerId();

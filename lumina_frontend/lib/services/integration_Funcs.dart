@@ -133,12 +133,11 @@ class Integration {
         Map<String, dynamic> value = docSnapshot.data();
         User u = User(
             docSnapshot.id,
-            value['firstname'],
-            value['surname'],
+            value['loginId'],
             value['email'],
             value['password'],
             value['phoneNumber'],
-            value['topHouseId'],
+            value['houseCodeId'],
             value['hasGoogleLogin']);
         users.add(u);
       }
@@ -159,8 +158,7 @@ class Integration {
       user["firstname"] = (us.firstname);
       user["surname"] = (us.surname);
       user["phoneNumber"] = (us.phoneNumber);
-      user["topHouseId"] = (us.topHouseId);
-      user["householdId"] = (us.householdId);
+      user["topHouseId"] = (us.houseCodeId);
       user["hasGoogleLogin"] = (us.hasGoogleLogin);
       db.collection("User").add(user);
     } catch (e) {
@@ -186,11 +184,8 @@ class Integration {
       if (us.phoneNumber.trim().isNotEmpty) {
         owner["phoneNumber"] = (us.phoneNumber);
       }
-      if (us.topHouseId.trim().isNotEmpty) {
-        owner["topHouseId"] = (us.topHouseId);
-      }
-      if (us.householdId.trim().isNotEmpty) {
-        owner["password"] = (us.householdId);
+      if (us.houseCodeId.trim().isNotEmpty) {
+        owner["houseCodeId"] = (us.houseCodeId);
       }
       owner["hasGoogleLogin"] = (us.hasGoogleLogin);
       db.collection("User").doc(us.id).update(owner);

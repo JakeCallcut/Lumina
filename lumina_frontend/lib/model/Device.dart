@@ -5,7 +5,7 @@ class Device {
   String typeName = "";
   int imageId = 0;
   bool mainAction = false;
-  List<Map<String,bool>> actionList = [{}]; 
+  Map<String,bool> actionList = {};
 
   Device(this.id, this.deviceName, this.typeName, this.imageId, this.mainAction, this.actionList);
 }
