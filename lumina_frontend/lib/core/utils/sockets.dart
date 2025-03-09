@@ -8,9 +8,9 @@ class WebSockets {
 
   Stream<int> get ledStream => _ledController.stream;
 
-  void initState(String server) {
+  void initState() {
     socket = io(
-      server,
+      'ws:192.168.0.9:8080', //change this on day :)
       OptionBuilder()
           .setTransports(['websocket'])
           .disableAutoConnect()
