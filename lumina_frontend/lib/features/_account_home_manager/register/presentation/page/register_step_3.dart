@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/routes.dart';
 
-class RegisterStep3 extends StatefulWidget {
+class ManagerRegisterStep3 extends StatefulWidget {
   @override
   _RegisterStep3State createState() => _RegisterStep3State();
 }
 
-class _RegisterStep3State extends State<RegisterStep3> {
+class _RegisterStep3State extends State<ManagerRegisterStep3> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();

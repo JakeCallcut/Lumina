@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/routes.dart';
 
-class RegisterStep4 extends StatefulWidget {
+class ResidentRegisterStep4 extends StatefulWidget {
   @override
   _RegisterStep4State createState() => _RegisterStep4State();
 }
 
-class _RegisterStep4State extends State<RegisterStep4> {
+class _RegisterStep4State extends State<ResidentRegisterStep4> {
   final TextEditingController _inviteCodeController = TextEditingController();
   final FocusNode _inviteCodeFocusNode = FocusNode();
 

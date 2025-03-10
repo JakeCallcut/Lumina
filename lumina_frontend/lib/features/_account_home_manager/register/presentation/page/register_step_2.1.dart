@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/routes.dart';
 
-class RegisterStep2 extends StatefulWidget {
+class ManagerRegisterStep2 extends StatefulWidget {
   @override
   _RegisterStep2State createState() => _RegisterStep2State();
 }
 
-class _RegisterStep2State extends State<RegisterStep2> {
+class _RegisterStep2State extends State<ManagerRegisterStep2> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode _emailFocusNode = FocusNode();

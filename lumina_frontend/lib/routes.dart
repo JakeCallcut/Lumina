@@ -8,10 +8,10 @@ import 'package:lumina_frontend/features/error/presentation/page/error_page.dart
 import 'package:lumina_frontend/features/landing/presentation/page/landing_page.dart';
 import 'package:lumina_frontend/features/loading/presentation/page/splash_page.dart';
 import 'package:lumina_frontend/features/login/presentation/page/login_page.dart';
-import 'package:lumina_frontend/features/register/presentation/page/register_step_2.dart';
+import 'package:lumina_frontend/features/_account_resident/register/presentation/page/register_step_2.dart';
 import 'package:lumina_frontend/features/register/presentation/page/register_step_1.dart';
-import 'package:lumina_frontend/features/register/presentation/page/register_step_3.dart';
-import 'package:lumina_frontend/features/register/presentation/page/register_step_4.dart';
+import 'package:lumina_frontend/features/_account_resident/register/presentation/page/register_step_3.dart';
+import 'package:lumina_frontend/features/_account_resident/register/presentation/page/register_step_4.dart';
 
 class NoTransitionPageRoute extends PageRoute {
   final WidgetBuilder builder;
@@ -89,11 +89,17 @@ class Routes {
       case register:
         return NoTransitionPageRoute(builder: (_) => RegisterStep1());
       case register2:
-        return NoTransitionPageRoute(builder: (_) => RegisterStep2());
+        return NoTransitionPageRoute(builder: (_) => userRole == 'manager'
+                ? ManagerRegisterStep2()
+                : ResidentRegisterStep2());
       case register3:
-        return NoTransitionPageRoute(builder: (_) => RegisterStep3());
+        return NoTransitionPageRoute(builder: (_) => userRole == 'manager'
+                ? ManagerRegisterStep3()
+                : ResidentRegisterStep3());
       case register4:
-        return NoTransitionPageRoute(builder: (_) => RegisterStep4());
+        return NoTransitionPageRoute(builder: (_) => userRole == 'manager'
+                ? ManagerRegisterStep4()
+                : ResidentRegisterStep4());
 
       //edge case pages
       case loading:
