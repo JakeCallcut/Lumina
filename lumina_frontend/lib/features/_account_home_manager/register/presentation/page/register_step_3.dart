@@ -8,22 +8,13 @@ class ManagerRegisterStep3 extends StatefulWidget {
 }
 
 class _RegisterStep3State extends State<ManagerRegisterStep3> {
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-  final FocusNode _firstNameFocusNode = FocusNode();
-  final FocusNode _lastNameFocusNode = FocusNode();
-  final FocusNode _phoneFocusNode = FocusNode();
+  final TextEditingController _inviteCodeController = TextEditingController();
+  final FocusNode _inviteCodeFocusNode = FocusNode();
 
   @override
   void dispose() {
-    _firstNameController.dispose();
-    _lastNameController.dispose();
-    _phoneController.dispose();
-
-    _firstNameFocusNode.dispose();
-    _lastNameFocusNode.dispose();
-    _phoneFocusNode.dispose();
+    _inviteCodeController.dispose();
+    _inviteCodeFocusNode.dispose();
     super.dispose();
   }
 
@@ -42,40 +33,17 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/images/register_progress/progress_3.png'),
+                Image.asset('assets/images/register_progress/progress_2.png'),
                 Image.asset('assets/images/text_logo.png'),
                 const SizedBox(height: 20),
-                Text('Tell us more about you', style: MainTheme.h2White),
+                Text('Enter the invite code given by your home manager', style: MainTheme.h2White, textAlign: TextAlign.center,),
                 const SizedBox(height: 20),
-                // First Name Field
                 TextField(
-                  controller: _firstNameController, 
-                  focusNode: _firstNameFocusNode, 
+                  controller: _inviteCodeController,
+                  focusNode: _inviteCodeFocusNode,
                   keyboardType: TextInputType.text,
                   decoration:
-                      MainTheme.luminaInputDecoration(hintText: "First Name"),
-                  style: const TextStyle(color: Colors.white),
-                  cursorColor: Colors.white,
-                ),
-                const SizedBox(height: 16),
-                // Last Name Field
-                TextField(
-                  controller: _lastNameController, 
-                  focusNode: _lastNameFocusNode, 
-                  keyboardType: TextInputType.text,
-                  decoration:
-                      MainTheme.luminaInputDecoration(hintText: "Last Name"),
-                  style: const TextStyle(color: Colors.white),
-                  cursorColor: Colors.white,
-                ),
-                const SizedBox(height: 16),
-                // Phone Number Field
-                TextField(
-                  controller: _phoneController, 
-                  focusNode: _phoneFocusNode, 
-                  keyboardType: TextInputType.phone,
-                  decoration:
-                      MainTheme.luminaInputDecoration(hintText: "Phone Number"),
+                      MainTheme.luminaInputDecoration(hintText: "Household"),
                   style: const TextStyle(color: Colors.white),
                   cursorColor: Colors.white,
                 ),
@@ -86,7 +54,7 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text(
-                    'Sign Up',
+                    'Finish',
                     style: MainTheme.h3Black,
                   ),
                 ),
@@ -102,8 +70,7 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Already have an account? ",
-                        style: MainTheme.smallPrint),
+                    Text("Already have an account? ", style: MainTheme.smallPrint),
                     GestureDetector(
                         onTap: () {
                           Navigator.pushNamed(context, Routes.login);

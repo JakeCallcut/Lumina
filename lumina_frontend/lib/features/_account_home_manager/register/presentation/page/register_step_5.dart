@@ -2,23 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/routes.dart';
 
-class ManagerRegisterStep2 extends StatefulWidget {
+class ManagerRegisterStep5 extends StatefulWidget {
   @override
-  _RegisterStep2State createState() => _RegisterStep2State();
+  _RegisterStep5State createState() => _RegisterStep5State();
 }
 
-class _RegisterStep2State extends State<ManagerRegisterStep2> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final FocusNode _emailFocusNode = FocusNode();
-  final FocusNode _passwordFocusNode = FocusNode();
+class _RegisterStep5State extends State<ManagerRegisterStep5> {
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final FocusNode _firstNameFocusNode = FocusNode();
+  final FocusNode _lastNameFocusNode = FocusNode();
+  final FocusNode _phoneFocusNode = FocusNode();
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    _emailFocusNode.dispose();
-    _passwordFocusNode.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _phoneController.dispose();
+
+    _firstNameFocusNode.dispose();
+    _lastNameFocusNode.dispose();
+    _phoneFocusNode.dispose();
     super.dispose();
   }
 
@@ -37,38 +42,51 @@ class _RegisterStep2State extends State<ManagerRegisterStep2> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/images/register_progress/progress_2.png'),
+                Image.asset('assets/images/register_progress/progress_4.png'),
                 Image.asset('assets/images/text_logo.png'),
                 const SizedBox(height: 20),
-                Text('Enter Your Details', style: MainTheme.h2White),
+                Text('Tell us more about you', style: MainTheme.h2White),
                 const SizedBox(height: 20),
+                // First Name Field
                 TextField(
-                  controller: _emailController,
-                  focusNode: _emailFocusNode,
-                  keyboardType: TextInputType.emailAddress,
+                  controller: _firstNameController, 
+                  focusNode: _firstNameFocusNode, 
+                  keyboardType: TextInputType.text,
                   decoration:
-                      MainTheme.luminaInputDecoration(hintText: "Email"),
+                      MainTheme.luminaInputDecoration(hintText: "First Name"),
                   style: const TextStyle(color: Colors.white),
                   cursorColor: Colors.white,
                 ),
                 const SizedBox(height: 16),
+                // Last Name Field
                 TextField(
-                  controller: _passwordController,
-                  focusNode: _passwordFocusNode,
-                  obscureText: true,
+                  controller: _lastNameController, 
+                  focusNode: _lastNameFocusNode, 
+                  keyboardType: TextInputType.text,
                   decoration:
-                      MainTheme.luminaInputDecoration(hintText: "Password"),
+                      MainTheme.luminaInputDecoration(hintText: "Last Name"),
+                  style: const TextStyle(color: Colors.white),
+                  cursorColor: Colors.white,
+                ),
+                const SizedBox(height: 16),
+                // Phone Number Field
+                TextField(
+                  controller: _phoneController, 
+                  focusNode: _phoneFocusNode, 
+                  keyboardType: TextInputType.phone,
+                  decoration:
+                      MainTheme.luminaInputDecoration(hintText: "Phone Number"),
                   style: const TextStyle(color: Colors.white),
                   cursorColor: Colors.white,
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.register3);
+                    Navigator.pushNamed(context, Routes.home);
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text(
-                    'Continue',
+                    'Finish',
                     style: MainTheme.h3Black,
                   ),
                 ),
@@ -84,7 +102,8 @@ class _RegisterStep2State extends State<ManagerRegisterStep2> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Already have an account? ", style: MainTheme.smallPrint),
+                    Text("Already have an account? ",
+                        style: MainTheme.smallPrint),
                     GestureDetector(
                         onTap: () {
                           Navigator.pushNamed(context, Routes.login);

@@ -4,3 +4,4 @@ export 'stats/presentation/page/stats_page.dart';
 export 'register/presentation/page/register_step_2.dart';
 export 'register/presentation/page/register_step_3.dart';
 export 'register/presentation/page/register_step_4.dart';
+export 'register/presentation/page/register_step_5.dart';

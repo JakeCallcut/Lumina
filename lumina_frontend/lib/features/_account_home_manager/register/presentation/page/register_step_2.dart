@@ -37,7 +37,7 @@ class _RegisterStep2State extends State<ManagerRegisterStep2> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/images/register_progress/progress_2.png'),
+                Image.asset('assets/images/register_progress/progress_1.png'),
                 Image.asset('assets/images/text_logo.png'),
                 const SizedBox(height: 20),
                 Text('Enter Your Details', style: MainTheme.h2White),
@@ -47,7 +47,7 @@ class _RegisterStep2State extends State<ManagerRegisterStep2> {
                   focusNode: _emailFocusNode,
                   keyboardType: TextInputType.emailAddress,
                   decoration:
-                      MainTheme.luminaInputDecoration(hintText: "Email"),
+                      MainTheme.luminaInputDecoration(hintText: "Top Level Home"),
                   style: const TextStyle(color: Colors.white),
                   cursorColor: Colors.white,
                 ),

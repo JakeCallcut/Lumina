@@ -54,6 +54,7 @@ class Routes {
   static const String register2 = '/register/2';
   static const String register3 = '/register/3';
   static const String register4 = '/register/4';
+  static const String register5 = '/register/5';
 
   //user role for routing
   static String userRole = 'resident';
@@ -100,7 +101,8 @@ class Routes {
         return NoTransitionPageRoute(builder: (_) => userRole == 'manager'
                 ? ManagerRegisterStep4()
                 : ResidentRegisterStep4());
-
+      case register5:
+        return NoTransitionPageRoute(builder: (_) => ManagerRegisterStep5());
       //edge case pages
       case loading:
         return NoTransitionPageRoute(builder: (_) => SplashPage());
