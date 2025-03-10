@@ -8,17 +8,21 @@ class ManagerRegisterStep2 extends StatefulWidget {
 }
 
 class _RegisterStep2State extends State<ManagerRegisterStep2> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final FocusNode _emailFocusNode = FocusNode();
-  final FocusNode _passwordFocusNode = FocusNode();
+  final TextEditingController _idController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _blackListController = TextEditingController();
+  final FocusNode _idFocusNode = FocusNode();
+  final FocusNode _nameFocusNode = FocusNode();
+  final FocusNode _blackListFocusNode = FocusNode();
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    _emailFocusNode.dispose();
-    _passwordFocusNode.dispose();
+    _idController.dispose();
+    _nameController.dispose();
+    _blackListController.dispose();
+    _idFocusNode.dispose();
+    _nameFocusNode.dispose();
+    _blackListFocusNode.dispose();
     super.dispose();
   }
 
@@ -37,27 +41,38 @@ class _RegisterStep2State extends State<ManagerRegisterStep2> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/images/register_progress/progress_1.png'),
+                Image.asset('assets/images/register_progress/progress_2.png'),
                 Image.asset('assets/images/text_logo.png'),
                 const SizedBox(height: 20),
-                Text('Enter Your Details', style: MainTheme.h2White),
+                Text('Add your Top Level Home', style: MainTheme.h2White),
                 const SizedBox(height: 20),
                 TextField(
-                  controller: _emailController,
-                  focusNode: _emailFocusNode,
+                  controller: _idController,
+                  focusNode: _idFocusNode,
                   keyboardType: TextInputType.emailAddress,
                   decoration:
-                      MainTheme.luminaInputDecoration(hintText: "Top Level Home"),
+                      MainTheme.luminaInputDecoration(hintText: "ID"),
                   style: const TextStyle(color: Colors.white),
                   cursorColor: Colors.white,
                 ),
                 const SizedBox(height: 16),
                 TextField(
-                  controller: _passwordController,
-                  focusNode: _passwordFocusNode,
+                  controller: _nameController,
+                  focusNode: _nameFocusNode,
                   obscureText: true,
                   decoration:
-                      MainTheme.luminaInputDecoration(hintText: "Password"),
+                      MainTheme.luminaInputDecoration(hintText: "Name"),
+                  style: const TextStyle(color: Colors.white),
+                  cursorColor: Colors.white,
+                ),
+                const SizedBox(height: 16),
+                // Phone Number Field
+                TextField(
+                  controller: _blackListController, 
+                  focusNode: _blackListFocusNode, 
+                  keyboardType: TextInputType.phone,
+                  decoration:
+                      MainTheme.luminaInputDecoration(hintText: "Black List"),
                   style: const TextStyle(color: Colors.white),
                   cursorColor: Colors.white,
                 ),

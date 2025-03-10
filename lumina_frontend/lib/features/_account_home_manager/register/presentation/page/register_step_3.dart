@@ -8,13 +8,21 @@ class ManagerRegisterStep3 extends StatefulWidget {
 }
 
 class _RegisterStep3State extends State<ManagerRegisterStep3> {
-  final TextEditingController _inviteCodeController = TextEditingController();
-  final FocusNode _inviteCodeFocusNode = FocusNode();
+  final TextEditingController _idController = TextEditingController();
+  final TextEditingController _detailsController = TextEditingController();
+  final TextEditingController _settingsController = TextEditingController();
+  final FocusNode _idFocusNode = FocusNode();
+  final FocusNode _detailsFocusNode = FocusNode();
+  final FocusNode _settingsFocusNode = FocusNode();
 
   @override
   void dispose() {
-    _inviteCodeController.dispose();
-    _inviteCodeFocusNode.dispose();
+    _idController.dispose();
+    _detailsController.dispose();
+    _settingsController.dispose();
+    _idFocusNode.dispose();
+    _detailsFocusNode.dispose();
+    _settingsFocusNode.dispose();
     super.dispose();
   }
 
@@ -36,14 +44,35 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
                 Image.asset('assets/images/register_progress/progress_3.png'),
                 Image.asset('assets/images/text_logo.png'),
                 const SizedBox(height: 20),
-                Text('Enter the invite code given by your home manager', style: MainTheme.h2White, textAlign: TextAlign.center,),
+                Text('Add your Households', style: MainTheme.h2White),
                 const SizedBox(height: 20),
                 TextField(
-                  controller: _inviteCodeController,
-                  focusNode: _inviteCodeFocusNode,
-                  keyboardType: TextInputType.text,
+                  controller: _idController,
+                  focusNode: _idFocusNode,
+                  keyboardType: TextInputType.emailAddress,
                   decoration:
-                      MainTheme.luminaInputDecoration(hintText: "Household"),
+                      MainTheme.luminaInputDecoration(hintText: "ID"),
+                  style: const TextStyle(color: Colors.white),
+                  cursorColor: Colors.white,
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: _detailsController,
+                  focusNode: _detailsFocusNode,
+                  obscureText: true,
+                  decoration:
+                      MainTheme.luminaInputDecoration(hintText: "Home Details"),
+                  style: const TextStyle(color: Colors.white),
+                  cursorColor: Colors.white,
+                ),
+                const SizedBox(height: 16),
+                // Phone Number Field
+                TextField(
+                  controller: _settingsController, 
+                  focusNode: _settingsFocusNode, 
+                  keyboardType: TextInputType.phone,
+                  decoration:
+                      MainTheme.luminaInputDecoration(hintText: "Home Settings"),
                   style: const TextStyle(color: Colors.white),
                   cursorColor: Colors.white,
                 ),
@@ -54,7 +83,7 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text(
-                    'Finish',
+                    'Continue',
                     style: MainTheme.h3Black,
                   ),
                 ),
