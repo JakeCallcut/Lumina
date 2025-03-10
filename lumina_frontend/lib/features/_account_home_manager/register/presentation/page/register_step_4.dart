@@ -37,7 +37,7 @@ class _RegisterStep4State extends State<ManagerRegisterStep4> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/images/register_progress/progress_2.png'),
+                Image.asset('assets/images/register_progress/progress_4.png'),
                 Image.asset('assets/images/text_logo.png'),
                 const SizedBox(height: 20),
                 Text('Enter Your Details', style: MainTheme.h2White),

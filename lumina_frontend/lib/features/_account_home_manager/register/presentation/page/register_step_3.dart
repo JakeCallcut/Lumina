@@ -33,7 +33,7 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/images/register_progress/progress_2.png'),
+                Image.asset('assets/images/register_progress/progress_3.png'),
                 Image.asset('assets/images/text_logo.png'),
                 const SizedBox(height: 20),
                 Text('Enter the invite code given by your home manager', style: MainTheme.h2White, textAlign: TextAlign.center,),
