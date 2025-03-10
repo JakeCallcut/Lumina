@@ -2,28 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/routes.dart';
 
-class RegisterStep3 extends StatefulWidget {
+class ManagerRegisterStep3 extends StatefulWidget {
   @override
   _RegisterStep3State createState() => _RegisterStep3State();
 }
 
-class _RegisterStep3State extends State<RegisterStep3> {
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-  final FocusNode _firstNameFocusNode = FocusNode();
-  final FocusNode _lastNameFocusNode = FocusNode();
-  final FocusNode _phoneFocusNode = FocusNode();
+class _RegisterStep3State extends State<ManagerRegisterStep3> {
+  final TextEditingController _idController = TextEditingController();
+  final TextEditingController _detailsController = TextEditingController();
+  final TextEditingController _settingsController = TextEditingController();
+  final FocusNode _idFocusNode = FocusNode();
+  final FocusNode _detailsFocusNode = FocusNode();
+  final FocusNode _settingsFocusNode = FocusNode();
 
   @override
   void dispose() {
-    _firstNameController.dispose();
-    _lastNameController.dispose();
-    _phoneController.dispose();
-
-    _firstNameFocusNode.dispose();
-    _lastNameFocusNode.dispose();
-    _phoneFocusNode.dispose();
+    _idController.dispose();
+    _detailsController.dispose();
+    _settingsController.dispose();
+    _idFocusNode.dispose();
+    _detailsFocusNode.dispose();
+    _settingsFocusNode.dispose();
     super.dispose();
   }
 
@@ -45,37 +44,35 @@ class _RegisterStep3State extends State<RegisterStep3> {
                 Image.asset('assets/images/register_progress/progress_3.png'),
                 Image.asset('assets/images/text_logo.png'),
                 const SizedBox(height: 20),
-                Text('Tell us more about you', style: MainTheme.h2White),
+                Text('Add your Households', style: MainTheme.h2White),
                 const SizedBox(height: 20),
-                // First Name Field
                 TextField(
-                  controller: _firstNameController, 
-                  focusNode: _firstNameFocusNode, 
-                  keyboardType: TextInputType.text,
+                  controller: _idController,
+                  focusNode: _idFocusNode,
+                  keyboardType: TextInputType.emailAddress,
                   decoration:
-                      MainTheme.luminaInputDecoration(hintText: "First Name"),
+                      MainTheme.luminaInputDecoration(hintText: "ID"),
                   style: const TextStyle(color: Colors.white),
                   cursorColor: Colors.white,
                 ),
                 const SizedBox(height: 16),
-                // Last Name Field
                 TextField(
-                  controller: _lastNameController, 
-                  focusNode: _lastNameFocusNode, 
-                  keyboardType: TextInputType.text,
+                  controller: _detailsController,
+                  focusNode: _detailsFocusNode,
+                  obscureText: true,
                   decoration:
-                      MainTheme.luminaInputDecoration(hintText: "Last Name"),
+                      MainTheme.luminaInputDecoration(hintText: "Home Details"),
                   style: const TextStyle(color: Colors.white),
                   cursorColor: Colors.white,
                 ),
                 const SizedBox(height: 16),
                 // Phone Number Field
                 TextField(
-                  controller: _phoneController, 
-                  focusNode: _phoneFocusNode, 
+                  controller: _settingsController, 
+                  focusNode: _settingsFocusNode, 
                   keyboardType: TextInputType.phone,
                   decoration:
-                      MainTheme.luminaInputDecoration(hintText: "Phone Number"),
+                      MainTheme.luminaInputDecoration(hintText: "Home Settings"),
                   style: const TextStyle(color: Colors.white),
                   cursorColor: Colors.white,
                 ),
@@ -86,7 +83,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text(
-                    'Sign Up',
+                    'Continue',
                     style: MainTheme.h3Black,
                   ),
                 ),
@@ -102,8 +99,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Already have an account? ",
-                        style: MainTheme.smallPrint),
+                    Text("Already have an account? ", style: MainTheme.smallPrint),
                     GestureDetector(
                         onTap: () {
                           Navigator.pushNamed(context, Routes.login);
