@@ -112,8 +112,12 @@ class _RegisterStep2State extends State<ManagerRegisterStep2> {
       "bLDevices" : ["drone", "fryer"]
     };
 
-    instance.addTopLevelHomes(tLH as TopLevelHome);
-
+    try {
+    await instance.addTopLevelHomes(tLH as TopLevelHome);
     Navigator.pushNamed(context, Routes.register3);
+  } catch (e) {
+    // Handle error
+    print("Error adding top level home: $e");
+  }
   }
 }
