@@ -8,19 +8,15 @@ class ManagerRegisterStep3 extends StatefulWidget {
 }
 
 class _RegisterStep3State extends State<ManagerRegisterStep3> {
-  final TextEditingController _idController = TextEditingController();
   final TextEditingController _detailsController = TextEditingController();
   final TextEditingController _settingsController = TextEditingController();
-  final FocusNode _idFocusNode = FocusNode();
   final FocusNode _detailsFocusNode = FocusNode();
   final FocusNode _settingsFocusNode = FocusNode();
 
   @override
   void dispose() {
-    _idController.dispose();
     _detailsController.dispose();
     _settingsController.dispose();
-    _idFocusNode.dispose();
     _detailsFocusNode.dispose();
     _settingsFocusNode.dispose();
     super.dispose();
@@ -47,21 +43,10 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
                 Text('Add your Households', style: MainTheme.h2White),
                 const SizedBox(height: 20),
                 TextField(
-                  controller: _idController,
-                  focusNode: _idFocusNode,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration:
-                      MainTheme.luminaInputDecoration(hintText: "ID"),
-                  style: const TextStyle(color: Colors.white),
-                  cursorColor: Colors.white,
-                ),
-                const SizedBox(height: 16),
-                TextField(
                   controller: _detailsController,
                   focusNode: _detailsFocusNode,
-                  obscureText: true,
                   decoration:
-                      MainTheme.luminaInputDecoration(hintText: "Home Details"),
+                      MainTheme.luminaInputDecoration(hintText: "Address or Num"),
                   style: const TextStyle(color: Colors.white),
                   cursorColor: Colors.white,
                 ),
@@ -72,9 +57,19 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
                   focusNode: _settingsFocusNode, 
                   keyboardType: TextInputType.phone,
                   decoration:
-                      MainTheme.luminaInputDecoration(hintText: "Home Settings"),
+                      MainTheme.luminaInputDecoration(hintText: "Invite Code"),
                   style: const TextStyle(color: Colors.white),
                   cursorColor: Colors.white,
+                ),
+                const SizedBox(height: 24),
+                ElevatedButton(
+                  onPressed: () {      
+                  },
+                  style: MainTheme.luminaLightButton,
+                  child: Text(
+                    'Add home',
+                    style: MainTheme.h3Black,
+                  ),
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton(
