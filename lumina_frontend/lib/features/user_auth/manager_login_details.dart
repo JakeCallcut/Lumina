@@ -1,4 +1,4 @@
-class LoginDetails {
+class ManagerLoginDetails {
   String email;
   String password;
   bool isManager;
@@ -8,7 +8,7 @@ class LoginDetails {
   String userID;
   String inviteCode;
 
-  LoginDetails(
+  ManagerLoginDetails(
     this.email,
     this.password,
     this.isManager,
