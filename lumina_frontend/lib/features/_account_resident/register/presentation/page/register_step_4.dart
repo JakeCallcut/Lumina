@@ -1,13 +1,22 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
+import 'package:lumina_frontend/features/user_auth/register_login_details.dart';
+import 'package:lumina_frontend/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:lumina_frontend/routes.dart';
 
 class ResidentRegisterStep4 extends StatefulWidget {
+  final LoginDetails loginDetails;
+  
+  const ResidentRegisterStep4({super.key, required this.loginDetails});
+
   @override
   _RegisterStep4State createState() => _RegisterStep4State();
 }
 
 class _RegisterStep4State extends State<ResidentRegisterStep4> {
+  final FirebaseAuthService _auth = FirebaseAuthService();
+
   final TextEditingController _inviteCodeController = TextEditingController();
   final FocusNode _inviteCodeFocusNode = FocusNode();
 
@@ -84,5 +93,27 @@ class _RegisterStep4State extends State<ResidentRegisterStep4> {
         ),
       ),
     );
+  }
+  void finishRegistration() {
+    if (_inviteCodeController.text.isNotEmpty) {
+      widget.loginDetails.inviteCode = _inviteCodeController.text; // Update inviteCode
+      _signUp();
+      
+      Navigator.pushNamed(context, Routes.home);
+    }
+  }
+
+  void _signUp() async {
+    String email = widget.loginDetails.email;
+    String password = widget.loginDetails.password;
+
+    User? user = await _auth.signUpWithEmailAndPassword(email, password);
+
+    if (user != null) {
+      print("Account is successfully created");
+      widget.loginDetails.userID = user.uid;   // This part fetches the userID 
+      print(widget.loginDetails.userID);
+      Navigator.pushNamed(context, Routes.home);
+    }
   }
 }

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/routes.dart';
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
+import 'package:lumina_frontend/features/user_auth/register_login_details.dart';
 
 class RegisterStep1 extends StatefulWidget {
+
   @override
   _RegisterStep1State createState() => _RegisterStep1State();
 }
@@ -16,14 +18,14 @@ class _RegisterStep1State extends State<RegisterStep1> {
     super.dispose();
   }
 
-  void _continueRegistration() {
-    // Set the role globally
-    Routes.setUserRole(_accountType);
-    Navbar.setUserRole(_accountType);
+  // void _continueRegistration() {
+  //   // Set the role globally
+  //   Routes.setUserRole(_accountType);
+  //   Navbar.setUserRole(_accountType);
 
-    // Navigate to the next step
-    Navigator.pushNamed(context, Routes.register2);
-  }
+  //   // Navigate to the next step
+  //   Navigator.pushNamed(context, Routes.register2);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +89,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    _continueRegistration();
+                    beginRegistration();
                     //Navigator.pushNamed(context, Routes.register3);
                   },
                   style: MainTheme.luminaLightButton,
@@ -120,5 +122,12 @@ class _RegisterStep1State extends State<RegisterStep1> {
         ),
       ),
     );
+  }
+    void beginRegistration() {
+
+    Routes.setUserRole(_accountType);
+    Navbar.setUserRole(_accountType);
+
+    Navigator.pushNamed(context, Routes.register2);
   }
 }
