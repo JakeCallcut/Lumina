@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:lumina_frontend/features/_account_home_manager/account_home_manager.dart'; //Collection of all manager pages
 import 'package:lumina_frontend/features/_account_resident/account_resident.dart'; //Collection of all resident pages
-import 'package:lumina_frontend/features/_account_resident/devicelist/presentation/page/devicelist.dart';
 
 import 'package:lumina_frontend/features/error/presentation/page/error_page.dart';
 import 'package:lumina_frontend/features/landing/presentation/page/landing_page.dart';
 import 'package:lumina_frontend/features/loading/presentation/page/splash_page.dart';
 import 'package:lumina_frontend/features/login/presentation/page/login_page.dart';
-import 'package:lumina_frontend/features/_account_resident/register/presentation/page/register_step_2.dart';
 import 'package:lumina_frontend/features/register/presentation/page/register_step_1.dart';
-import 'package:lumina_frontend/features/_account_resident/register/presentation/page/register_step_3.dart';
-import 'package:lumina_frontend/features/_account_resident/register/presentation/page/register_step_4.dart';
+import 'package:lumina_frontend/features/user_auth/login_details.dart';
 
 class NoTransitionPageRoute extends PageRoute {
   final WidgetBuilder builder;
@@ -92,15 +89,15 @@ class Routes {
       case register2:
         return NoTransitionPageRoute(builder: (_) => userRole == 'manager'
                 ? ManagerRegisterStep2()
-                : ResidentRegisterStep2());
+                : ResidentRegisterStep2(accountType:  userRole));
       case register3:
         return NoTransitionPageRoute(builder: (_) => userRole == 'manager'
                 ? ManagerRegisterStep3()
-                : ResidentRegisterStep3());
+                : ResidentRegisterStep3(loginDetails:  settings.arguments as LoginDetails));
       case register4:
         return NoTransitionPageRoute(builder: (_) => userRole == 'manager'
                 ? ManagerRegisterStep4()
-                : ResidentRegisterStep4());
+                : ResidentRegisterStep4(loginDetails:  settings.arguments as LoginDetails));
       case register5:
         return NoTransitionPageRoute(builder: (_) => ManagerRegisterStep5());
       //edge case pages

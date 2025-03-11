@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
+import 'package:lumina_frontend/features/user_auth/login_details.dart';
 import 'package:lumina_frontend/routes.dart';
 
 class ResidentRegisterStep3 extends StatefulWidget {
+   final LoginDetails loginDetails;
+
+  const ResidentRegisterStep3({super.key, required this.loginDetails});
+
   @override
   _RegisterStep3State createState() => _RegisterStep3State();
 }
@@ -82,7 +87,7 @@ class _RegisterStep3State extends State<ResidentRegisterStep3> {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.register4);
+                    continueRegistration();
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text(
@@ -117,5 +122,12 @@ class _RegisterStep3State extends State<ResidentRegisterStep3> {
         ),
       ),
     );
+  }
+  void continueRegistration() {
+    widget.loginDetails.firstname = _firstNameController.text;
+    widget.loginDetails.lastname = _lastNameController.text;
+    widget.loginDetails.phoneNumber = _phoneController.text;
+
+    Navigator.pushNamed(context, Routes.register4, arguments: widget.loginDetails);
   }
 }
