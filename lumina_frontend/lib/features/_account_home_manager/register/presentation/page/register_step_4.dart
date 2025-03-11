@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
-import 'package:lumina_frontend/features/user_auth/register_login_details.dart';
+import 'package:lumina_frontend/features/user_auth/manager_login_details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lumina_frontend/routes.dart';
 
@@ -137,7 +137,7 @@ class _RegisterStep4State extends State<ManagerRegisterStep4> {
     }
 
     // Email does not exist, proceed with registration
-    LoginDetails _loginDetails = LoginDetails(email, password, false, '', '', '', '', '');
+    ManagerLoginDetails _loginDetails = ManagerLoginDetails(email, password, false, '', '', '', '', '');
 
     if (_accountType == 'manager') {
       _loginDetails.isManager = true;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
-import 'package:lumina_frontend/features/user_auth/register_login_details.dart';
+import 'package:lumina_frontend/features/user_auth/resident_login_details.dart';
 import 'package:lumina_frontend/routes.dart';
 
 class ResidentRegisterStep3 extends StatefulWidget {

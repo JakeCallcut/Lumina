@@ -8,7 +8,8 @@ import 'package:lumina_frontend/features/landing/presentation/page/landing_page.
 import 'package:lumina_frontend/features/loading/presentation/page/splash_page.dart';
 import 'package:lumina_frontend/features/login/presentation/page/login_page.dart';
 import 'package:lumina_frontend/features/register/presentation/page/register_step_1.dart';
-import 'package:lumina_frontend/features/user_auth/register_login_details.dart';
+import 'package:lumina_frontend/features/user_auth/resident_login_details.dart';
+import 'package:lumina_frontend/features/user_auth/manager_login_details.dart';
 
 class NoTransitionPageRoute extends PageRoute {
   final WidgetBuilder builder;
@@ -99,7 +100,7 @@ class Routes {
                 ? ManagerRegisterStep4(accountType:  userRole)
                 : ResidentRegisterStep4(loginDetails:  settings.arguments as LoginDetails));
       case register5:
-        return NoTransitionPageRoute(builder: (_) => ManagerRegisterStep5(loginDetails:  settings.arguments as LoginDetails));
+        return NoTransitionPageRoute(builder: (_) => ManagerRegisterStep5(ManagerloginDetails:  settings.arguments as ManagerLoginDetails));
       //edge case pages
       case loading:
         return NoTransitionPageRoute(builder: (_) => SplashPage());
