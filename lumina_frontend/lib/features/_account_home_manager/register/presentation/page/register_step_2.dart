@@ -15,6 +15,7 @@ class _RegisterStep2State extends State<ManagerRegisterStep2> {
   final TextEditingController _blackListController = TextEditingController();
   final FocusNode _nameFocusNode = FocusNode();
   final FocusNode _blackListFocusNode = FocusNode();
+  var instance = Integration();
 
   @override
   void dispose() {
@@ -67,7 +68,7 @@ class _RegisterStep2State extends State<ManagerRegisterStep2> {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.register3);
+                    registerTLH();
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text(
@@ -101,5 +102,18 @@ class _RegisterStep2State extends State<ManagerRegisterStep2> {
         ),
       ),
     );
+  }
+  void registerTLH() async {
+    String tLHName = _nameController.text;
+    String blackList = _blackListController.text;
+
+    final tLH = {
+      "name" : tLHName,
+      "bLDevices" : ["drone", "fryer"]
+    };
+
+    instance.addTopLevelHomes(tLH as TopLevelHome);
+
+    Navigator.pushNamed(context, Routes.register3);
   }
 }

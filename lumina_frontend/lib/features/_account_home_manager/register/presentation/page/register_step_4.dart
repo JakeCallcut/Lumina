@@ -97,7 +97,8 @@ class _RegisterStep4State extends State<ManagerRegisterStep4> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Already have an account? ", style: MainTheme.smallPrint),
+                    Text("Already have an account? ",
+                        style: MainTheme.smallPrint),
                     GestureDetector(
                         onTap: () {
                           Navigator.pushNamed(context, Routes.login);
@@ -112,52 +113,56 @@ class _RegisterStep4State extends State<ManagerRegisterStep4> {
       ),
     );
   }
-    void continueRegistration() async {
-  String email = _emailController.text.trim();
-  String password = _passwordController.text;
 
-  // Validate email format
-  if (!_isValidEmail(email)) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Please enter a valid email address.")),
-    );
-    return;
-  }
+  void continueRegistration() async {
+    String email = _emailController.text.trim();
+    String password = _passwordController.text;
 
-  try {
-    final List<String> signInMethods =
-        await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
-
-    if (signInMethods.isNotEmpty) {
-      // Email already exists, show error message
+    // Validate email format
+    if (!_isValidEmail(email)) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Email already exists. Please use a different email.")),
+        SnackBar(content: Text("Please enter a valid email address.")),
       );
-      return; // Stop registration process
+      return;
     }
 
-    // Email does not exist, proceed with registration
-    LoginDetails _loginDetails = LoginDetails(email, password, false, '', '', '', '', '');
+    try {
+      final List<String> signInMethods =
+          await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
 
-    if (_accountType == 'manager') {
-      _loginDetails.isManager = true;
-    } else if (_accountType == 'resident') {
-      _loginDetails.isManager = false;
+      if (signInMethods.isNotEmpty) {
+        // Email already exists, show error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content:
+                  Text("Email already exists. Please use a different email.")),
+        );
+        return; // Stop registration process
+      }
+
+      // Email does not exist, proceed with registration
+      LoginDetails _loginDetails =
+          LoginDetails(email, password, false, '', '', '', '', '');
+
+      if (_accountType == 'manager') {
+        _loginDetails.isManager = true;
+      } else if (_accountType == 'resident') {
+        _loginDetails.isManager = false;
+      }
+
+      Navigator.pushNamed(context, Routes.register5, arguments: _loginDetails);
+    } catch (e) {
+      print("Error checking email existence: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("An error occurred. Please try again.")),
+      );
     }
-
-    Navigator.pushNamed(context, Routes.register5, arguments: _loginDetails);
-  } catch (e) {
-    print("Error checking email existence: $e");
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("An error occurred. Please try again.")),
-    );
   }
-}
 
 // Function to validate email format
-bool _isValidEmail(String email) {
-  return RegExp(
-          r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$") // Basic email pattern
-      .hasMatch(email);
-}
+  bool _isValidEmail(String email) {
+    return RegExp(
+            r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$") // Basic email pattern
+        .hasMatch(email);
+  }
 }
