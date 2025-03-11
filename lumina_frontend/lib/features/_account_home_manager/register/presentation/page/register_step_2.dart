@@ -3,6 +3,7 @@ import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/routes.dart';
 
 class ManagerRegisterStep2 extends StatefulWidget {
+
   @override
   _RegisterStep2State createState() => _RegisterStep2State();
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
+import 'package:lumina_frontend/features/user_auth/register_login_details.dart';
 import 'package:lumina_frontend/routes.dart';
 
 class ManagerRegisterStep5 extends StatefulWidget {
@@ -117,5 +118,12 @@ class _RegisterStep5State extends State<ManagerRegisterStep5> {
         ),
       ),
     );
+  }
+    void continueRegistration() {
+    widget.loginDetails.firstname = _firstNameController.text;
+    widget.loginDetails.lastname = _lastNameController.text;
+    widget.loginDetails.phoneNumber = _phoneController.text;
+
+    Navigator.pushNamed(context, Routes.register4, arguments: widget.loginDetails);
   }
 }

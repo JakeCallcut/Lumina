@@ -1,17 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
+import 'package:lumina_frontend/features/user_auth/register_login_details.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:lumina_frontend/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:lumina_frontend/routes.dart';
 
 class ManagerRegisterStep4 extends StatefulWidget {
+  String accountType = '';
+
+  ManagerRegisterStep4({Key? key, required this.accountType}) : super(key: key);
   @override
   _RegisterStep4State createState() => _RegisterStep4State();
 }
 
 class _RegisterStep4State extends State<ManagerRegisterStep4> {
+  final FirebaseAuthService _auth = FirebaseAuthService();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
+
+  late final String _accountType;
+
+  @override
+  void initState() {
+    super.initState();
+    _accountType = widget.accountType;
+  }
 
   @override
   void dispose() {
@@ -64,7 +79,7 @@ class _RegisterStep4State extends State<ManagerRegisterStep4> {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.register5);
+                    continueRegistration();
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text(
@@ -99,4 +114,52 @@ class _RegisterStep4State extends State<ManagerRegisterStep4> {
       ),
     );
   }
+    void continueRegistration() async {
+  String email = _emailController.text.trim();
+  String password = _passwordController.text;
+
+  // Validate email format
+  if (!_isValidEmail(email)) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Please enter a valid email address.")),
+    );
+    return;
+  }
+
+  try {
+    final List<String> signInMethods =
+        await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+
+    if (signInMethods.isNotEmpty) {
+      // Email already exists, show error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Email already exists. Please use a different email.")),
+      );
+      return; // Stop registration process
+    }
+
+    // Email does not exist, proceed with registration
+    LoginDetails _loginDetails = LoginDetails(email, password, false, '', '', '', '', '');
+
+    if (_accountType == 'manager') {
+      _loginDetails.isManager = true;
+    } else if (_accountType == 'resident') {
+      _loginDetails.isManager = false;
+    }
+
+    Navigator.pushNamed(context, Routes.register5, arguments: _loginDetails);
+  } catch (e) {
+    print("Error checking email existence: $e");
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("An error occurred. Please try again.")),
+    );
+  }
+}
+
+// Function to validate email format
+bool _isValidEmail(String email) {
+  return RegExp(
+          r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$") // Basic email pattern
+      .hasMatch(email);
+}
 }

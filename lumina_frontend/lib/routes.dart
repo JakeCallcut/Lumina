@@ -8,7 +8,7 @@ import 'package:lumina_frontend/features/landing/presentation/page/landing_page.
 import 'package:lumina_frontend/features/loading/presentation/page/splash_page.dart';
 import 'package:lumina_frontend/features/login/presentation/page/login_page.dart';
 import 'package:lumina_frontend/features/register/presentation/page/register_step_1.dart';
-import 'package:lumina_frontend/features/user_auth/login_details.dart';
+import 'package:lumina_frontend/features/user_auth/register_login_details.dart';
 
 class NoTransitionPageRoute extends PageRoute {
   final WidgetBuilder builder;

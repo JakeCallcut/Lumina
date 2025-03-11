@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
-import 'package:lumina_frontend/features/user_auth/login_details.dart';
+import 'package:lumina_frontend/features/user_auth/register_login_details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lumina_frontend/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:lumina_frontend/routes.dart';
@@ -20,7 +20,13 @@ class _RegisterStep2State extends State<ResidentRegisterStep2> {
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
 
-  String _accountType = '';
+  late final String _accountType;
+
+  @override
+  void initState() {
+    super.initState();
+    _accountType = widget.accountType;
+  }
 
   @override
   void dispose() {
@@ -155,8 +161,8 @@ class _RegisterStep2State extends State<ResidentRegisterStep2> {
     LoginDetails _loginDetails = LoginDetails(email, password, false, '', '', '', '', '');
 
     if (_accountType == 'manager') {
-      _loginDetails.isManager = true;
     } else if (_accountType == 'resident') {
+      _loginDetails.isManager = true;
       _loginDetails.isManager = false;
     }
 
