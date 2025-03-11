@@ -144,6 +144,8 @@ class _RegisterStep5State extends State<ManagerRegisterStep5> {
       widget.loginDetails.userID = user.uid;   // This part fetches the userID 
       print(widget.loginDetails.userID);
       Navigator.pushNamed(context, Routes.home);
+
+      print(widget.loginDetails);
     }
   }
 }
