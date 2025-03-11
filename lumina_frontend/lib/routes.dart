@@ -96,10 +96,10 @@ class Routes {
                 : ResidentRegisterStep3(loginDetails:  settings.arguments as LoginDetails));
       case register4:
         return NoTransitionPageRoute(builder: (_) => userRole == 'manager'
-                ? ManagerRegisterStep4()
+                ? ManagerRegisterStep4(accountType:  userRole)
                 : ResidentRegisterStep4(loginDetails:  settings.arguments as LoginDetails));
       case register5:
-        return NoTransitionPageRoute(builder: (_) => ManagerRegisterStep5());
+        return NoTransitionPageRoute(builder: (_) => ManagerRegisterStep5(loginDetails:  settings.arguments as LoginDetails));
       //edge case pages
       case loading:
         return NoTransitionPageRoute(builder: (_) => SplashPage());

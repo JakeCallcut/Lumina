@@ -1,14 +1,20 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/features/user_auth/register_login_details.dart';
+import 'package:lumina_frontend/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:lumina_frontend/routes.dart';
 
 class ManagerRegisterStep5 extends StatefulWidget {
+  final LoginDetails loginDetails;
+
+  const ManagerRegisterStep5({super.key, required this.loginDetails});
   @override
   _RegisterStep5State createState() => _RegisterStep5State();
 }
 
 class _RegisterStep5State extends State<ManagerRegisterStep5> {
+  final FirebaseAuthService _auth = FirebaseAuthService();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
@@ -83,7 +89,7 @@ class _RegisterStep5State extends State<ManagerRegisterStep5> {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.home);
+                    finishRegistration();
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text(
@@ -119,11 +125,25 @@ class _RegisterStep5State extends State<ManagerRegisterStep5> {
       ),
     );
   }
-    void continueRegistration() {
+  void finishRegistration() {
     widget.loginDetails.firstname = _firstNameController.text;
     widget.loginDetails.lastname = _lastNameController.text;
     widget.loginDetails.phoneNumber = _phoneController.text;
+    _signUp();
+    Navigator.pushNamed(context, Routes.home);
+  }
 
-    Navigator.pushNamed(context, Routes.register4, arguments: widget.loginDetails);
+  void _signUp() async {
+    String email = widget.loginDetails.email;
+    String password = widget.loginDetails.password;
+
+    User? user = await _auth.signUpWithEmailAndPassword(email, password);
+
+    if (user != null) {
+      print("Account is successfully created");
+      widget.loginDetails.userID = user.uid;   // This part fetches the userID 
+      print(widget.loginDetails.userID);
+      Navigator.pushNamed(context, Routes.home);
+    }
   }
 }

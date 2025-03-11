@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/features/user_auth/register_login_details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:lumina_frontend/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:lumina_frontend/routes.dart';
 
 class ResidentRegisterStep2 extends StatefulWidget {
@@ -14,7 +13,6 @@ class ResidentRegisterStep2 extends StatefulWidget {
 }
 
 class _RegisterStep2State extends State<ResidentRegisterStep2> {
-  final FirebaseAuthService _auth = FirebaseAuthService();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode _emailFocusNode = FocusNode();
