@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/routes.dart';
+import 'package:lumina_frontend/services/integration_Funcs.dart';
+import 'package:lumina_frontend/model/models.dart';
 
 class ManagerRegisterStep2 extends StatefulWidget {
 
