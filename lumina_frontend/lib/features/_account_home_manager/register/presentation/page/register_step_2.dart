@@ -107,13 +107,10 @@ class _RegisterStep2State extends State<ManagerRegisterStep2> {
     String tLHName = _nameController.text;
     String blackList = _blackListController.text;
 
-    final tLH = {
-      "name" : tLHName,
-      "bLDevices" : ["drone", "fryer"]
-    };
+    TopLevelHome tLH = TopLevelHome("", tLHName, []);
 
     try {
-    await instance.addTopLevelHomes(tLH as TopLevelHome);
+    await instance.addTopLevelHomes(tLH);
     Navigator.pushNamed(context, Routes.register3);
   } catch (e) {
     // Handle error
