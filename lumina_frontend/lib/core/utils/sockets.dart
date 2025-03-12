@@ -1,42 +1,45 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
-class Sockets {
-  int valueLED1 = 0;
+class Sockets with ChangeNotifier{
   Socket? socket;
-
-  static final Sockets _instance = Sockets._internal();
+  // ---------------------------------------
+  // This section makes this call as singleton, meaning only one instance can exist at one time
+  static final Sockets _instance = Sockets._internal(); 
 
   factory Sockets() {
     return _instance;
   }
   Sockets._internal();
+  // End of singleton section
+  // ---------------------------------------
 
-  StreamController<Map<String, int>> controller = StreamController<Map<String, int>>.broadcast();
-  StreamController<Map<String, int>> getController() => controller;
+  StreamController<Map<String, int>> controller = StreamController<Map<String, int>>.broadcast(); //makes a controller for a stream
 
-  void initSocket() {
+  Future<void> initSocket() async { //initialises the socket connection
     socket = io(
-      'ws:192.168.0.9:8080', //change this on day :)
+      'ws://192.168.0.9:8080', //change this on day :(
       OptionBuilder()
           .setTransports(['websocket'])
           .disableAutoConnect()
           .build(),
     );
 
-    socket?.onAny((event, data) {
+    socket?.onAny((event, data) { //this gets emits from the server and sends them out throughout the system using the stream
       controller.add({event: data});
     });
 
-    socket?.connect();
+    await socket?.connect(); // ensure it connects before continuing
   }
 
-  void changeState(String item, int state) {
-    valueLED1 = state;
-    socket?.emit(item, valueLED1);
+  void changeState(String item, int state) { //when the state is changed in an object
+    socket?.emit(item, state); //sends it to the server
   }
 
-  void dispose() {
+  @override
+  void dispose() { //gets rid of all connections
+    super.dispose();
     controller.close();
     socket?.dispose();
   }

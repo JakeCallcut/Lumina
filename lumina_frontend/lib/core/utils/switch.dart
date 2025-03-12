@@ -26,6 +26,16 @@ class LuminaSwitchState extends State<LuminaSwitch> {
     isOn = widget.initialValue;
   }
 
+  @override
+  void didUpdateWidget (LuminaSwitch oldWidget) { //will run when the switch is rebuilt
+    super.didUpdateWidget(oldWidget);
+    if (widget.initialValue != oldWidget.initialValue) { //if the rebuilt widget isnt the same as the old one
+      setState(() {
+        isOn = widget.initialValue; //update the value of the switch (i.e what its flipped to)
+      });
+    }
+  }
+
   void _toggleSwitch() {
     //toggling state of switch
     setState(() {

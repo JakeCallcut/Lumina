@@ -4,29 +4,38 @@ import 'package:flutter/material.dart';
 import 'package:lumina_frontend/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:lumina_frontend/core/utils/sockets.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-  options: DefaultFirebaseOptions.currentPlatform,
+    options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(const MyApp());
-}
+  // Initialize the socket here
+  Sockets socket = Sockets();
+  await socket.initSocket(); // Make sure the socket is fully initialized
 
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => socket, 
+      child: MyApp(), //allows access to socket from anywhere
+    ),
+  );
+}
 
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Lumina',
-      initialRoute: Routes.loading,
-      onGenerateRoute: Routes.generateRoute,
-      //theme: MainTheme.data(),
-    );
+      return MaterialApp(
+        title: 'Lumina',
+        initialRoute: Routes.loading,
+        onGenerateRoute: Routes.generateRoute,
+        // theme: MainTheme.data(),
+      );
   }
 }
