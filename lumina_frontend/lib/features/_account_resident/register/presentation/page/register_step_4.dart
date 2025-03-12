@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
-import 'package:lumina_frontend/features/user_auth/register_login_details.dart';
+import 'package:lumina_frontend/features/user_auth/resident_login_details.dart';
 import 'package:lumina_frontend/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:lumina_frontend/routes.dart';
 
@@ -59,7 +59,7 @@ class _RegisterStep4State extends State<ResidentRegisterStep4> {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.home);
+                    finishRegistration();
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text(
@@ -115,7 +115,7 @@ class _RegisterStep4State extends State<ResidentRegisterStep4> {
       print(widget.loginDetails.userID);
       Navigator.pushNamed(context, Routes.home);
 
-      print(widget.loginDetails);
+      print(widget.loginDetails.firstname);
     }
   }
 }

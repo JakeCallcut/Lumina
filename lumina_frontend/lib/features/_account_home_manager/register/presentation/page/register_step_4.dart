@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
-import 'package:lumina_frontend/features/user_auth/register_login_details.dart';
+import 'package:lumina_frontend/features/user_auth/manager_login_details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lumina_frontend/routes.dart';
 
@@ -126,6 +126,7 @@ class _RegisterStep4State extends State<ManagerRegisterStep4> {
       return;
     }
 
+v2-database-intergration
     if (!_isValidPassword(password)) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -148,16 +149,17 @@ class _RegisterStep4State extends State<ManagerRegisterStep4> {
         return; // Stop registration process
       }
 
-      // Email does not exist, proceed with registration
-      LoginDetails _loginDetails =
-          LoginDetails(email, password, false, '', '', '', '', '');
+    // Email does not exist, proceed with registration
+    ManagerLoginDetails _loginDetails = ManagerLoginDetails(email, password, false, '', '', '', '', '');
+if (_accountType == 'manager') {
 
-      if (_accountType == 'manager') {
         _loginDetails.isManager = true;
-      } else if (_accountType == 'resident') {
-        _loginDetails.isManager = false;
-      }
 
+      } else if (_accountType == 'resident') {
+
+        _loginDetails.isManager = false;
+
+      }
       Navigator.pushNamed(context, Routes.register5, arguments: _loginDetails);
     } catch (e) {
       print("Error checking email existence: $e");
