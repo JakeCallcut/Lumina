@@ -1,14 +1,21 @@
 import 'dart:async';
 import 'package:socket_io_client/socket_io_client.dart';
 
-class WebSockets {
+class Sockets {
   int valueLED1 = 0;
   Socket? socket;
-  final _ledController = StreamController<int>.broadcast(); // Broadcasting stream
 
-  Stream<int> get ledStream => _ledController.stream;
+  static final Sockets _instance = Sockets._internal();
 
-  void initState() {
+  factory Sockets() {
+    return _instance;
+  }
+  Sockets._internal();
+
+  StreamController<Map<String, int>> controller = StreamController<Map<String, int>>.broadcast();
+  StreamController<Map<String, int>> getController() => controller;
+
+  void initSocket() {
     socket = io(
       'ws:192.168.0.9:8080', //change this on day :)
       OptionBuilder()
@@ -17,11 +24,8 @@ class WebSockets {
           .build(),
     );
 
-    socket?.on('light', (data) {
-      if (data != valueLED1) {
-        valueLED1 = data;
-        _ledController.add(valueLED1);  // Push new value to the stream
-      }
+    socket?.onAny((event, data) {
+      controller.add({event: data});
     });
 
     socket?.connect();
@@ -33,6 +37,7 @@ class WebSockets {
   }
 
   void dispose() {
-    _ledController.close(); // Don't forget to close the stream when done
+    controller.close();
+    socket?.dispose();
   }
 }

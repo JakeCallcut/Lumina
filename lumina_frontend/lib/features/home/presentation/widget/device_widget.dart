@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/core/utils/switch.dart';
+import 'package:lumina_frontend/core/utils/sockets.dart';
+import 'package:provider/provider.dart';
 
 class DeviceWidget extends StatefulWidget {
-  @override
-  _DeviceWidgetState createState() => _DeviceWidgetState();
   final String deviceName;
+  const DeviceWidget({super.key, required this.deviceName,});
 
-  const DeviceWidget({super.key, required this.deviceName});
+  _DeviceWidgetState createState() => _DeviceWidgetState();
 }
 
 class _DeviceWidgetState extends State<DeviceWidget> {
-  bool _isOn = false; //TODO: change this to a value from the backend, false for now
-
+  bool _isOn = false;
   @override
   Widget build(BuildContext context) {
+    final socket = Provider.of<Sockets>(context);
     return Container(
       height: 130,
       width: 180,
@@ -42,6 +43,12 @@ class _DeviceWidgetState extends State<DeviceWidget> {
                 onChanged: (value) {
                   setState(() {
                     _isOn = value; // Update the state and rebuild the widget
+                    if (_isOn) {
+                      socket.changeState(widget.deviceName, 1);
+                    }
+                    else {
+                      socket.changeState(widget.deviceName, 0);
+                    }
                   });
                 },
               ),
