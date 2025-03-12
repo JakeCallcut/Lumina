@@ -126,7 +126,6 @@ class _RegisterStep4State extends State<ManagerRegisterStep4> {
       return;
     }
 
-v2-database-intergration
     if (!_isValidPassword(password)) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
