@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/routes.dart';
+import 'package:lumina_frontend/services/integration_Funcs.dart';
+import 'package:lumina_frontend/model/models.dart';
 
 class ManagerRegisterStep2 extends StatefulWidget {
 
@@ -9,19 +11,16 @@ class ManagerRegisterStep2 extends StatefulWidget {
 }
 
 class _RegisterStep2State extends State<ManagerRegisterStep2> {
-  final TextEditingController _idController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _blackListController = TextEditingController();
-  final FocusNode _idFocusNode = FocusNode();
   final FocusNode _nameFocusNode = FocusNode();
   final FocusNode _blackListFocusNode = FocusNode();
+  var instance = Integration();
 
   @override
   void dispose() {
-    _idController.dispose();
     _nameController.dispose();
     _blackListController.dispose();
-    _idFocusNode.dispose();
     _nameFocusNode.dispose();
     _blackListFocusNode.dispose();
     super.dispose();
@@ -48,19 +47,8 @@ class _RegisterStep2State extends State<ManagerRegisterStep2> {
                 Text('Add your Top Level Home', style: MainTheme.h2White),
                 const SizedBox(height: 20),
                 TextField(
-                  controller: _idController,
-                  focusNode: _idFocusNode,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration:
-                      MainTheme.luminaInputDecoration(hintText: "ID"),
-                  style: const TextStyle(color: Colors.white),
-                  cursorColor: Colors.white,
-                ),
-                const SizedBox(height: 16),
-                TextField(
                   controller: _nameController,
                   focusNode: _nameFocusNode,
-                  obscureText: true,
                   decoration:
                       MainTheme.luminaInputDecoration(hintText: "Name"),
                   style: const TextStyle(color: Colors.white),
@@ -80,7 +68,7 @@ class _RegisterStep2State extends State<ManagerRegisterStep2> {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.register3);
+                    registerTLH();
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text(
@@ -114,5 +102,19 @@ class _RegisterStep2State extends State<ManagerRegisterStep2> {
         ),
       ),
     );
+  }
+  void registerTLH() async {
+    String tLHName = _nameController.text;
+    String blackList = _blackListController.text;
+
+    TopLevelHome tLH = TopLevelHome("", tLHName, []);
+
+    try {
+    await instance.addTopLevelHomes(tLH);
+    Navigator.pushNamed(context, Routes.register3);
+  } catch (e) {
+    // Handle error
+    print("Error adding top level home: $e");
+  }
   }
 }

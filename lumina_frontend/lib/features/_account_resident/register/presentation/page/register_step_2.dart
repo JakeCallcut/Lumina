@@ -143,6 +143,14 @@ class _RegisterStep2State extends State<ResidentRegisterStep2> {
     return;
   }
 
+  if (!_isValidPassword(password)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text("Password must be longer than 5 characters.")),
+      );
+      return;
+    }
+
   try {
     final List<String> signInMethods =
         await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
@@ -172,6 +180,14 @@ class _RegisterStep2State extends State<ResidentRegisterStep2> {
     );
   }
 }
+
+// Function to validate password length
+bool _isValidPassword(String password) {
+    if (password.length < 5) {
+      return false;
+    }
+    return true;
+  }
 
 // Function to validate email format
 bool _isValidEmail(String email) {
