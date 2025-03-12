@@ -1,14 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
-import 'package:lumina_frontend/features/user_auth/register_login_details.dart';
+import 'package:lumina_frontend/features/user_auth/manager_login_details.dart';
 import 'package:lumina_frontend/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:lumina_frontend/routes.dart';
 
 class ManagerRegisterStep5 extends StatefulWidget {
-  final LoginDetails loginDetails;
+  final ManagerLoginDetails ManagerloginDetails;
 
-  const ManagerRegisterStep5({super.key, required this.loginDetails});
+  const ManagerRegisterStep5({super.key, required this.ManagerloginDetails});
   @override
   _RegisterStep5State createState() => _RegisterStep5State();
 }
@@ -126,26 +126,26 @@ class _RegisterStep5State extends State<ManagerRegisterStep5> {
     );
   }
   void finishRegistration() {
-    widget.loginDetails.firstname = _firstNameController.text;
-    widget.loginDetails.lastname = _lastNameController.text;
-    widget.loginDetails.phoneNumber = _phoneController.text;
+    widget.ManagerloginDetails.firstname = _firstNameController.text;
+    widget.ManagerloginDetails.lastname = _lastNameController.text;
+    widget.ManagerloginDetails.phoneNumber = _phoneController.text;
     _signUp();
     Navigator.pushNamed(context, Routes.home);
   }
 
   void _signUp() async {
-    String email = widget.loginDetails.email;
-    String password = widget.loginDetails.password;
+    String email = widget.ManagerloginDetails.email;
+    String password = widget.ManagerloginDetails.password;
 
     User? user = await _auth.signUpWithEmailAndPassword(email, password);
 
     if (user != null) {
       print("Account is successfully created");
-      widget.loginDetails.userID = user.uid;   // This part fetches the userID 
-      print(widget.loginDetails.userID);
+      widget.ManagerloginDetails.userID = user.uid;   // This part fetches the userID 
+      print(widget.ManagerloginDetails.userID);
       Navigator.pushNamed(context, Routes.home);
 
-      print(widget.loginDetails);
+      print(widget.ManagerloginDetails.firstname);
     }
   }
 }

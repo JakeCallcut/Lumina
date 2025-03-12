@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/routes.dart';
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
-import 'package:lumina_frontend/features/user_auth/register_login_details.dart';
+import 'package:lumina_frontend/features/user_auth/resident_login_details.dart';
 
 class RegisterStep1 extends StatefulWidget {
 
