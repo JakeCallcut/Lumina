@@ -49,7 +49,7 @@ class _RegisterStep5State extends State<ManagerRegisterStep5> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/images/register_progress/progress_1.png'),
+                Image.asset('assets/images/register_progress/progress_5.png'),
                 Image.asset('assets/images/text_logo.png'),
                 const SizedBox(height: 20),
                 Text('Tell us more about you', style: MainTheme.h2White),
