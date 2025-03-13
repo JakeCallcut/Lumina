@@ -110,7 +110,7 @@ class _RegisterStep2State extends State<ManagerRegisterStep2> {
     TopLevelHome tLH = TopLevelHome("", tLHName, []);
 
     try {
-    //await instance.addTopLevelHomes(tLH);
+    await instance.addTopLevelHomes(tLH);
     Navigator.pushNamed(context, Routes.register3);
   } catch (e) {
     // Handle error
