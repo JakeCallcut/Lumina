@@ -128,9 +128,25 @@ class _RegisterStep5State extends State<ManagerRegisterStep5> {
   void finishRegistration() {
     widget.ManagerloginDetails.firstname = _firstNameController.text;
     widget.ManagerloginDetails.lastname = _lastNameController.text;
-    widget.ManagerloginDetails.phoneNumber = _phoneController.text;
+    String phoneNumber = _phoneController.text;
+
+    if (!_isValidPhone(phoneNumber)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Please enter a valid UK phone number.")),
+      );
+      return;
+    }else{
+      widget.ManagerloginDetails.phoneNumber = phoneNumber;
+    }
+
     _signUp();
     Navigator.pushNamed(context, Routes.home);
+  }
+
+  bool _isValidPhone(String phoneNumber) {
+    return RegExp(
+           r'^(?:\+44|0)7\d{3}[\s.-]?\d{6}$')
+        .hasMatch(phoneNumber);
   }
 
   void _signUp() async {

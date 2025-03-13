@@ -126,8 +126,23 @@ class _RegisterStep3State extends State<ResidentRegisterStep3> {
   void continueRegistration() {
     widget.loginDetails.firstname = _firstNameController.text;
     widget.loginDetails.lastname = _lastNameController.text;
-    widget.loginDetails.phoneNumber = _phoneController.text;
+    String phoneNumber = _phoneController.text;
+
+    if (!_isValidPhone(phoneNumber)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Please enter a valid UK phone number.")),
+      );
+      return;
+    }else{
+      widget.loginDetails.phoneNumber = phoneNumber;
+    }
 
     Navigator.pushNamed(context, Routes.register4, arguments: widget.loginDetails);
+  }
+
+  bool _isValidPhone(String phoneNumber) {
+    return RegExp(
+           r'^(?:\+44|0)7\d{3}[\s.-]?\d{6}$')
+        .hasMatch(phoneNumber);
   }
 }
