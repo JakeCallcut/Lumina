@@ -124,7 +124,7 @@ class _RegisterStep4State extends State<ManagerRegisterStep4> {
                   ),
                   const SizedBox(height: 24),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: passwordStrength != 1 ? null : () {
                       continueRegistration();
                     },
                     style: MainTheme.luminaLightButton,
