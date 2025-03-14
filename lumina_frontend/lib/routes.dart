@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'package:lumina_frontend/features/_account_home_manager/account_home_manager.dart'; //Collection of all manager pages
 import 'package:lumina_frontend/features/_account_resident/account_resident.dart'; //Collection of all resident pages
-import 'package:lumina_frontend/features/devicelist/presentation/widget/devicelist.dart';
 
 import 'package:lumina_frontend/features/error/presentation/page/error_page.dart';
 import 'package:lumina_frontend/features/landing/presentation/page/landing_page.dart';
 import 'package:lumina_frontend/features/loading/presentation/page/splash_page.dart';
 import 'package:lumina_frontend/features/login/presentation/page/login_page.dart';
 import 'package:lumina_frontend/features/register/presentation/page/register_step_1.dart';
-import 'package:lumina_frontend/features/register/presentation/page/register_step_2.dart';
-import 'package:lumina_frontend/features/register/presentation/page/register_step_3.dart';
-import 'package:lumina_frontend/features/register/presentation/page/register_step_4.dart';
+import 'package:lumina_frontend/features/user_auth/resident_login_details.dart';
+import 'package:lumina_frontend/features/user_auth/manager_login_details.dart';
 
 class NoTransitionPageRoute extends PageRoute {
   final WidgetBuilder builder;
@@ -54,12 +52,17 @@ class Routes {
   static const String register2 = '/register/2';
   static const String register3 = '/register/3';
   static const String register4 = '/register/4';
+  static const String register5 = '/register/5';
 
   //user role for routing
   static String userRole = 'resident';
+  static String uid = '';
 
   static void setUserRole(String role) {
     userRole = role;
+  }
+  static void setUid(String dynamicUid) {
+    uid = dynamicUid;
   }
 
   //TODO: undefined routes set to error page for now, change when added
@@ -72,9 +75,9 @@ class Routes {
         return NoTransitionPageRoute(
             builder: (_) => userRole == 'manager'
                 ? const ManagerHomePage()
-                : const ResidentHomePage());
+                : ResidentHomePage(uid: uid));
       case devices:
-        return NoTransitionPageRoute(builder: (_) => Devicelist());
+        return NoTransitionPageRoute(builder: (_) => const ManageDevicesPage());
       case stats:
         return NoTransitionPageRoute(builder: (_) => userRole == 'manager'
                 ? ManagerStatsPage() 
@@ -89,12 +92,19 @@ class Routes {
       case register:
         return NoTransitionPageRoute(builder: (_) => RegisterStep1());
       case register2:
-        return NoTransitionPageRoute(builder: (_) => RegisterStep2());
+        return NoTransitionPageRoute(builder: (_) => userRole == 'manager'
+                ? ManagerRegisterStep2()
+                : ResidentRegisterStep2(accountType:  userRole));
       case register3:
-        return NoTransitionPageRoute(builder: (_) => RegisterStep3());
+        return NoTransitionPageRoute(builder: (_) => userRole == 'manager'
+                ? ManagerRegisterStep3()
+                : ResidentRegisterStep3(loginDetails:  settings.arguments as LoginDetails));
       case register4:
-        return NoTransitionPageRoute(builder: (_) => RegisterStep4());
-
+        return NoTransitionPageRoute(builder: (_) => userRole == 'manager'
+                ? ManagerRegisterStep4(accountType:  userRole)
+                : ResidentRegisterStep4(loginDetails:  settings.arguments as LoginDetails));
+      case register5:
+        return NoTransitionPageRoute(builder: (_) => ManagerRegisterStep5(ManagerloginDetails:  settings.arguments as ManagerLoginDetails));
       //edge case pages
       case loading:
         return NoTransitionPageRoute(builder: (_) => SplashPage());
