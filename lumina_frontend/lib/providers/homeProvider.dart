@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/services/integration_Funcs.dart';
+import 'package:lumina_frontend/model/models.dart';
 
 class homeProvider extends ChangeNotifier {
 
@@ -12,7 +13,8 @@ class homeProvider extends ChangeNotifier {
   Future<void> fetchData() async {
     // Add your data fetching logic here
     var instance = Integration();
-    print(uid);
+    User user = await instance.getUser(uid);
+    print(user.firstname);
     notifyListeners();
   }
 }
