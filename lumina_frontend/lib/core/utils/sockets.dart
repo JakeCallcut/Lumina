@@ -19,7 +19,7 @@ class Sockets with ChangeNotifier{
 
   Future<void> initSocket() async { //initialises the socket connection
     socket = io(
-      'ws://192.168.140.94:8080', // Use secure WebSocket with port
+      'wss://192.168.140.94:8080', // Use secure WebSocket with port
       OptionBuilder()
         .setTransports(['websocket'])
         .disableAutoConnect()
