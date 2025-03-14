@@ -71,6 +71,8 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
                   onPressed: () {
                     String tLHName = Provider.of<TLHProvider>(context, listen: false).tlhName; 
                     registerHousehold(tLHName);
+                    String hHID = Provider.of<HHProvider>(context, listen: false).hHID;
+                    registerHouseCode(hHID);
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text(
@@ -134,5 +136,15 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
     // Handle error
     print("Error adding household: $e");
   }
+  }
+
+  void registerHouseCode(String hHID) async {
+    String inviteCode = _settingsController.text;
+    try {
+      await instance.addHouseCode(hHID, inviteCode);
+    } catch (e) {
+      // Handle error
+      print("Error adding house code: $e");
+    }
   }
 }
