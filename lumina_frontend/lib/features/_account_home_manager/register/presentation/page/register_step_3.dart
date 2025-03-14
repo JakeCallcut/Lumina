@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/routes.dart';
@@ -72,7 +74,7 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
                     String tLHName = Provider.of<TLHProvider>(context, listen: false).tlhName; 
                     registerHousehold(tLHName);
                     String hHID = Provider.of<HHProvider>(context, listen: false).hHID;
-                    registerHouseCode(hHID);
+                    registerHouseCode(hHID, tLHName);
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text(
@@ -138,10 +140,14 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
   }
   }
 
-  void registerHouseCode(String hHID) async {
-    String inviteCode = _settingsController.text;
+  void registerHouseCode(String hHID, tLHName) async {
+
+    HouseCode houseCode = HouseCode("", _settingsController.text, tLHName, hHID);
+    HouseCode managerHouseCode = HouseCode("", _settingsController.text, tLHName, "");
+
     try {
-      await instance.addHouseCode(hHID, inviteCode);
+      await instance.addHouseCode(houseCode);
+      await instance.addHouseCode(managerHouseCode);
     } catch (e) {
       // Handle error
       print("Error adding house code: $e");
