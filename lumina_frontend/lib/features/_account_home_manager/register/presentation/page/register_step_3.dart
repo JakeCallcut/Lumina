@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/routes.dart';
+import 'package:lumina_frontend/services/integration_Funcs.dart';
+import 'package:lumina_frontend/model/models.dart';
+import 'package:provider/provider.dart';
+import 'package:lumina_frontend/providers/providers.dart';
 
 class ManagerRegisterStep3 extends StatefulWidget {
   @override
@@ -12,6 +16,7 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
   final TextEditingController _settingsController = TextEditingController();
   final FocusNode _detailsFocusNode = FocusNode();
   final FocusNode _settingsFocusNode = FocusNode();
+  var instance = Integration();
 
   @override
   void dispose() {
@@ -63,7 +68,9 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton(
-                  onPressed: () {      
+                  onPressed: () {
+                    String tLHName = Provider.of<TLHProvider>(context, listen: false).tlhName; 
+                    registerHousehold(tLHName);
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text(
@@ -108,5 +115,24 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
         ),
       ),
     );
+  }
+  void registerHousehold(String tLHName) async {
+
+    String address = _detailsController.text;
+    String inviteCode = _settingsController.text;
+
+    Map<String, dynamic> homeDetails = {"address": address, "invitecode": inviteCode}; //address:string, inviteCode:int
+    Map<String, dynamic> settings = {"notification": false, "budget": 0, "darkmode": false}; //notifications:bool, budget:num, darkmode:bool
+
+    Household household = Household("", homeDetails, settings);
+
+    TopLevelHome TLH = await instance.getTopLevelHomebyName(tLHName);
+
+    try {
+    await instance.addHousehold(household, TLH.id);
+  } catch (e) {
+    // Handle error
+    print("Error adding household: $e");
+  }
   }
 }
