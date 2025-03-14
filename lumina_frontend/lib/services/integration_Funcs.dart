@@ -195,6 +195,13 @@ class Integration {
     return true;
   }
 
+  void deleteUser(String user) {
+    db.collection("HouseCode").doc(user).delete().then(
+      (doc) => print("Document deleted"),
+      onError: (e) => print("Error updating document $e"),
+    );
+  }
+
   // Future<List<TopLevelHome>> getallTopLevelHomes() async {
   //   List<TopLevelHome> topLevelHomes = [];
   //   try {
@@ -266,6 +273,18 @@ class Integration {
     return true;
   }
 
+  // void deleteTopLevelHome(String tlhId) {
+  //   Future<List<Household>> homes = getHouseholds(tlhId);
+  //   int index = homes.length;
+  //   homes.forEach(home) {
+  //     //deleteHousehold();
+  //   }
+  //   db.collection("Top Level Homes").doc(tlhId).delete().then(
+  //     (doc) => print("Document deleted"),
+  //     onError: (e) => print("Error updating document $e"),
+  //   );
+  // }
+
   Future<List<Household>> getHouseholds(String tlhId) async {
     List<Household> households = [];
     try {
@@ -333,6 +352,13 @@ class Integration {
     return true;
   }
 
+  void deleteHousehold(String tlhId, hId) {
+    db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).delete().then(
+      (doc) => print("Document deleted"),
+      onError: (e) => print("Error updating document $e"),
+    );
+  }
+
   Future<List<Room>> getRooms(String tlhId, hId) async {
     List<Room> rooms = [];
     try {
@@ -387,6 +413,13 @@ class Integration {
       return false;
     }
     return true;
+  }
+
+  void deleteRoom(String tlhId, hId, roomId) {
+    db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).collection("Rooms").doc(roomId).delete().then(
+      (doc) => print("Document deleted"),
+      onError: (e) => print("Error updating document $e"),
+    );
   }
 
   Future<List<EnergyUsage>> getEnergyUsage() async {
@@ -453,7 +486,14 @@ class Integration {
       return false;
     }
     return true;
-  } 
+  }
+
+  void deleteEnergy(String eId) {
+    db.collection("EnergyUsage").doc(eId).delete().then(
+      (doc) => print("Document deleted"),
+      onError: (e) => print("Error updating document $e"),
+    );
+  }
 
   Future<List<Device>> getDevices(String tlhId, hId, roomId) async {
     List<Device> devices = [];
@@ -513,7 +553,7 @@ class Integration {
     return true;
   } 
 
-  void deleteDevices(String tlhId, hId, roomId, devId) {
+  void deleteDevice(String tlhId, hId, roomId, devId) {
     db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).collection("Rooms").doc(roomId).collection("Devices").doc(devId).delete().then(
       (doc) => print("Document deleted"),
       onError: (e) => print("Error updating document $e"),
@@ -574,8 +614,8 @@ class Integration {
     return true;
   }
 
-  void deleteHouseCode(String tlhId, hId, roomId, devId) {
-    db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).collection("Rooms").doc(roomId).collection("Devices").doc(devId).delete().then(
+  void deleteHouseCode(String hCId) {
+    db.collection("HouseCode").doc(hCId).delete().then(
       (doc) => print("Document deleted"),
       onError: (e) => print("Error updating document $e"),
     );
