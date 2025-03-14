@@ -124,6 +124,22 @@ class Integration {
   //    return value;
 
   // }
+  Future<User> getUser(userId) async {
+    User user = User("","","","","","",false);
+    try {
+      var querySnapshot = await db.collection("User").get();
+      for (var docSnapshot in querySnapshot.docs) {
+        Map<String, dynamic> value = docSnapshot.data();
+          user = User(docSnapshot.id,value['loginId'],value['firstname'],value['surname'],value['phoneNumber'],value['houseCodeId'],value['hasGoogleLogin']);
+      }
+    } catch (e) {
+      //log error here
+      //returns empty list
+      return user;
+    }
+
+    return user;
+  }
 
   Future<List<User>> getallUsers() async {
     List<User> users = [];
@@ -131,14 +147,7 @@ class Integration {
       var querySnapshot = await db.collection("User").get();
       for (var docSnapshot in querySnapshot.docs) {
         Map<String, dynamic> value = docSnapshot.data();
-        User u = User(
-            docSnapshot.id,
-            value['loginId'],
-            value['email'],
-            value['password'],
-            value['phoneNumber'],
-            value['houseCodeId'],
-            value['hasGoogleLogin']);
+        User u = User(docSnapshot.id,value['loginId'],value['firstname'],value['surname'],value['phoneNumber'],value['houseCodeId'],value['hasGoogleLogin']);
         users.add(u);
       }
     } catch (e) {
@@ -202,24 +211,32 @@ class Integration {
     );
   }
 
-  // Future<List<TopLevelHome>> getallTopLevelHomes() async {
-  //   List<TopLevelHome> topLevelHomes = [];
-  //   try {
-  //     var querySnapshot = await db.collection("Top Level Homes").get();
-  //     for (var docSnapshot in querySnapshot.docs) {
-  //       Map<String, dynamic> value = docSnapshot.data();
-  //       TopLevelHome tlh = TopLevelHome(docSnapshot.id, value['name'], value['bLDevices']);
-  //       topLevelHomes.add(tlh);
-  //     }
-  //   } catch (e) {
-  //     //log error here
-  //     //returns empty list
-  //     return topLevelHomes;
-  //   }
-  //   return topLevelHomes;
-  // }
+  Future<TopLevelHome> getTopLevelHome(tlhId) async {
+    TopLevelHome tlh = TopLevelHome("", "", []);
+    try {
+      var querySnapshot = await db.collection("Top Level Homes").get();
+      for (var docSnapshot in querySnapshot.docs) {
+        Map<String, dynamic> value = docSnapshot.data();
+        if (value['name'] != null && value['bLDevices'] != null) {
+          List<String> bLDevices = List<String>.from(value['bLDevices']);
+          tlh = TopLevelHome(docSnapshot.id, value['name'], bLDevices);
+          if (docSnapshot.id == tlhId) {
+             return tlh;
+          }
 
- Future<List<TopLevelHome>> getallTopLevelHomes() async {
+        } else {
+          print("Missing required fields in document: ${docSnapshot.id}");
+        }
+      }
+    } catch (e) {
+      print("Error getting top level homes: $e");
+      //log error here
+      return tlh;
+    }
+  return tlh;
+  }
+
+ Future<List<TopLevelHome>> getAllTopLevelHomes() async {
   List<TopLevelHome> topLevelHomes = [];
   try {
     var querySnapshot = await db.collection("Top Level Homes").get();
@@ -240,7 +257,7 @@ class Integration {
     return topLevelHomes;
   }
   return topLevelHomes;
-}
+  }
 
   bool addTopLevelHomes(TopLevelHome tlh) {
     Map<String, dynamic> tlhome = {};
@@ -284,6 +301,28 @@ class Integration {
   //     onError: (e) => print("Error updating document $e"),
   //   );
   // }
+  Future<Household> getHousehold(String tlhId, hId) async {
+    Household home = Household("", {}, {});
+    try {
+      var querySnapshot = await db.collection("Top Level Homes").doc(tlhId).collection("Household").get();
+      if (querySnapshot.docs.isEmpty) {
+        print("No households found for Top Level Home ID: $tlhId");
+      } else {
+        for (var docSnapshot in querySnapshot.docs) {
+          Map<String, dynamic> value = docSnapshot.data();
+          home = Household(docSnapshot.id, value['Home Details'], value['Settings']);
+          if (docSnapshot.id == hId) {
+             return home;
+          }
+        }
+      }
+    } catch (e) {
+      print("Error getting households: $e");
+      //log error here
+      return home;
+    }
+    return home;
+  }
 
   Future<List<Household>> getHouseholds(String tlhId) async {
     List<Household> households = [];
