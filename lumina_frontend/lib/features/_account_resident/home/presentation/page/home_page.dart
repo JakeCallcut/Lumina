@@ -17,8 +17,10 @@ class ResidentHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     homeProvider.setUid(uid);
-    final home = context.watch<homeProvider>();
+    final home = Provider.of<homeProvider>(context);
+    // final home = context.watch<homeProvider>();
 
+// 
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(

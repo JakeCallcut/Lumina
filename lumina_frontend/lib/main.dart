@@ -8,7 +8,7 @@ import 'package:lumina_frontend/services/integration_Funcs.dart';
 import 'package:lumina_frontend/services/create_Database.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
-import 'package:lumina_frontend/providers/homeProvider.dart';
+import 'package:lumina_frontend/providers/providers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,6 +42,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => homeProvider()..fetchData()),
+        ChangeNotifierProvider(create: (context) => TLHProvider()),
         // Add more providers here if needed
       ],
       child: const MyApp(),
