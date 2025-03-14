@@ -19,7 +19,7 @@ class Sockets with ChangeNotifier{
 
   Future<void> initSocket() async { //initialises the socket connection
     socket = io(
-      'ws://192.168.0.9:8080', //change this on day :(
+      'ws://192.168.140.94:8080', //change this on day :(
       OptionBuilder()
           .setTransports(['websocket'])
           .disableAutoConnect()
