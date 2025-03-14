@@ -106,10 +106,6 @@ class _RegisterStep2State extends State<ManagerRegisterStep2> {
     );
   }
 
-  String getTLHName() {
-    return _nameController.text;
-  }
-
   void registerTLH() async {
     String tLHName = _nameController.text;
     String blackList = _blackListController.text;

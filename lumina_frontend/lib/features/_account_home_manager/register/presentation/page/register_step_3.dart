@@ -68,8 +68,9 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton(
-                  onPressed: () {     
-                    registerHousehold();
+                  onPressed: () {
+                    String tLHName = Provider.of<TLHProvider>(context, listen: false).tlhName; 
+                    registerHousehold(tLHName);
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text(
@@ -115,20 +116,20 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
       ),
     );
   }
-  void registerHousehold() async {
-    String address = _detailsController.text;
-    int inviteCode = int.parse(_settingsController.text);
+  void registerHousehold(String tLHName) async {
 
-    String tLHName = Provider.of<TLHProvider>(context, listen: false).tlhName;
+    String address = _detailsController.text;
+    String inviteCode = _settingsController.text;
 
     Map<String, dynamic> homeDetails = {"address": address, "invitecode": inviteCode}; //address:string, inviteCode:int
     Map<String, dynamic> settings = {"notification": false, "budget": 0, "darkmode": false}; //notifications:bool, budget:num, darkmode:bool
 
     Household household = Household("", homeDetails, settings);
 
+    TopLevelHome TLH = await instance.getTopLevelHomebyName(tLHName);
+
     try {
-    await instance.addHousehold(household, tLHName);
-    Navigator.pushNamed(context, Routes.register4);
+    await instance.addHousehold(household, TLH.id);
   } catch (e) {
     // Handle error
     print("Error adding household: $e");

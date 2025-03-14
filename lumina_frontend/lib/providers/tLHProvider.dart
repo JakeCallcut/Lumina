@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lumina_frontend/services/integration_Funcs.dart';
-import 'package:lumina_frontend/model/models.dart';
 
 class TLHProvider extends ChangeNotifier {
   String _tlhName = '';
