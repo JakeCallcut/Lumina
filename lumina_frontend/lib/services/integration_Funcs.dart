@@ -236,6 +236,31 @@ class Integration {
   return tlh;
   }
 
+Future<TopLevelHome> getTopLevelHomebyName(name) async {
+    TopLevelHome tlh = TopLevelHome("", "", []);
+    try {
+      var querySnapshot = await db.collection("Top Level Homes").get();
+      for (var docSnapshot in querySnapshot.docs) {
+        Map<String, dynamic> value = docSnapshot.data();
+        if (value['name'] != null && value['bLDevices'] != null) {
+          List<String> bLDevices = List<String>.from(value['bLDevices']);
+          tlh = TopLevelHome(docSnapshot.id, value['name'], bLDevices);
+          if (value['name'] == name) {
+             return tlh;
+          }
+
+        } else {
+          print("Missing required fields in document: ${docSnapshot.id}");
+        }
+      }
+    } catch (e) {
+      print("Error getting top level homes: $e");
+      //log error here
+      return tlh;
+    }
+  return tlh;
+  }
+
  Future<List<TopLevelHome>> getallTopLevelHomes() async {
   List<TopLevelHome> topLevelHomes = [];
   try {

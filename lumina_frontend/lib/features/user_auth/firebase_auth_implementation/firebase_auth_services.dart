@@ -19,9 +19,9 @@ class FirebaseAuthService {
     
     return null;
   
+
+  
   }
-
-
 
 
 
@@ -43,6 +43,27 @@ class FirebaseAuthService {
 
 
 
-  
+
+Future<void> deleteUserAccount() async {
+  try {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      await user.delete();
+      print("User account deleted successfully");
+    } else {
+      print("No user is currently signed in.");
+    }
+  } catch (e) {
+    print("Error deleting user: $e");
+    
+    // If the error is about re-authentication required
+    if (e is FirebaseAuthException && e.code == 'requires-recent-login') {
+      print("User needs to re-authenticate before deleting the account.");
+      // Call the re-authentication function here
+    }
+  }
+}
+
 
 }

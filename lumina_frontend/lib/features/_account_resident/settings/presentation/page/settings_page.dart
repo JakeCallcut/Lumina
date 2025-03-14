@@ -3,9 +3,48 @@ import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 import 'package:lumina_frontend/features/_account_home_manager/settings/presentation/widget/setting_tile.dart';
 import 'package:lumina_frontend/features/_account_home_manager/settings/presentation/widget/theme_switch.dart';
+import 'package:lumina_frontend/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
+import 'package:lumina_frontend/routes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+
 
 class ResidentSettingsPage extends StatelessWidget {
   const ResidentSettingsPage({super.key});
+
+
+  Future<void> _deleteUserAccount(BuildContext context) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        Navigator.pushNamed(context, Routes.landing);
+        await user.delete();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Account deleted successfully.")),
+        );
+        // Navigate to login or onboarding screen after deletion  
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("No user is currently signed in.")),
+        );
+      }
+    } catch (e) {
+      if (e is FirebaseAuthException && e.code == 'requires-recent-login') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Please re-authenticate to delete your account.")),
+        );
+        // You can call re-authentication logic here if needed
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Error deleting account: ${e.toString()}")),
+        );
+      }
+    }
+  }
+
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +125,7 @@ class ResidentSettingsPage extends StatelessWidget {
                     color: MainTheme.luminaRed,
                   ),
                   addSwitch: false,
+                  onTap: () => _deleteUserAccount(context)
                 ),
                 SettingTile(
                   title: "Set Budgets",
@@ -104,4 +144,8 @@ class ResidentSettingsPage extends StatelessWidget {
       ),
     );
   }
+
+
+
+
 }

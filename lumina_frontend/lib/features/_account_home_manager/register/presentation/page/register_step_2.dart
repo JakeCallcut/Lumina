@@ -3,6 +3,8 @@ import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/routes.dart';
 import 'package:lumina_frontend/services/integration_Funcs.dart';
 import 'package:lumina_frontend/model/models.dart';
+import 'package:lumina_frontend/providers/providers.dart';
+import 'package:provider/provider.dart';
 
 class ManagerRegisterStep2 extends StatefulWidget {
 
@@ -16,7 +18,7 @@ class _RegisterStep2State extends State<ManagerRegisterStep2> {
   final FocusNode _nameFocusNode = FocusNode();
   final FocusNode _blackListFocusNode = FocusNode();
   var instance = Integration();
-
+  
   @override
   void dispose() {
     _nameController.dispose();
@@ -103,6 +105,7 @@ class _RegisterStep2State extends State<ManagerRegisterStep2> {
       ),
     );
   }
+
   void registerTLH() async {
     String tLHName = _nameController.text;
     String blackList = _blackListController.text;
@@ -111,10 +114,15 @@ class _RegisterStep2State extends State<ManagerRegisterStep2> {
 
     try {
     await instance.addTopLevelHomes(tLH);
+
+    // Set the top level home name in the provider
+    Provider.of<TLHProvider>(context, listen: false).setTLHName(tLHName);
+
     Navigator.pushNamed(context, Routes.register3);
   } catch (e) {
     // Handle error
     print("Error adding top level home: $e");
   }
   }
+  
 }
