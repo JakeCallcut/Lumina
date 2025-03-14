@@ -6,10 +6,9 @@ class User {
   String surname = "";
   bool hasGoogleLogin = false;
   String phoneNumber = "";
-  String topHouseId = "";
-  String householdId = "";
+  String houseCodeId = "";
 
-  User(this.id, this.loginId, this.firstname, this.surname, this.phoneNumber, this.topHouseId, this.householdId, this.hasGoogleLogin);
+  User(this.id, this.loginId, this.firstname, this.surname, this.phoneNumber, this.houseCodeId, this.hasGoogleLogin);
   
   User.basic(this.firstname, this.surname);
 
