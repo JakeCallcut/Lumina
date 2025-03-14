@@ -43,7 +43,6 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => homeProvider()),
         ChangeNotifierProvider(create: (context) => TLHProvider()),
-        ChangeNotifierProvider(create: (context) => HHProvider()),
         // Add more providers here if needed
       ],
       child: const MyApp(),

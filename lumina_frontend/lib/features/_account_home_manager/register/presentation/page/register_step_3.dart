@@ -73,8 +73,7 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
                   onPressed: () {
                     String tLHName = Provider.of<TLHProvider>(context, listen: false).tlhName; 
                     registerHousehold(tLHName);
-                    String hHID = Provider.of<HHProvider>(context, listen: false).hHID;
-                    registerHouseCode(hHID, tLHName);
+                    registerHouseCode(tLHName);
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text(
@@ -140,10 +139,13 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
   }
   }
 
-  void registerHouseCode(String hHID, tLHName) async {
+  void registerHouseCode(String tLHName) async {
 
-    HouseCode houseCode = HouseCode("", _settingsController.text, tLHName, hHID);
-    HouseCode managerHouseCode = HouseCode("", _settingsController.text, tLHName, "");
+    TopLevelHome TLH = await instance.getTopLevelHomebyName(tLHName);
+    Household HH = await instance.getHouseholdbyName(TLH.id, _detailsController.text);
+
+    HouseCode houseCode = HouseCode("", _settingsController.text, TLH.id, HH.id);
+    HouseCode managerHouseCode = HouseCode("", _settingsController.text, TLH.id, "");
 
     try {
       await instance.addHouseCode(houseCode);
