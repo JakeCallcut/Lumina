@@ -3,6 +3,7 @@ import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 import 'package:lumina_frontend/features/_account_home_manager/settings/presentation/widget/setting_tile.dart';
 import 'package:lumina_frontend/features/_account_home_manager/settings/presentation/widget/theme_switch.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ManagerSettingsPage extends StatelessWidget {
   const ManagerSettingsPage({super.key});
