@@ -41,7 +41,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => homeProvider()..fetchData()),
+        ChangeNotifierProvider(create: (context) => homeProvider()),
         ChangeNotifierProvider(create: (context) => TLHProvider()),
         // Add more providers here if needed
       ],
