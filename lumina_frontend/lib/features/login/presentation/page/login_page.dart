@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
+//import 'package:lumina_frontend/features/home/presentation/page/home_page.dart';
+import 'package:lumina_frontend/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:lumina_frontend/routes.dart';
 
 class LoginPage extends StatefulWidget {
@@ -8,6 +11,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final FirebaseAuthService _auth = FirebaseAuthService();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _emailFocusNode = FocusNode();
@@ -61,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.home);
+                    _signIn();
                   },
                   style: MainTheme.luminaLightButton,
                   child: Text(
@@ -87,5 +91,20 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+  
+  void _signIn() async {
+    String email = _emailController.text;
+    String password = _passwordController.text;
+
+    User? user = await _auth.signInWithEmailAndPassword(email, password);
+
+    if (user != null){
+      print("User is successfully signed in");
+      Navigator.pushNamed(context, Routes.home);
+    } else{
+      print("Some error Occured");
+    }
+
   }
 }

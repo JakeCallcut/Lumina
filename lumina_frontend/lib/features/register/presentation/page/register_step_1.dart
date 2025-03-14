@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/routes.dart';
+import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
+import 'package:lumina_frontend/features/user_auth/resident_login_details.dart';
 
 class RegisterStep1 extends StatefulWidget {
+
   @override
   _RegisterStep1State createState() => _RegisterStep1State();
 }
 
 class _RegisterStep1State extends State<RegisterStep1> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final FocusNode _emailFocusNode = FocusNode();
-  final FocusNode _passwordFocusNode = FocusNode();
+  String _accountType = '';
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    _emailFocusNode.dispose();
-    _passwordFocusNode.dispose();
     super.dispose();
   }
+
+  // void _continueRegistration() {
+  //   // Set the role globally
+  //   Routes.setUserRole(_accountType);
+  //   Navbar.setUserRole(_accountType);
+
+  //   // Navigate to the next step
+  //   Navigator.pushNamed(context, Routes.register2);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -40,37 +45,55 @@ class _RegisterStep1State extends State<RegisterStep1> {
                 Image.asset('assets/images/register_progress/progress_1.png'),
                 Image.asset('assets/images/text_logo.png'),
                 const SizedBox(height: 20),
-                Text('Enter Your Details', style: MainTheme.h2White),
+                Text('Select Your Account Type', style: MainTheme.h2White),
                 const SizedBox(height: 20),
-                TextField(
-                  controller: _emailController,
-                  focusNode: _emailFocusNode,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration:
-                      MainTheme.luminaInputDecoration(hintText: "Email"),
-                  style: const TextStyle(color: Colors.white),
-                  cursorColor: Colors.white,
-                ),
-                const SizedBox(height: 16),
-                TextField(
-                  controller: _passwordController,
-                  focusNode: _passwordFocusNode,
-                  obscureText: true,
-                  decoration:
-                      MainTheme.luminaInputDecoration(hintText: "Password"),
-                  style: const TextStyle(color: Colors.white),
-                  cursorColor: Colors.white,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Radio(
+                          value: 'manager',
+                          groupValue: _accountType,
+                          onChanged: (value) {
+                            setState(() {
+                              _accountType = value.toString();
+                              //_continueRegistration();
+                            });
+                          },
+                          fillColor: WidgetStateProperty.all(Colors.white),
+                        ),
+                        Text('Home Manager', style: MainTheme.h4White),
+                      ],
+                    ),
+                    const SizedBox(width: 40),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Radio(
+                          value: 'resident',
+                          groupValue: _accountType,
+                          onChanged: (value) {
+                            setState(() {
+                              _accountType = value.toString();
+                            });
+                          },
+                          fillColor: WidgetStateProperty.all(Colors.white),
+                        ),
+                        Text('Resident', style: MainTheme.h4White),
+                      ],
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.register2);
+                    beginRegistration();
+                    //Navigator.pushNamed(context, Routes.register3);
                   },
                   style: MainTheme.luminaLightButton,
-                  child: Text(
-                    'Continue',
-                    style: MainTheme.h3Black,
-                  ),
+                  child: Text('Continue', style: MainTheme.h3Black,),
                 ),
                 const SizedBox(height: 20),
                 SizedBox(
@@ -84,7 +107,8 @@ class _RegisterStep1State extends State<RegisterStep1> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Already have an account? ", style: MainTheme.smallPrint),
+                    Text("Already have an account? ",
+                        style: MainTheme.smallPrint),
                     GestureDetector(
                         onTap: () {
                           Navigator.pushNamed(context, Routes.login);
@@ -98,5 +122,12 @@ class _RegisterStep1State extends State<RegisterStep1> {
         ),
       ),
     );
+  }
+    void beginRegistration() {
+
+    Routes.setUserRole(_accountType);
+    Navbar.setUserRole(_accountType);
+
+    Navigator.pushNamed(context, Routes.register2);
   }
 }
