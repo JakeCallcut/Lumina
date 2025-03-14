@@ -18,20 +18,35 @@ class Create {
       "phoneNumber" : "1234567890",
       "email" : "mrHavensSolution@gmail.com",
       "password" : "ShiningL1ght",
-      "topHouseId" : "",
-      "hasGoogleLogin" : false
+      "houseCode" : "ugKv1HL3hP8Dz5xuWumf",      
+      "hasGoogleLogin" : true
     };
-       final owner2 = {
-      "firstname" : "Lumina2",
-      "surname" : "Haven2",
-      "phoneNumber" : "2345678901",
-      "email" : "mrHavensSolution2@gmail.com",
-      "password" : "ShiningL1ght2",
-      "topHouseId" : "",
+    final resident = {
+      "firstname" : "Old",
+      "surname" : "Person",
+      "phoneNumber" : "77644328976",
+      "email" : "needsCare247@gmail.com",
+      "password" : "50SoOld97",
+      "houseCode" : "h0cXEEbXP2BPHWX1tyW0",
       "hasGoogleLogin" : false
     };
     db.collection("User").add(owner).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
-    db.collection("User").add(owner2).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
+    db.collection("User").add(resident).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
+  }
+
+  void createHouseCode() {
+    final code = {
+      "invitecode" : "ABC123",
+      "topHouseId" : "oFoh7ELw1kJHjuJ6nYrJ",
+      "houseHoldId" : "iPjhMCjaZiBkmygJ0fKo"
+    };
+    final topCode = {
+      "invitecode" : "top1",
+      "topHouseId" : "oFoh7ELw1kJHjuJ6nYrJ",
+      "houseHoldId" : ""
+    };
+    db.collection("HouseCodes").add(code).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
+    db.collection("HouseCodes").add(topCode).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
   }
 
   void createHousehold() {
@@ -52,54 +67,51 @@ class Create {
     
     db.collection("Top Level Homes").doc("oFoh7ELw1kJHjuJ6nYrJ").collection("Household").add(houseData).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
   }
-  
-  void createResident() {
-      final resident = {
-      "firstname" : "Old",
-      "surname" : "Person",
-      "phoneNumber" : "123123123",
-      "email" : "needscare24/7@gmail.com",
-      "password" : "Sos0Old97",
-      "hasGoogleLogin" : true
-    };
-    db.collection("Top Level Homes").doc("gogPwWrvOuUeNVWNHsrs").collection("Household").doc("RyWdVEdWzHdOotkTK4n6").collection("Residents").add(resident).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
-  }
-
-    void createSecondResident() {
-      final residentTwo = {
-      "firstname" : "Bill",
-      "surname" : "Person",
-      "phoneNumber" : "456456456",
-      "email" : "cares2much@gmail.com",
-      "password" : "Help1ngHand!",
-      "hasGoogleLogin" : false
-    };
-    db.collection("Top Level Homes").doc("gogPwWrvOuUeNVWNHsrs").collection("Household").doc("RyWdVEdWzHdOotkTK4n6").collection("Residents").add(residentTwo).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
-  }
 
   void createRooms() {
     final room = {
       "Room Name" : "Living room"
     };
-    db.collection("Top Level Homes").doc("gogPwWrvOuUeNVWNHsrs").collection("Household").doc("RyWdVEdWzHdOotkTK4n6").collection("Rooms").add(room).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
+    db.collection("Top Level Homes").doc("oFoh7ELw1kJHjuJ6nYrJ").collection("Household").doc("iPjhMCjaZiBkmygJ0fKo").collection("Rooms").add(room).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
   }
 
   void createEnergy() {
+
     final usageDetails = <String,dynamic>{
-      
-    }; 
-    final used = {
       "price" : 2.75,
-      "amount" : 5.6
-    };
-    final saved = {
+      "amount" : 5.6,
       "worth" : 0.66,
-      "unused" : 2.31
+      "unused" : 2.31,
+      "topHouseId" : "oFoh7ELw1kJHjuJ6nYrJ",
+      "houseHoldId" : "iPjhMCjaZiBkmygJ0fKo"
+    };
+    final engin = <String, int>{};
+    engin.update("1", (value) => 12, ifAbsent: () => 12);
+    engin.update("2", (value) => 27, ifAbsent: () => 27);
+    final engout = <String, int>{};
+    engout.update("1", (value) => 53, ifAbsent: () => 53);
+    engout.update("2", (value) => 48, ifAbsent: () => 48);
+    usageDetails["monthEnergyIn"] = engin;
+    usageDetails["monthEnergyOut"] = engout;
+    db.collection("EnergyUsage").add(usageDetails).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
+  }
+
+  void createDevice() {
+
+
+    final deviceDetails = <String,dynamic>{
+      "name" : "Tesla",
+      "typeName" : "ECar",
+      "imageId" : 2,
+      "mainAction" : false
+    };
+    final actionList = <String, bool>{
 
     };
-    usageDetails["Used"] = used;
-    usageDetails["Saved"] = saved;
+    actionList.update("Opendoor", (value) => true, ifAbsent: () => true);
+    actionList.update("Heating", (value) => false, ifAbsent: () => false);
+    deviceDetails["actionList"] = actionList;
 
-    db.collection("Energy Usage").add(usageDetails).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
+    db.collection("Top Level Homes").doc("oFoh7ELw1kJHjuJ6nYrJ").collection("Household").doc("iPjhMCjaZiBkmygJ0fKo").collection("Rooms").doc("ESzmpAzNOEzqZCvwqaFh").collection("Devices").add(deviceDetails).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
   }
 }

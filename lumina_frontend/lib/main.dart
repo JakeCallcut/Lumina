@@ -6,9 +6,11 @@ import 'package:lumina_frontend/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:lumina_frontend/services/integration_Funcs.dart';
 import 'package:lumina_frontend/services/create_Database.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'package:lumina_frontend/core/utils/sockets.dart';
 import 'package:provider/provider.dart';
+import 'package:lumina_frontend/providers/homeProvider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,15 +18,16 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+
   var instance = Integration();
   //var instanceCreate = Create();
   //instanceCreate.createTopLevelHome();
-  //instanceCreate.createHomeowner();
+  //instanceCreate.createHouseCode();
+  //instanceCreate.createUser();
   //instanceCreate.createHousehold();
-  //instanceCreate.createResident();
   //instanceCreate.createRooms();
   //instanceCreate.createEnergy();
-  //instanceCreate.createSecondResident();
+  //instanceCreate.createDevice();
   //instance.getTestData();
   //instance.getBothResidents();
   //instance.getOwnerId();
@@ -37,17 +40,21 @@ void main() async {
   //bool worked = instance.addHomeowner(homeowner);
   //instance.updateHomeowner(homeowner);
   //HomeOwner docId = await instance.getHomeOwner("Lumina", "Haven");
+  
   // Initialize the socket here
   Sockets socket = Sockets();
   await socket.initSocket(); // Make sure the socket is fully initialized
-
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => socket, 
-      child: MyApp(), //allows access to socket from anywhere
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => homeProvider()..fetchData()),
+        ChangeNotifierProvider(create: (_) => socket)
+      ],
+      child: MyApp(),
     ),
   );
 }
+
 
 
 class MyApp extends StatelessWidget {

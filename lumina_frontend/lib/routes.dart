@@ -56,9 +56,13 @@ class Routes {
 
   //user role for routing
   static String userRole = 'resident';
+  static String uid = '';
 
   static void setUserRole(String role) {
     userRole = role;
+  }
+  static void setUid(String dynamicUid) {
+    uid = dynamicUid;
   }
 
   //TODO: undefined routes set to error page for now, change when added
@@ -71,7 +75,7 @@ class Routes {
         return NoTransitionPageRoute(
             builder: (_) => userRole == 'manager'
                 ? const ManagerHomePage()
-                : const ResidentHomePage());
+                : ResidentHomePage(uid: uid));
       case devices:
         return NoTransitionPageRoute(builder: (_) => const ManageDevicesPage());
       case stats:
