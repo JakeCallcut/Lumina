@@ -236,7 +236,7 @@ class Integration {
   return tlh;
   }
 
- Future<List<TopLevelHome>> getAllTopLevelHomes() async {
+ Future<List<TopLevelHome>> getallTopLevelHomes() async {
   List<TopLevelHome> topLevelHomes = [];
   try {
     var querySnapshot = await db.collection("Top Level Homes").get();
