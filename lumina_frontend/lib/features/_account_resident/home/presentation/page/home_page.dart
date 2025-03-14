@@ -4,14 +4,21 @@ import 'package:lumina_frontend/features/_account_resident/home/presentation/wid
 import 'package:lumina_frontend/features/_account_resident/home/presentation/widget/home_dial.dart';
 import 'package:lumina_frontend/features/_account_resident/home/presentation/widget/room_list.dart';
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
+import 'package:lumina_frontend/providers/homeProvider.dart';
+import 'package:provider/provider.dart';
 
 class ResidentHomePage extends StatelessWidget {
-   const ResidentHomePage({super.key});
+  final String uid;
+  const ResidentHomePage({super.key, required this.uid});
   //Dummy values
   final String _address = "11/15 Kingfisher Street";
 
   @override
   Widget build(BuildContext context) {
+
+    homeProvider.setUid(uid);
+    final home = context.watch<homeProvider>();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
