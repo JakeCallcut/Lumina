@@ -101,6 +101,7 @@ class _LoginPageState extends State<LoginPage> {
 
     if (user != null){
       print("User is successfully signed in");
+      Routes.setUid(user.uid);
       Navigator.pushNamed(context, Routes.home);
     } else{
       print("Some error Occured");
