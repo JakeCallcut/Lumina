@@ -128,7 +128,7 @@ class Integration {
   Future<List<User>> getallUsers() async {
     List<User> users = [];
     try {
-      var querySnapshot = await db.collection("Homeowner").get();
+      var querySnapshot = await db.collection("User").get();
       for (var docSnapshot in querySnapshot.docs) {
         Map<String, dynamic> value = docSnapshot.data();
         User u = User(
@@ -158,7 +158,7 @@ class Integration {
       user["firstname"] = (us.firstname);
       user["surname"] = (us.surname);
       user["phoneNumber"] = (us.phoneNumber);
-      user["topHouseId"] = (us.houseCodeId);
+      user["houseCodeId"] = (us.houseCodeId);
       user["hasGoogleLogin"] = (us.hasGoogleLogin);
       db.collection("User").add(user);
     } catch (e) {
@@ -382,14 +382,7 @@ class Integration {
         room["Room Name"] = (place.name);
       }
 
-      db
-          .collection("Top Level Homes")
-          .doc(tlhId)
-          .collection("Household")
-          .doc(hId)
-          .collection("Residents")
-          .doc(place.id)
-          .update(room);
+      db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).collection("Rooms").doc(place.id).update(room);
     } catch (e) {
       return false;
     }
@@ -460,12 +453,12 @@ class Integration {
       return false;
     }
     return true;
-  }
+  } 
 
-  Future<List<Device>> getDevices() async {
+  Future<List<Device>> getDevices(String tlhId, hId, roomId) async {
     List<Device> devices = [];
     try {
-      var querySnapshot = await db.collection("Devices").get();
+      var querySnapshot = await db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).collection("Rooms").doc(roomId).collection("Devices").get();
       for (var docSnapshot in querySnapshot.docs) {
         Map<String, dynamic> value = docSnapshot.data();
         Device device = Device(
@@ -483,5 +476,108 @@ class Integration {
       return devices;
     }
     return devices;
+  }
+
+  bool addDevice(Device dv, String tlhId, hId, roomId) {
+    Map<String, dynamic> device = {};
+    //uses object data to create new field in the database
+    try {
+      if (dv.deviceName.trim().isNotEmpty) {device["deviceName"] = (dv.deviceName);}
+      if (dv.typeName.trim().isNotEmpty) {device["typeName"] = (dv.typeName);}
+      device["imageId"] = (dv.imageId);
+      device["mainAction"] = (dv.mainAction);
+      if (dv.actionList.isNotEmpty) {device["actionList"] = (dv.actionList);}
+      db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).collection("Rooms").doc(roomId).collection("Devices").add(device);
+    } catch (e) {
+      return false;
+    }
+
+    return true;
+  }
+
+  bool updateDevice(Device dv, String tlhId, hId, roomId) {
+    Map<String, dynamic> device = {};
+    //updates any feilds in the database where the incoming object isn't the empty string
+    try {
+      device["deviceName"] = (dv.deviceName);
+      device["typeName"] = (dv.typeName);
+      device["imageId"] = (dv.imageId);
+      device["mainAction"] = (dv.mainAction);
+      device["actionList"] = (dv.actionList);
+
+      db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).collection("Rooms").doc(roomId).collection("Devices").doc(dv.id).update(device);
+    } catch (e) {
+      return false;
+    }
+
+    return true;
+  } 
+
+  void deleteDevices(String tlhId, hId, roomId, devId) {
+    db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).collection("Rooms").doc(roomId).collection("Devices").doc(devId).delete().then(
+      (doc) => print("Document deleted"),
+      onError: (e) => print("Error updating document $e"),
+    );
+  }
+
+  Future<List<HouseCode>> getHouseCode() async {
+    List<HouseCode> codes = [];
+    try {
+      var querySnapshot = await db
+          .collection("HouseCodes")
+          .get();
+      for (var docSnapshot in querySnapshot.docs) {
+        Map<String, dynamic> value = docSnapshot.data();
+        HouseCode code = HouseCode(docSnapshot.id, value['inviteCode'], value['topHouseId'], value['householdId']);
+        codes.add(code);
+      }
+    } catch (e) {
+      //log error here
+      //returns empty list
+      return codes;
+    }
+    return codes;
+  }
+
+  bool addHouseCode(HouseCode hc) {
+    Map<String, dynamic> code = {};
+    //uses object data to create new field in the database
+    try {
+      code["inviteCode"] = (hc.inviteCode);
+      code["topHouseId"] = (hc.topHouseId);
+      code["householdId"] = (hc.householdId);
+      db.collection("HouseCodes").add(code);
+    } catch (e) {
+      return false;
+    }
+
+    return true;
+  }
+
+  bool updateHouseCode(HouseCode hc) {
+    Map<String, dynamic> code = {};
+    //updates any feilds in the database where the incoming object isn't the empty string
+    try {
+      if (hc.inviteCode.trim().isNotEmpty) {
+        code["inviteCode"] = (hc.inviteCode);
+      }
+      if (hc.topHouseId.trim().isNotEmpty) {
+        code["topHouseId"] = (hc.topHouseId);
+      }
+      if (hc.householdId.trim().isNotEmpty) {
+        code["householdId"] = (hc.householdId);
+      }
+      db.collection("HouseCode").doc(hc.id).update(code);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+
+  void deleteHouseCode(String tlhId, hId, roomId, devId) {
+    db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).collection("Rooms").doc(roomId).collection("Devices").doc(devId).delete().then(
+      (doc) => print("Document deleted"),
+      onError: (e) => print("Error updating document $e"),
+    );
   }
 }
