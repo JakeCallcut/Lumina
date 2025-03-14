@@ -19,11 +19,11 @@ class Sockets with ChangeNotifier{
 
   Future<void> initSocket() async { //initialises the socket connection
     socket = io(
-      'wss://192.168.140.94:8080', //change this on day :(
+      'ws://192.168.140.94:8080', // Use secure WebSocket with port
       OptionBuilder()
-          .setTransports(['websocket'])
-          .disableAutoConnect()
-          .build(),
+        .setTransports(['websocket'])
+        .disableAutoConnect()
+        .build(),
     );
 
     socket?.onAny((event, data) { //this gets emits from the server and sends them out throughout the system using the stream
