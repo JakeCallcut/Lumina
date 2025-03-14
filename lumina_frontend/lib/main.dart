@@ -10,8 +10,6 @@ import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 import 'package:lumina_frontend/core/utils/sockets.dart';
-import 'package:provider/provider.dart';
-import 'package:lumina_frontend/providers/homeProvider.dart';
 
 import 'package:lumina_frontend/providers/providers.dart';
 
@@ -53,7 +51,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => homeProvider()..fetchData()),
 
-        ChangeNotifierProvider(create: (_) => socket)
+        ChangeNotifierProvider(create: (_) => socket),
 
         ChangeNotifierProvider(create: (context) => TLHProvider()),
         // Add more providers here if needed
