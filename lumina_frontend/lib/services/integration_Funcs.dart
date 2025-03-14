@@ -3,6 +3,7 @@ import 'package:lumina_frontend/model/models.dart';
 
 class Integration {
   var db = FirebaseFirestore.instance;
+  var instance = Integration();
 
   // void addTestData() {
   //   final testField2 = <String, String> {
@@ -124,6 +125,27 @@ class Integration {
   //    return value;
 
   // }
+
+  Future<User> getUserByLogin(loginId) async {
+    User user = User("","","","","","",false);
+    try {
+      var querySnapshot = await db.collection("User").get();
+      for (var docSnapshot in querySnapshot.docs) {
+        Map<String, dynamic> value = docSnapshot.data();
+          user = User(docSnapshot.id,value['loginId'],value['firstname'],value['surname'],value['phoneNumber'],value['houseCodeId'],value['hasGoogleLogin']);
+          if (value['loginId'] == loginId) {
+             return user;
+          }
+      }
+    } catch (e) {
+      //log error here
+      //returns empty list
+      return user;
+    }
+
+    return user;
+  }
+
   Future<User> getUser(userId) async {
     User user = User("","","","","","",false);
     try {
@@ -131,6 +153,9 @@ class Integration {
       for (var docSnapshot in querySnapshot.docs) {
         Map<String, dynamic> value = docSnapshot.data();
           user = User(docSnapshot.id,value['loginId'],value['firstname'],value['surname'],value['phoneNumber'],value['houseCodeId'],value['hasGoogleLogin']);
+          if (docSnapshot.id == userId) {
+             return user;
+          }
       }
     } catch (e) {
       //log error here
@@ -205,7 +230,7 @@ class Integration {
   }
 
   void deleteUser(String user) {
-    db.collection("HouseCode").doc(user).delete().then(
+    db.collection("User").doc(user).delete().then(
       (doc) => print("Document deleted"),
       onError: (e) => print("Error updating document $e"),
     );
@@ -315,17 +340,25 @@ Future<TopLevelHome> getTopLevelHomebyName(name) async {
     return true;
   }
 
-  // void deleteTopLevelHome(String tlhId) {
-  //   Future<List<Household>> homes = getHouseholds(tlhId);
-  //   int index = homes.length;
-  //   homes.forEach(home) {
-  //     //deleteHousehold();
-  //   }
-  //   db.collection("Top Level Homes").doc(tlhId).delete().then(
-  //     (doc) => print("Document deleted"),
-  //     onError: (e) => print("Error updating document $e"),
-  //   );
-  // }
+  void deleteTopLevelHome(String tlhId) async {
+    try {
+      List<Household> homes = await instance.getHouseholds(tlhId);
+      int index = homes.length;
+      for (var i = 0; i < index; i++) {
+        Household home = homes[i];
+        deleteHousehold(tlhId, home.id);
+      }
+      // homes.forEach(action deleteHousehold()) {
+      // }
+    } catch (e) {
+      print("Error getting households: $e");
+    }
+    db.collection("Top Level Homes").doc(tlhId).delete().then(
+      (doc) => print("Document deleted"),
+      onError: (e) => print("Error updating document $e"),
+    );
+  }
+
   Future<Household> getHousehold(String tlhId, hId) async {
     Household home = Household("", {}, {});
     try {
@@ -416,7 +449,20 @@ Future<TopLevelHome> getTopLevelHomebyName(name) async {
     return true;
   }
 
-  void deleteHousehold(String tlhId, hId) {
+  void deleteHousehold(String tlhId, hId) async {
+    try {
+      List<Room> rooms = await instance.getRooms(tlhId, hId);
+      int index = rooms.length;
+      for (var i = 0; i < index; i++) {
+        Room room = rooms[i];
+        deleteRoom(tlhId, hId, room.id);
+      }
+      // homes.forEach(action deleteHousehold()) {
+      // }
+    } catch (e) {
+      print("Error getting households: $e");
+    }
+
     db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).delete().then(
       (doc) => print("Document deleted"),
       onError: (e) => print("Error updating document $e"),
@@ -479,7 +525,19 @@ Future<TopLevelHome> getTopLevelHomebyName(name) async {
     return true;
   }
 
-  void deleteRoom(String tlhId, hId, roomId) {
+  void deleteRoom(String tlhId, hId, roomId) async {
+    try {
+      List<Device> devices = await instance.getDevices(tlhId, hId, roomId);
+      int index = devices.length;
+      for (var i = 0; i < index; i++) {
+        Device device = devices[i];
+        deleteDevice(tlhId, hId, roomId, device.id);
+      }
+      // homes.forEach(action deleteHousehold()) {
+      // }
+    } catch (e) {
+      print("Error getting households: $e");
+    }
     db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).collection("Rooms").doc(roomId).delete().then(
       (doc) => print("Document deleted"),
       onError: (e) => print("Error updating document $e"),
