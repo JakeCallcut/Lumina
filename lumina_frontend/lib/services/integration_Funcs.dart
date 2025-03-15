@@ -3,7 +3,7 @@ import 'package:lumina_frontend/model/models.dart';
 
 class Integration {
   var db = FirebaseFirestore.instance;
-  var instance = Integration();
+  //var instance = Integration();
 
   // void addTestData() {
   //   final testField2 = <String, String> {
@@ -348,7 +348,7 @@ class Integration {
 
   void deleteTopLevelHome(String tlhId) async {
     try {
-      List<Household> homes = await instance.getHouseholds(tlhId);
+      List<Household> homes = await getHouseholds(tlhId);
       int index = homes.length;
       for (var i = 0; i < index; i++) {
         Household home = homes[i];
@@ -490,7 +490,7 @@ class Integration {
 
   void deleteHousehold(String tlhId, hId) async {
     try {
-      List<Room> rooms = await instance.getRooms(tlhId, hId);
+      List<Room> rooms = await getRooms(tlhId, hId);
       int index = rooms.length;
       for (var i = 0; i < index; i++) {
         Room room = rooms[i];
@@ -573,7 +573,7 @@ class Integration {
 
   void deleteRoom(String tlhId, hId, roomId) async {
     try {
-      List<Device> devices = await instance.getDevices(tlhId, hId, roomId);
+      List<Device> devices = await getDevices(tlhId, hId, roomId);
       int index = devices.length;
       for (var i = 0; i < index; i++) {
         Device device = devices[i];
