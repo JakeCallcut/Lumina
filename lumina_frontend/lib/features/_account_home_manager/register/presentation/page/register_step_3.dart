@@ -151,7 +151,8 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
     try {
       await instance.addHouseCode(houseCode);
       await instance.addHouseCode(managerHouseCode);
-      Provider.of<HCProvider>(context, listen: false).setMHCID(managerHouseCode.id);
+      HouseCode newHouseCode = await instance.getHouseCodebySpecifics(TLH.id, _settingsController.text, HH.id);
+      Provider.of<HCProvider>(context, listen: false).setMHCID(newHouseCode.id);
     } catch (e) {
       // Handle error
       print("Error adding house code: $e");

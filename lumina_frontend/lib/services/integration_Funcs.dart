@@ -776,7 +776,7 @@ class Integration {
         );
   }
 
-  Future<List<HouseCode>> getHouseCode() async {
+  Future<List<HouseCode>> getHouseCodeS() async {
     List<HouseCode> codes = [];
     try {
       var querySnapshot = await db.collection("HouseCodes").get();
@@ -792,6 +792,32 @@ class Integration {
       return codes;
     }
     return codes;
+  }
+
+  Future<HouseCode> getHouseCodebySpecifics(String tlhId, String invite, String? houseHoldId) async {
+    HouseCode code = HouseCode("", "", "", "");
+    try {
+      var querySnapshot = await db
+          .collection("HouseCodes")
+          .get();
+      if (querySnapshot.docs.isEmpty) {
+        print("No HouseCodes found");
+      } else {
+        for (var docSnapshot in querySnapshot.docs) {
+          Map<String, dynamic> value = docSnapshot.data();
+          code = HouseCode(
+              docSnapshot.id, value['householdId'], value['inviteCode'], value['topHouseId']);
+          if (value['householdId'] == houseHoldId && value['inviteCode'] == invite && value['topHouseId'] == tlhId) {
+            return code;
+          }
+        }
+      }
+    } catch (e) {
+      print("Error getting households: $e");
+      //log error here
+      return code;
+    }
+    return code;
   }
 
   bool addHouseCode(HouseCode hc) {
