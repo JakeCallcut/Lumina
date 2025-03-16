@@ -3,7 +3,7 @@ import 'package:lumina_frontend/model/models.dart';
 
 class Integration {
   var db = FirebaseFirestore.instance;
-  var instance = Integration();
+  //var instance = Integration();
 
   // void addTestData() {
   //   final testField2 = <String, String> {
@@ -348,7 +348,7 @@ class Integration {
 
   void deleteTopLevelHome(String tlhId) async {
     try {
-      List<Household> homes = await instance.getHouseholds(tlhId);
+      List<Household> homes = await getHouseholds(tlhId);
       int index = homes.length;
       for (var i = 0; i < index; i++) {
         Household home = homes[i];
@@ -490,7 +490,7 @@ class Integration {
 
   void deleteHousehold(String tlhId, hId) async {
     try {
-      List<Room> rooms = await instance.getRooms(tlhId, hId);
+      List<Room> rooms = await getRooms(tlhId, hId);
       int index = rooms.length;
       for (var i = 0; i < index; i++) {
         Room room = rooms[i];
@@ -573,7 +573,7 @@ class Integration {
 
   void deleteRoom(String tlhId, hId, roomId) async {
     try {
-      List<Device> devices = await instance.getDevices(tlhId, hId, roomId);
+      List<Device> devices = await getDevices(tlhId, hId, roomId);
       int index = devices.length;
       for (var i = 0; i < index; i++) {
         Device device = devices[i];
@@ -776,7 +776,7 @@ class Integration {
         );
   }
 
-  Future<List<HouseCode>> getHouseCode() async {
+  Future<List<HouseCode>> getHouseCodeS() async {
     List<HouseCode> codes = [];
     try {
       var querySnapshot = await db.collection("HouseCodes").get();
@@ -792,6 +792,32 @@ class Integration {
       return codes;
     }
     return codes;
+  }
+
+  Future<HouseCode> getHouseCodebySpecifics(String tlhId, String invite, String? houseHoldId) async {
+    HouseCode code = HouseCode("", "", "", "");
+    try {
+      var querySnapshot = await db
+          .collection("HouseCodes")
+          .get();
+      if (querySnapshot.docs.isEmpty) {
+        print("No HouseCodes found");
+      } else {
+        for (var docSnapshot in querySnapshot.docs) {
+          Map<String, dynamic> value = docSnapshot.data();
+          code = HouseCode(
+              docSnapshot.id, value['householdId'], value['inviteCode'], value['topHouseId']);
+          if (value['householdId'] == houseHoldId && value['inviteCode'] == invite && value['topHouseId'] == tlhId) {
+            return code;
+          }
+        }
+      }
+    } catch (e) {
+      print("Error getting households: $e");
+      //log error here
+      return code;
+    }
+    return code;
   }
 
   bool addHouseCode(HouseCode hc) {

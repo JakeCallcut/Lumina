@@ -71,7 +71,7 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    String tLHName = Provider.of<TLHProvider>(context, listen: false).tlhName; 
+                    String tLHName = Provider.of<TLHProvider>(context, listen: false).tlhName;
                     registerHousehold(tLHName);
                     registerHouseCode(tLHName);
                   },
@@ -147,9 +147,12 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
     HouseCode houseCode = HouseCode("", _settingsController.text, TLH.id, HH.id);
     HouseCode managerHouseCode = HouseCode("", _settingsController.text, TLH.id, "");
 
+
     try {
       await instance.addHouseCode(houseCode);
       await instance.addHouseCode(managerHouseCode);
+      HouseCode newHouseCode = await instance.getHouseCodebySpecifics(TLH.id, _settingsController.text, HH.id);
+      Provider.of<HCProvider>(context, listen: false).setMHCID(newHouseCode.id);
     } catch (e) {
       // Handle error
       print("Error adding house code: $e");
