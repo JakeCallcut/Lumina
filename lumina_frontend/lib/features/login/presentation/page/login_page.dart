@@ -8,6 +8,7 @@ import 'package:lumina_frontend/features/user_auth/firebase_auth_implementation/
 import 'package:lumina_frontend/routes.dart';
 import 'package:lumina_frontend/providers/providers.dart';
 import 'package:provider/provider.dart';
+import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -108,7 +109,14 @@ class _LoginPageState extends State<LoginPage> {
     if (user != null) {
       Routes.setUid(user.uid);
       Provider.of<homeProvider>(context, listen: false).setUid(user.uid);
-      Provider.of<homeProvider>(context, listen: false).fetchData();
+      await Provider.of<homeProvider>(context, listen: false).fetchData();
+      String accountType = Provider.of<homeProvider>(context, listen: false).accountType;
+      Routes.setUserRole(accountType);
+      if (accountType == "manager") {
+        Navbar.setUserRole(accountType);
+      } else {
+        Navbar.setUserRole("resident");
+      }
       Navigator.pushNamed(context, Routes.home);
     } else {
       _showSnackBar("Login Unsuccessful: Incorrect password or account does not exist.");
