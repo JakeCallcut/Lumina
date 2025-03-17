@@ -5,8 +5,6 @@ import 'package:lumina_frontend/features/user_auth/resident_login_details.dart';
 import 'package:lumina_frontend/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:lumina_frontend/routes.dart';
 import 'package:lumina_frontend/model/models.dart' as models;
-import 'package:provider/provider.dart';
-import 'package:lumina_frontend/providers/providers.dart';
 import 'package:lumina_frontend/services/integration_Funcs.dart';
 
 class ResidentRegisterStep4 extends StatefulWidget {
