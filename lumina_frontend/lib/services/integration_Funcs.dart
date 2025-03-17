@@ -615,6 +615,38 @@ class Integration {
     );
   }
 
+  Future<EnergyUsage> getEnergyUsageByHouseId(hId) async {
+    EnergyUsage energy = EnergyUsage("", "", "", 0, 0, 0, 0, {}, {});
+    try {
+      var querySnapshot = await db.collection("EnergyUsage").get();
+      for (var docSnapshot in querySnapshot.docs) {
+        Map<String, dynamic> value = docSnapshot.data();
+        energy = EnergyUsage(
+            docSnapshot.id,
+            value['topHouseId'],
+            value['householdId'],
+            value['unused'],
+            value['worth'],
+            value['amount'],
+            value['price'],
+            value['monthEnergyIn'],
+            value['monthEnergyOut']);
+        if (value['householdId'] == hId) {
+          return energy;
+        }
+        
+      }
+    } catch (e) {
+      //log error here
+      //returns empty list
+      energy = EnergyUsage("", "", "", 0, 0, 0, 0, {}, {});
+      return energy;
+    }
+    energy = EnergyUsage("", "", "", 0, 0, 0, 0, {}, {});
+    return energy;
+  }
+
+
   Future<List<EnergyUsage>> getEnergyUsage() async {
     List<EnergyUsage> energys = [];
     try {
