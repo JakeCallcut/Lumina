@@ -8,12 +8,16 @@ import 'package:lumina_frontend/services/integration_Funcs.dart';
 import 'package:lumina_frontend/services/create_Database.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
+
+import 'package:lumina_frontend/core/utils/sockets.dart';
+
 import 'package:lumina_frontend/providers/providers.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-  options: DefaultFirebaseOptions.currentPlatform,
+    options: DefaultFirebaseOptions.currentPlatform,
   );
 
 
@@ -40,17 +44,22 @@ void main() async {
   //bool worked = instance.addHomeowner(homeowner);
   //instance.updateHomeowner(homeowner);
   //HomeOwner docId = await instance.getHomeOwner("Lumina", "Haven");
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => homeProvider()),
-        ChangeNotifierProvider(create: (context) => TLHProvider()),
-        ChangeNotifierProvider(create: (context) => HCProvider()),
-        // Add more providers here if needed
-      ],
-      child: const MyApp(),
-    ),
-  );
+  
+  // Initialize the socket here
+  Sockets socket = Sockets();
+  await socket.initSocket(); // Make sure the socket is fully initialized
+runApp(
+  MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => homeProvider()), // from main
+      ChangeNotifierProvider(create: (context) => TLHProvider()),
+      ChangeNotifierProvider(create: (context) => HCProvider()),
+      ChangeNotifierProvider(create: (context) => socket),
+      // Add more providers here if needed
+    ],
+    child: MyApp(),
+  ),
+);
 }
 
 
@@ -58,14 +67,13 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Lumina',
-      initialRoute: Routes.loading,
-      onGenerateRoute: Routes.generateRoute,
-      //theme: MainTheme.data(),
-    );
+      return MaterialApp(
+        title: 'Lumina',
+        initialRoute: Routes.loading,
+        onGenerateRoute: Routes.generateRoute,
+        // theme: MainTheme.data(),
+      );
   }
 }
