@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Create {
+class DbCreate {
   var db = FirebaseFirestore.instance;
 
   void createTopLevelHome() {
@@ -16,8 +16,6 @@ class Create {
       "firstname" : "Lumina",
       "surname" : "Haven",
       "phoneNumber" : "1234567890",
-      "email" : "mrHavensSolution@gmail.com",
-      "password" : "ShiningL1ght",
       "houseCode" : "ugKv1HL3hP8Dz5xuWumf",      
       "hasGoogleLogin" : true
     };
@@ -25,8 +23,6 @@ class Create {
       "firstname" : "Old",
       "surname" : "Person",
       "phoneNumber" : "77644328976",
-      "email" : "needsCare247@gmail.com",
-      "password" : "50SoOld97",
       "houseCode" : "h0cXEEbXP2BPHWX1tyW0",
       "hasGoogleLogin" : false
     };

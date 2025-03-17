@@ -353,6 +353,12 @@ class Integration {
       for (var i = 0; i < index; i++) {
         Household home = homes[i];
         deleteHousehold(tlhId, home.id);
+        //deleteHouseCode(home.homeDetails["inviteCode"]);
+        //List<HouseCode> codes = await getHouseCodeById(home.homeDetails["inviteCode"]);
+        //int index2 = codes.length;
+        //for (var i = 0; i < index2; i++) {
+        //  Household home = homes[i];
+        //}
       }
       // homes.forEach(action deleteHousehold()) {
       // }
@@ -406,8 +412,7 @@ class Integration {
       } else {
         for (var docSnapshot in querySnapshot.docs) {
           Map<String, dynamic> value = docSnapshot.data();
-          home = Household(
-              docSnapshot.id, value['Home Details'], value['Settings']);
+          home = Household(docSnapshot.id, value['Home Details'], value['Settings']);
           if (value['Home Details'] == hName) {
             return home;
           }
@@ -774,6 +779,27 @@ class Integration {
           (doc) => print("Document deleted"),
           onError: (e) => print("Error updating document $e"),
         );
+  }
+
+  Future<HouseCode> getHouseCodeById(hcId) async {
+    HouseCode code = HouseCode("", "", "", "");
+    try {
+      var querySnapshot = await db.collection("HouseCodes").get();
+      for (var docSnapshot in querySnapshot.docs) {
+        Map<String, dynamic> value = docSnapshot.data();
+        code = HouseCode(docSnapshot.id, value['inviteCode'],value['topHouseId'], value['householdId']);
+        if (docSnapshot.id == hcId) {
+            return code;
+          }
+      }
+    } catch (e) {
+      //log error here
+      //returns empty list
+      code = HouseCode("", "", "", "");
+      return code;
+    }
+    code = HouseCode("", "", "", "");
+    return code;
   }
 
   Future<List<HouseCode>> getHouseCodeS() async {
