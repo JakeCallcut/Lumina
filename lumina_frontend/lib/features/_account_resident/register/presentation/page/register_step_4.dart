@@ -125,26 +125,13 @@ class _RegisterStep4State extends State<ResidentRegisterStep4> {
   void registerUser(LoginDetails login) async {
 
     // String houseCode = Provider.of<HCProvider>(context, listen: false).homeCode;
-    List<models.HouseCode> HC = await instance.getHouseCodesbyInvite(login.inviteCode);
-    print("HC 0: ${HC[0].id} Hc 1: ${HC[1].id}");
-    if (HC[0].householdId == ""){
-      models.User user0 = models.User("", login.userID, login.firstname, login.lastname, login.phoneNumber, HC[0].id, false);
-      try {
-      await instance.addUser(user0);
+    models.HouseCode HC = await instance.getHouseCodebyInvite(login.inviteCode);
+    models.User user = models.User("", login.userID, login.firstname, login.lastname, login.phoneNumber, HC.id, false);
+    try {
+      await instance.addUser(user);
     } catch (e) {
       // Handle error
       print("Error adding user: $e");
-    }
-    } else if (HC[1].householdId == ""){
-      models.User user1 = models.User("", login.userID, login.firstname, login.lastname, login.phoneNumber, HC[1].id, false);
-      try {
-      await instance.addUser(user1);
-    } catch (e) {
-      // Handle error
-      print("Error adding user: $e");
-    }
-    } else {
-      print("Error: No available housecodes");
     }
   }
 }

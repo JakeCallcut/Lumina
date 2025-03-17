@@ -820,30 +820,31 @@ class Integration {
     return code;
   }
 
-  Future<List<HouseCode>> getHouseCodesbyInvite(String invite) async {
-  List<HouseCode> codes = [];
-  try {
-    var querySnapshot = await db.collection("HouseCodes").get();
-    for (var docSnapshot in querySnapshot.docs) {
-      Map<String, dynamic> value = docSnapshot.data();
-      print(value['inviteCode']);
-      if (value['inviteCode'] == invite) {
-        HouseCode code = HouseCode(
-          docSnapshot.id,
-          value['inviteCode'] ?? "",
-          value['topHouseId'] ?? "",
-          value['householdId'] ?? "",
-        );
-        codes.add(code);
+  Future<HouseCode> getHouseCodebyInvite(String invite) async {
+    HouseCode code = HouseCode("", "", "", "");
+    try {
+      var querySnapshot = await db
+          .collection("HouseCodes")
+          .get();
+      if (querySnapshot.docs.isEmpty) {
+        print("No HouseCodes found");
+      } else {
+        for (var docSnapshot in querySnapshot.docs) {
+          Map<String, dynamic> value = docSnapshot.data();
+          code = HouseCode(
+              docSnapshot.id, value['inviteCode'], value['topHouseId'], value['householdId']);
+          if (value['inviteCode'] == invite) {
+            return code;
+          }
+        }
       }
+    } catch (e) {
+      print("Error getting households: $e");
+      //log error here
+      return code;
     }
-  } catch (e) {
-    print("Error getting house codes: $e");
-    //log error here
-    return codes;
+    return code;
   }
-  return codes;
-}
 
   bool addHouseCode(HouseCode hc) {
     Map<String, dynamic> code = {};

@@ -6,7 +6,7 @@ class homeProvider extends ChangeNotifier {
 
   static String uid = '';
 
-  static void setUid(String dynamicUid) {
+  void setUid(String dynamicUid) {
     uid = dynamicUid;
   }
 
@@ -15,6 +15,7 @@ class homeProvider extends ChangeNotifier {
     var instance = Integration();
     User user = await instance.getUser(uid);
     print(user.firstname);
+    print(user.houseCodeId);
     notifyListeners();
   }
 }
