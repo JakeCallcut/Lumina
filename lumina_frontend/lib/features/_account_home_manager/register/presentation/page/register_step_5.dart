@@ -161,7 +161,6 @@ class _RegisterStep5State extends State<ManagerRegisterStep5> {
     User? user = await _auth.signUpWithEmailAndPassword(email, password);
 
     if (user != null) {
-      print("Account is successfully created");
       widget.ManagerloginDetails.userID = user.uid;   // This part fetches the userID 
       // print(widget.ManagerloginDetails.userID);
       registerUser(widget.ManagerloginDetails.userID);

@@ -113,7 +113,6 @@ class _RegisterStep4State extends State<ResidentRegisterStep4> {
     User? user = await _auth.signUpWithEmailAndPassword(email, password);
 
     if (user != null) {
-      print("Account is successfully created");
       widget.loginDetails.userID = user.uid;   // This part fetches the userID 
       registerUser(widget.loginDetails);
       Navigator.pushNamed(context, Routes.home);
