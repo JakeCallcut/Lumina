@@ -142,15 +142,14 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
   void registerHouseCode(String tLHName) async {
 
     TopLevelHome TLH = await instance.getTopLevelHomebyName(tLHName);
+    Provider.of<HCProvider>(context, listen: false).setMHCID(tLHName);
     Household HH = await instance.getHouseholdbyName(TLH.id, _detailsController.text);
 
     HouseCode houseCode = HouseCode("", _settingsController.text, TLH.id, HH.id);
-    HouseCode managerHouseCode = HouseCode("", _settingsController.text, TLH.id, "");
 
 
     try {
       await instance.addHouseCode(houseCode);
-      await instance.addHouseCode(managerHouseCode);
     } catch (e) {
       // Handle error
       print("Error adding house code: $e");

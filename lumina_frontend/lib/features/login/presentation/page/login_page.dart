@@ -1,9 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 //import 'package:lumina_frontend/features/home/presentation/page/home_page.dart';
 import 'package:lumina_frontend/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:lumina_frontend/routes.dart';
+import 'package:lumina_frontend/providers/providers.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -102,8 +106,9 @@ class _LoginPageState extends State<LoginPage> {
     User? user = await _auth.signInWithEmailAndPassword(email, password);
 
     if (user != null) {
-      print("User is successfully signed in");
       Routes.setUid(user.uid);
+      Provider.of<homeProvider>(context, listen: false).setUid(user.uid);
+      Provider.of<homeProvider>(context, listen: false).fetchData();
       Navigator.pushNamed(context, Routes.home);
     } else {
       _showSnackBar("Login Unsuccessful: Incorrect password or account does not exist.");

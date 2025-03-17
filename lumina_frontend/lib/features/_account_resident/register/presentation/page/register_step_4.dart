@@ -5,8 +5,6 @@ import 'package:lumina_frontend/features/user_auth/resident_login_details.dart';
 import 'package:lumina_frontend/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:lumina_frontend/routes.dart';
 import 'package:lumina_frontend/model/models.dart' as models;
-import 'package:provider/provider.dart';
-import 'package:lumina_frontend/providers/providers.dart';
 import 'package:lumina_frontend/services/integration_Funcs.dart';
 
 class ResidentRegisterStep4 extends StatefulWidget {
@@ -115,7 +113,6 @@ class _RegisterStep4State extends State<ResidentRegisterStep4> {
     User? user = await _auth.signUpWithEmailAndPassword(email, password);
 
     if (user != null) {
-      print("Account is successfully created");
       widget.loginDetails.userID = user.uid;   // This part fetches the userID 
       registerUser(widget.loginDetails);
       Navigator.pushNamed(context, Routes.home);
@@ -127,26 +124,13 @@ class _RegisterStep4State extends State<ResidentRegisterStep4> {
   void registerUser(LoginDetails login) async {
 
     // String houseCode = Provider.of<HCProvider>(context, listen: false).homeCode;
-    List<models.HouseCode> HC = await instance.getHouseCodesbyInvite(login.inviteCode);
-    print("HC 0: ${HC[0].id} Hc 1: ${HC[1].id}");
-    if (HC[0].householdId == ""){
-      models.User user0 = models.User("", login.userID, login.firstname, login.lastname, login.phoneNumber, HC[0].id, false);
-      try {
-      await instance.addUser(user0);
+    models.HouseCode HC = await instance.getHouseCodebyInvite(login.inviteCode);
+    models.User user = models.User("", login.userID, login.firstname, login.lastname, login.phoneNumber, HC.id, false);
+    try {
+      await instance.addUser(user);
     } catch (e) {
       // Handle error
       print("Error adding user: $e");
-    }
-    } else if (HC[1].householdId == ""){
-      models.User user1 = models.User("", login.userID, login.firstname, login.lastname, login.phoneNumber, HC[1].id, false);
-      try {
-      await instance.addUser(user1);
-    } catch (e) {
-      // Handle error
-      print("Error adding user: $e");
-    }
-    } else {
-      print("Error: No available housecodes");
     }
   }
 }

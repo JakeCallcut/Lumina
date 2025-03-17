@@ -161,7 +161,6 @@ class _RegisterStep5State extends State<ManagerRegisterStep5> {
     User? user = await _auth.signUpWithEmailAndPassword(email, password);
 
     if (user != null) {
-      print("Account is successfully created");
       widget.ManagerloginDetails.userID = user.uid;   // This part fetches the userID 
       // print(widget.ManagerloginDetails.userID);
       registerUser(widget.ManagerloginDetails.userID);
@@ -173,8 +172,9 @@ class _RegisterStep5State extends State<ManagerRegisterStep5> {
 
   void registerUser(String loginID) async {
 
-    String houseCode = Provider.of<HCProvider>(context, listen: false).managerHomeCode;
-    models.User user = models.User("", loginID, _firstNameController.text, _lastNameController.text, _phoneController.text, houseCode, false);
+    String tLHName = Provider.of<HCProvider>(context, listen: false).managerHomeCode;
+    models.TopLevelHome TLH = await instance.getTopLevelHomebyName(tLHName);
+    models.User user = models.User("", loginID, _firstNameController.text, _lastNameController.text, _phoneController.text, TLH.id, false);
 
     try {
       await instance.addUser(user);

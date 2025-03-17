@@ -8,16 +8,12 @@ import 'package:lumina_frontend/providers/homeProvider.dart';
 import 'package:provider/provider.dart';
 
 class ResidentHomePage extends StatelessWidget {
-  final String uid;
-  const ResidentHomePage({super.key, required this.uid});
+  const ResidentHomePage({super.key});
   //Dummy values
   final String _address = "11/15 Kingfisher Street";
 
   @override
   Widget build(BuildContext context) {
-
-    homeProvider.setUid(uid);
-    final home = Provider.of<homeProvider>(context);
     // final home = context.watch<homeProvider>();
 
 // 
