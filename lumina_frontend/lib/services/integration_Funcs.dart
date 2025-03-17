@@ -374,11 +374,11 @@ class Integration {
       int index = homes.length;
       for (var i = 0; i < index; i++) {
         Household home = homes[i];
-        deleteHousehold(tlhId, home.id);
         HouseCode code = await getHouseCodebyInvite(home.homeDetails["inviteCode"]);
         User user =  await getUserByHCode(code.id);
         deleteHouseCode(code.id);
         deleteUser(user.id);
+        deleteHousehold(tlhId, home.id);
       }
       // homes.forEach(action deleteHousehold()) {
       // }
