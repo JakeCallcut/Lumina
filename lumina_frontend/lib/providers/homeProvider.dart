@@ -16,6 +16,9 @@ class homeProvider extends ChangeNotifier {
   TopLevelHome get topLevelHome => _tLH;
   Household get household => _household;
   List<Household> get households => _households;
+  // List of rooms
+  // list of devices
+  // list of energy
 
   void setUid(String dynamicUid) {
     _loginid = dynamicUid;
