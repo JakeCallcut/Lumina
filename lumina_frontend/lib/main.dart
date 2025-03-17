@@ -52,6 +52,7 @@ runApp(
       ChangeNotifierProvider(create: (context) => homeProvider()), // from main
       ChangeNotifierProvider(create: (context) => TLHProvider()),
       ChangeNotifierProvider(create: (context) => HCProvider()),
+      ChangeNotifierProvider(create: (context) => socket),
       // Add more providers here if needed
     ],
     child: MyApp(),
