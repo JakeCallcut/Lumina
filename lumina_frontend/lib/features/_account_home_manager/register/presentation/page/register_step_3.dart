@@ -124,7 +124,7 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
     String address = _detailsController.text;
     String inviteCode = _settingsController.text;
 
-    Map<String, dynamic> homeDetails = {"address": address, "invitecode": inviteCode}; //address:string, inviteCode:int
+    Map<String, dynamic> homeDetails = {"address": address, "inviteCode": inviteCode}; //address:string, inviteCode:int
     Map<String, dynamic> settings = {"notification": false, "budget": 0, "darkmode": false}; //notifications:bool, budget:num, darkmode:bool
 
     Household household = Household("", homeDetails, settings);
