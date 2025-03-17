@@ -3,11 +3,27 @@ import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/features/_account_home_manager/home/presentation/widget/device_widget.dart';
 import 'package:lumina_frontend/features/_account_home_manager/home/presentation/widget/home_dial.dart';
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
+import 'package:provider/provider.dart';
+import 'package:lumina_frontend/providers/providers.dart';
+import 'package:lumina_frontend/model/models.dart';
 
-class ManagerHomePage extends StatelessWidget {
+
+class ManagerHomePage extends StatefulWidget {
   const ManagerHomePage({super.key});
-  //Dummy values
+
+  @override
+  _ManagerHomePageState createState() => _ManagerHomePageState();
+}
+
+class _ManagerHomePageState extends State<ManagerHomePage> {
   final String _address = "Lumina Care";
+  List<Household> households = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -125,5 +141,8 @@ class ManagerHomePage extends StatelessWidget {
         selectedPage: NavPage.home,
       ),
     );
+  }
+  void getData() async{
+    households =  Provider.of<homeProvider>(context, listen: false).households;
   }
 }
