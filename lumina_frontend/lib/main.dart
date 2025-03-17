@@ -1,11 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-// import 'package:lumina_frontend/model/models.dart';
+import 'package:lumina_frontend/model/models.dart';
 import 'package:lumina_frontend/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:lumina_frontend/services/integration_Funcs.dart';
-// import 'package:lumina_frontend/services/create_Database.dart';
+import 'package:lumina_frontend/services/create_Database.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'package:lumina_frontend/providers/providers.dart';
@@ -17,8 +17,8 @@ void main() async {
   );
 
 
-  // var instance = Integration();
-  //var instanceCreate = Create();
+  var instance = Integration();
+  var instanceCreate = DbCreate();
   //instanceCreate.createTopLevelHome();
   //instanceCreate.createHouseCode();
   //instanceCreate.createUser();
@@ -32,6 +32,8 @@ void main() async {
   //instance.getHousehold();
   //List<TopLevelHome> TLH = await instance.getallTopLevelHomes();
   //List<HomeOwner> homeowners = await instance.getallHomeOwners();
+  //User specificUser = await instance.getUserByLogin("ELdODPY52JMIZ98S3qjWSdl8u9H3");
+  
   //HomeOwner homeowner = homeowners[0];
   //homeowner.firstname = "testname";
   //HomeOwner homeowner = HomeOwner("fSGAFFMD2U1Ezvo4LCnM", "Lumina", "", "", "", "", "", false);
