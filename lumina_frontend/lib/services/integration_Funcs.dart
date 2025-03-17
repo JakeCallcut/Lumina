@@ -257,7 +257,7 @@ class Integration {
   }
 
   void deleteUser(String user) {
-    db.collection("HouseCode").doc(user).delete().then(
+    db.collection("User").doc(user).delete().then(
           (doc) => print("Document deleted"),
           onError: (e) => print("Error updating document $e"),
         );
