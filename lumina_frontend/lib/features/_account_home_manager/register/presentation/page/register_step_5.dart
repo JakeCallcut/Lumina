@@ -4,6 +4,10 @@ import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/features/user_auth/manager_login_details.dart';
 import 'package:lumina_frontend/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:lumina_frontend/routes.dart';
+import 'package:lumina_frontend/model/models.dart' as models;
+import 'package:provider/provider.dart';
+import 'package:lumina_frontend/providers/providers.dart';
+import 'package:lumina_frontend/services/integration_Funcs.dart';
 
 class ManagerRegisterStep5 extends StatefulWidget {
   final ManagerLoginDetails ManagerloginDetails;
@@ -21,6 +25,7 @@ class _RegisterStep5State extends State<ManagerRegisterStep5> {
   final FocusNode _firstNameFocusNode = FocusNode();
   final FocusNode _lastNameFocusNode = FocusNode();
   final FocusNode _phoneFocusNode = FocusNode();
+  var instance = Integration();
 
   @override
   void dispose() {
@@ -158,10 +163,24 @@ class _RegisterStep5State extends State<ManagerRegisterStep5> {
     if (user != null) {
       print("Account is successfully created");
       widget.ManagerloginDetails.userID = user.uid;   // This part fetches the userID 
-      print(widget.ManagerloginDetails.userID);
+      // print(widget.ManagerloginDetails.userID);
+      registerUser(widget.ManagerloginDetails.userID);
       Navigator.pushNamed(context, Routes.home);
 
       print(widget.ManagerloginDetails.firstname);
+    }
+  }
+
+  void registerUser(String loginID) async {
+
+    String houseCode = Provider.of<HCProvider>(context, listen: false).managerHomeCode;
+    models.User user = models.User("", loginID, _firstNameController.text, _lastNameController.text, _phoneController.text, houseCode, false);
+
+    try {
+      await instance.addUser(user);
+    } catch (e) {
+      // Handle error
+      print("Error adding user: $e");
     }
   }
 }

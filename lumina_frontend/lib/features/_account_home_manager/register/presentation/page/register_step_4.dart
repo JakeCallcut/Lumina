@@ -3,6 +3,10 @@ import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/features/user_auth/manager_login_details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lumina_frontend/routes.dart';
+import 'package:provider/provider.dart';
+import 'package:lumina_frontend/providers/providers.dart';
+import 'package:lumina_frontend/services/integration_Funcs.dart';
+
 
 class ManagerRegisterStep4 extends StatefulWidget {
   String accountType = '';
@@ -18,6 +22,7 @@ class _RegisterStep4State extends State<ManagerRegisterStep4> {
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
+  var instance = Integration();
 
   late final String _accountType;
   double passwordStrength = 0;

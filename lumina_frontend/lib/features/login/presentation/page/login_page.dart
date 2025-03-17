@@ -92,20 +92,46 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-  
-  void _signIn() async {
-    String email = _emailController.text;
-    String password = _passwordController.text;
 
+
+  void _signIn() async {
+  String email = _emailController.text.trim();
+  String password = _passwordController.text.trim();
+
+  try {
     User? user = await _auth.signInWithEmailAndPassword(email, password);
 
-    if (user != null){
+    if (user != null) {
       print("User is successfully signed in");
       Routes.setUid(user.uid);
       Navigator.pushNamed(context, Routes.home);
-    } else{
-      print("Some error Occured");
+    } else {
+      _showSnackBar("Login Unsuccessful: Incorrect password or account does not exist.");
     }
-
+  } on FirebaseAuthException catch (e) { 
+    // Catching FirebaseAuth errors and showing a general message
+    print("FirebaseAuthException: ${e.code}");
+    _showSnackBar("Login Unsuccessful: Incorrect password or account does not exist.");
+  } catch (e) {
+    // Handling unexpected errors
+    print("Login failed: $e");
+    _showSnackBar("An unexpected error occurred. Please try again.");
   }
+}
+
+// Function to show a Snackbar
+void _showSnackBar(String message) {
+  if (!mounted) return;
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(message, style: TextStyle(color: Colors.white)),
+      backgroundColor: Colors.red,
+      behavior: SnackBarBehavior.floating,
+      duration: Duration(seconds: 3),
+    ),
+  );
+}
+
+
+
 }

@@ -1,11 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:lumina_frontend/model/models.dart';
+// import 'package:lumina_frontend/model/models.dart';
 import 'package:lumina_frontend/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:lumina_frontend/services/integration_Funcs.dart';
-import 'package:lumina_frontend/services/create_Database.dart';
+// import 'package:lumina_frontend/services/create_Database.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
@@ -21,7 +21,7 @@ void main() async {
   );
 
 
-  var instance = Integration();
+  // var instance = Integration();
   //var instanceCreate = Create();
   //instanceCreate.createTopLevelHome();
   //instanceCreate.createHouseCode();
@@ -46,19 +46,17 @@ void main() async {
   // Initialize the socket here
   Sockets socket = Sockets();
   await socket.initSocket(); // Make sure the socket is fully initialized
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => homeProvider()..fetchData()),
-
-        ChangeNotifierProvider(create: (_) => socket),
-
-        ChangeNotifierProvider(create: (context) => TLHProvider()),
-        // Add more providers here if needed
-      ],
-      child: MyApp(),
-    ),
-  );
+runApp(
+  MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => homeProvider()), // from main
+      ChangeNotifierProvider(create: (context) => TLHProvider()),
+      ChangeNotifierProvider(create: (context) => HCProvider()),
+      // Add more providers here if needed
+    ],
+    child: MyApp(),
+  ),
+);
 }
 
 
