@@ -262,8 +262,10 @@ class Integration {
     } catch (e) {
       print("Error getting top level homes: $e");
       //log error here
+      tlh = TopLevelHome("", "", []);
       return tlh;
     }
+    tlh = TopLevelHome("", "", []);
     return tlh;
   }
 
