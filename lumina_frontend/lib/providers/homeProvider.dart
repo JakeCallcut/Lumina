@@ -22,11 +22,21 @@ class homeProvider extends ChangeNotifier {
     // Add your data fetching logic here
     var instance = Integration();
     User user = await instance.getUserByLogin(loginid);
-    TopLevelHome TLH = await instance.getTopLevelHome(user.houseCodeId);
-    if (TLH.id != "") {
+    TopLevelHome tLH = await instance.getTopLevelHome(user.houseCodeId);
+    if (tLH.id != "") {
       setAccountType("manager");
+      managerData(user, tLH);
     } else {
+      residentData(user);
     }
     notifyListeners();
+  }
+
+  Future<void> managerData(user, tLH) async {
+
+  }
+
+  Future<void> residentData(user) async {
+    
   }
 }
