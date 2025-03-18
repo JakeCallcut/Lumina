@@ -376,8 +376,10 @@ class Integration {
         Household home = homes[i];
         HouseCode code = await getHouseCodebyInvite(home.homeDetails['inviteCode']);
         User user =  await getUserByHCode(code.id);
+        EnergyUsage energy = await getEnergyUsageByHouseId(home.id);
         deleteHouseCode(code.id);
         deleteUser(user.id);
+        deleteEnergy(energy.id);
         deleteHousehold(tlhId, home.id);
       }
       // homes.forEach(action deleteHousehold()) {
