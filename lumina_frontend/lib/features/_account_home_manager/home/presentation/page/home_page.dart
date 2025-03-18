@@ -30,7 +30,7 @@ class _ManagerHomePageState extends State<ManagerHomePage> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start, // Changed from spaceBetween
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
