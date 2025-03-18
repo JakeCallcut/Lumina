@@ -3,6 +3,8 @@ import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/features/_account_home_manager/stats/presentation/widget/name_box.dart';
 import 'package:lumina_frontend/services/integration_Funcs.dart';
 import 'package:lumina_frontend/model/models.dart';
+import 'package:provider/provider.dart';
+import 'package:lumina_frontend/providers/providers.dart';
 
 class DropDown extends StatefulWidget {
   final VoidCallback onToggleDropDown;
@@ -19,14 +21,11 @@ class _DropDownState extends State<DropDown> {
   var instance = Integration();
   late final String tlhID = widget.tlhID;
 
-  Future<List<Household>> getHomeOwnerData() async {
-    return await instance.getHouseholds(tlhID);
-  }
-
   @override
   Widget build(BuildContext context) {
+    final house = Provider.of<homeProvider>(context, listen: false);
     return FutureBuilder<List<Household>>(
-      future: getHomeOwnerData(),
+      future: Future.value(house.houseHolds),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -80,7 +79,7 @@ class _DropDownState extends State<DropDown> {
                                     children: [
                                       Expanded(
                                         child: NameBox(
-                                          name: homes[index].homeDetails['addressOrNum'] ?? 'Unknown',
+                                          name: homes[index].homeDetails['address'] ?? 'Unknown',
                                           onToggleDropDown: widget.onToggleDropDown,
                                         ),
                                       ),

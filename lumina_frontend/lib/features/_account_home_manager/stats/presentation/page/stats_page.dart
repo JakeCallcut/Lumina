@@ -10,11 +10,13 @@ import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 
 import 'package:lumina_frontend/services/integration_Funcs.dart';
 import 'package:lumina_frontend/model/models.dart';
+import 'package:provider/provider.dart';
+import 'package:lumina_frontend/providers/providers.dart';
 
 class ManagerStatsPage extends StatefulWidget {
-  String name;
+  final String? name;
 
-  ManagerStatsPage({super.key, this.name = "1 Lumina Care"});
+  ManagerStatsPage({super.key, this.name});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -25,9 +27,12 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
   bool _isDropDownOpen = false;
   OverlayEntry? _overlayEntry;
   var instance = Integration();
+  String? _name;
 
-  Future<List<TopLevelHome>> getTopLevelHome() async {
-    return await instance.getallTopLevelHomes();
+  void initState() {
+    super.initState();
+    final house = Provider.of<homeProvider>(context, listen: false);
+    _name = widget.name ?? house.houseHolds[0].homeDetails["address"];
   }
 
   OverlayEntry _createOverlayEntry(String tlhID) {
@@ -94,6 +99,9 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    final house = Provider.of<homeProvider>(context, listen: false);
+    
     final List<FlSpot> energyUsage = [
       FlSpot(1, Random().nextDouble() * 2.5),
       FlSpot(2, 0.2),
@@ -162,17 +170,16 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
       FlSpot(31, 0.4),
     ];
 
-    return FutureBuilder<List<TopLevelHome>>(
-      future: getTopLevelHome(),
+    return FutureBuilder<TopLevelHome>(
+      future: Future.value(house.topLevelHome),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+        } else if (!snapshot.hasData) {
           return const Center(child: Text('No top level homes found.'));
         } else {
-          List<TopLevelHome> homes = snapshot.data!;
           return Scaffold(
             body: Stack(children: [
               SingleChildScrollView(
@@ -187,7 +194,7 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
                           child: Image.asset("assets/images/logo64.png"),
                         ),
                         Text(
-                          homes[0].name,
+                          _name ?? '',
                           style: MainTheme.h1Black,
                         ),
                         const Spacer(),
@@ -195,7 +202,7 @@ class _ManagerStatsPageState extends State<ManagerStatsPage> {
                           IconButton(
                             icon: const Icon(Icons.arrow_drop_down,
                                 size: 40, color: Colors.black),
-                            onPressed: () => _toggleDropDown(homes[0].id),
+                            onPressed: () => _toggleDropDown(house.topLevelHome.id),
                           ),
                       ],
                     ),

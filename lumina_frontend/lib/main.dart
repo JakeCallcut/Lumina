@@ -37,7 +37,7 @@ void main() async {
   //List<TopLevelHome> TLH = await instance.getallTopLevelHomes();
   //List<HomeOwner> homeowners = await instance.getallHomeOwners();
   //User specificUser = await instance.getUserByLogin("ELdODPY52JMIZ98S3qjWSdl8u9H3");
-  
+  //instance.deleteTopLevelHome("96EDjQCHDD6cySoeHotv");
   //HomeOwner homeowner = homeowners[0];
   //homeowner.firstname = "testname";
   //HomeOwner homeowner = HomeOwner("fSGAFFMD2U1Ezvo4LCnM", "Lumina", "", "", "", "", "", false);

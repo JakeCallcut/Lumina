@@ -39,7 +39,6 @@ class ManagerSettingsPage extends StatelessWidget {
         instance.deleteTopLevelHome(user_db.houseCodeId);
         instance.deleteUser(user_db_id);
 
-
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Account deleted successfully.")),
         );
