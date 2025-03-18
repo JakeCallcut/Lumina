@@ -6,10 +6,12 @@ class DeviceWidget extends StatefulWidget {
   @override
   _DeviceWidgetState createState() => _DeviceWidgetState();
   final String homeName;
+  final String inviteCode;
   final double homeUsage;
 
   const DeviceWidget({super.key,
                     required this.homeName,
+                    required this.inviteCode,
                     required this.homeUsage});
 }
 
@@ -39,6 +41,10 @@ class _DeviceWidgetState extends State<DeviceWidget> {
         children: [
           Text(
             widget.homeName,
+            style: MainTheme.h3White,
+          ),
+          Text(
+            'Invite Code: ${widget.inviteCode}',
             style: MainTheme.h3White,
           ),
           Text(
