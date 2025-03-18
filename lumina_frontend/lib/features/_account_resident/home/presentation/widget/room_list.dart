@@ -19,14 +19,13 @@ class _RoomListState extends State<RoomList> {
 
   @override
   Widget build(BuildContext context) {
-    final house = Provider.of<homeProvider>(context, listen: false);
-    instance
-        .getRooms(house.houseCode.topHouseId, house.houseCode.householdId)
-        .then((fetchedRooms) {
+    final house = Provider.of<homeProvider>(context, listen: true);
+    instance.getRooms(house.houseCode.topHouseId, house.houseCode.householdId).then((fetchedRooms) {
       setState(() {
         rooms = fetchedRooms;
       });
     });
+    Provider.of<homeProvider>(context, listen: true).setRooms(rooms);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -114,6 +113,7 @@ class _RoomListState extends State<RoomList> {
                         setState(() {
                           selectedIndex = index;
                         });
+                        house.setRoom(rooms[index]);
                       },
                       child: Container(
                         padding: const EdgeInsets.all(8.0),

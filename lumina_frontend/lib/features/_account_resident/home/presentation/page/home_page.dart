@@ -7,6 +7,7 @@ import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 import 'package:lumina_frontend/providers/homeProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:lumina_frontend/model/models.dart';
+import 'package:lumina_frontend/features/_account_resident/devicelist/presentation/page/devicelistpages.dart';
 
 class ResidentHomePage extends StatefulWidget {
   const ResidentHomePage({super.key});
@@ -18,8 +19,9 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
   //Dummy values
   String? address;
   Household household = Household("", {}, {});
+  List<Device> devices = [];
 
-   @override
+  @override
   void initState() {
     super.initState();
     getData();
@@ -28,8 +30,8 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
   @override
   Widget build(BuildContext context) {
     // final home = context.watch<homeProvider>();
-
-// 
+    final home = Provider.of<homeProvider>(context);
+    devices = home.devices;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -102,19 +104,50 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
               ],
             ),
             RoomList(),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                DeviceWidget(deviceName: 'Phillips Iris',),
-                DeviceWidget(deviceName: 'Roomba',),
-              ],
-            ),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                DeviceWidget(deviceName: 'TIM Assistant',),
-                DeviceWidget(deviceName: 'GHD Straigteners',),
-              ],
+            Container(
+              color: MainTheme.luminaShadedWhite,
+              height: 50.0,
+              child: devices.isEmpty
+                  ? Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text("No devices found", style: MainTheme.h4Black),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.add,
+                              color: Colors.black,
+                            ),
+                            onPressed: () {
+                              navigateToAddDevice();
+                            },
+                          ),
+                        ],
+                      ),
+                    )
+                  : GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      //itemCount: households.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 1.0,
+                        mainAxisSpacing: 0,
+                        crossAxisSpacing: 10.0,
+                      ),
+                      itemBuilder: (context, index) {
+                        //Household household = households[index];
+                        return SizedBox(
+                          height: 40,
+                          child: Center(
+                            child: DeviceWidget(
+                              deviceName: "test",
+                            ),
+                          ),
+                        );
+                      },
+                    ),
             ),
           ],
         ),
@@ -125,9 +158,22 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
     );
   }
 
-  void getData() async{
+  void getData() async {
     final house = Provider.of<homeProvider>(context, listen: false);
     household = house.houseHold;
     address = house.houseHold.homeDetails["address"];
+  }
+
+  void navigateToAddDevice() async {
+    // Navigate to the AddDevice page and wait for a result
+    final Device newDevice = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const AddDevicePage()),
+    );
+    
+    // If a new device was returned, add it to the list
+    setState(() {
+      devices.add(newDevice);
+    });
   }
 }

@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
+import 'package:lumina_frontend/model/models.dart';
 //
 import 'adddevice_page.dart';
-import '../../domain/entities/devicelist_entiti.dart';
+//import '../../domain/entities/devicelist_entiti.dart';
 //
 import 'variablelight_page.dart';
 import 'devicefunctions_page.dart';
 //
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
+import 'package:lumina_frontend/providers/homeProvider.dart';
+import 'package:provider/provider.dart';
+import 'package:lumina_frontend/model/models.dart';
+import 'package:lumina_frontend/services/integration_Funcs.dart';
 
 
 class ManageDevicesPage extends StatefulWidget {
@@ -21,96 +26,12 @@ class _ManageDevicesPageState extends State<ManageDevicesPage> {
   String selectedFilter = 'All Devices';
   //Static list of device types until linked with backend database
   final List<String> filterOptions = ['All Devices', 'Lighting', 'Robot', 'Cleaning', 'Display', 'Vehicle','Charging'];
-
-  void navigateToAddDevice() async {
-    // Navigate to the AddDevice page and wait for a result
-    final DeviceItem? newDevice = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const AddDevicePage()),
-    );
-    
-    // If a new device was returned, add it to the list
-    if (newDevice != null) {
-      setState(() {
-        devices.add(newDevice);
-      });
-    }
-  }
-  
-  // Navigate to the appropriate page based on device type
-  void navigateToDeviceControlPage(DeviceItem device) async {
-    if (device.species == 'Lighting') {
-      final result = await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => VariableLightPage(device: device),
-        ),
-      );
-      
-      // Handle the result from the VariableLightPage
-      if (result != null && result is Map && result['action'] == 'delete') {
-        String deviceIdToDelete = result['deviceId'];
-        setState(() {
-          devices.removeWhere((d) => d.name == deviceIdToDelete);
-        });
-        
-        // Show a snackbar to confirm deletion
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('$deviceIdToDelete has been deleted'),
-            duration: const Duration(seconds: 2),
-          ),
-        );
-      }
-    } 
-    else {
-      final result = await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DeviceFunctionsPage(device: device),
-        ),
-      );
-      
-      // Handle deletion result if it comes from other device pages
-      if (result != null && result is Map) {
-        if (result['action'] == 'delete') {
-          String deviceIdToDelete = result['deviceId'];
-          setState(() {
-            devices.removeWhere((d) => d.name == deviceIdToDelete);
-          });
-          
-          // Show a snackbar to confirm deletion
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('$deviceIdToDelete has been deleted'),
-              duration: const Duration(seconds: 2),
-            ),
-          );
-        } else if (result['action'] == 'update' && result['device'] != null) {
-          // Handle device update
-          DeviceItem updatedDevice = result['device'];
-          setState(() {
-            // Find device by its original name and update it
-            final int index = devices.indexWhere((d) => d.name == device.name);
-            if (index != -1) {
-              devices[index] = updatedDevice;
-            }
-          });
-          
-          // Show a snackbar to confirm update
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('${updatedDevice.name} has been updated'),
-              duration: const Duration(seconds: 2),
-            ),
-          );
-        }
-      }
-    }
-  }
+  List<Device> devices = [];
 
   @override
   Widget build(BuildContext context) {
+    final home = Provider.of<homeProvider>(context);
+    devices = home.devices;
     return Scaffold(
       backgroundColor: MainTheme.luminaShadedWhite,
       body: SafeArea(
@@ -131,7 +52,7 @@ class _ManageDevicesPageState extends State<ManageDevicesPage> {
                     child: Image.asset("assets/images/logo64.png"),
                   ),
                   const SizedBox(width: 12),
-                  Text(
+                  const Text(
                     'Manage Your Devices',
                     style: TextStyle(
                       fontSize: 20,
@@ -179,7 +100,7 @@ class _ManageDevicesPageState extends State<ManageDevicesPage> {
                   itemBuilder: (context, index) {
                     // Only show devices matching the filter
                     if (selectedFilter != 'All Devices' && 
-                        devices[index].species != selectedFilter) {
+                        devices[index].typeName != selectedFilter) {
                       return SizedBox.shrink(); // Skip this device
                     }
                     
@@ -198,14 +119,15 @@ class _ManageDevicesPageState extends State<ManageDevicesPage> {
                               children: [
                                 // Device icon
                                 Icon(
-                                  devices[index].icon,
+                                  // devices[index].icon,
+                                  Icons.lightbulb,
                                   color: MainTheme.luminaShadedWhite,
                                 ),
                                 const SizedBox(width: 16),
                                 // Device name
                                 Expanded(
                                   child: Text(
-                                    devices[index].name,
+                                    devices[index].deviceName,
                                     style: const TextStyle(
                                       color: Colors.white,
                                     ),
@@ -218,19 +140,16 @@ class _ManageDevicesPageState extends State<ManageDevicesPage> {
                                   },
                                   behavior: HitTestBehavior.opaque, // Block taps from reaching widgets below
                                   child: Switch(
-                                    value: devices[index].activity,
+                                    value: devices[index].mainAction,
                                     onChanged: (value) {
                                       setState(() {
-                                        devices[index] = DeviceItem(
-                                          deviceID: devices[index].deviceID,
-                                          name: devices[index].name,
-                                          species: devices[index].species,
-                                          room: devices[index].room,
-                                          lowerHome: devices[index].lowerHome,
-                                          higherHome: devices[index].higherHome,
-                                          icon: devices[index].icon,
-                                          activity: value,
-                                          subactivities: {},
+                                        devices[index] = Device(
+                                          devices[index].id,
+                                          devices[index].deviceName,
+                                          devices[index].typeName,
+                                          0,
+                                          false,
+                                          {},
                                         );
                                       });
                                     },
@@ -276,5 +195,90 @@ class _ManageDevicesPageState extends State<ManageDevicesPage> {
       selectedPage: NavPage.devices,
       ),
     );
+  }
+
+  void navigateToAddDevice() async {
+    // Navigate to the AddDevice page and wait for a result
+    Device newDevice = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const AddDevicePage()),
+    );
+    
+    // If a new device was returned, add it to the list
+    setState(() {
+      devices.add(newDevice);
+    });
+    }
+  
+  // Navigate to the appropriate page based on device type
+  void navigateToDeviceControlPage(Device device) async {
+    if (device.typeName == 'Lighting') {
+      final result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => VariableLightPage(device: device),
+        ),
+      );
+      
+      // Handle the result from the VariableLightPage
+      if (result != null && result is Map && result['action'] == 'delete') {
+        String deviceIdToDelete = result['deviceId'];
+        setState(() {
+          devices.removeWhere((d) => d.deviceName == deviceIdToDelete);
+        });
+        
+        // Show a snackbar to confirm deletion
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('$deviceIdToDelete has been deleted'),
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      }
+    } 
+    else {
+      final result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DeviceFunctionsPage(device: device),
+        ),
+      );
+      
+      // Handle deletion result if it comes from other device pages
+      if (result != null && result is Map) {
+        if (result['action'] == 'delete') {
+          String deviceIdToDelete = result['deviceId'];
+          setState(() {
+            devices.removeWhere((d) => d.deviceName == deviceIdToDelete);
+          });
+          
+          // Show a snackbar to confirm deletion
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('$deviceIdToDelete has been deleted'),
+              duration: const Duration(seconds: 2),
+            ),
+          );
+        } else if (result['action'] == 'update' && result['device'] != null) {
+          // Handle device update
+          Device updatedDevice = result['device'];
+          setState(() {
+            // Find device by its original name and update it
+            final int index = devices.indexWhere((d) => d.deviceName == device.deviceName);
+            if (index != -1) {
+              devices[index] = updatedDevice;
+            }
+          });
+          
+          // Show a snackbar to confirm update
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('${updatedDevice.deviceName} has been updated'),
+              duration: const Duration(seconds: 2),
+            ),
+          );
+        }
+      }
+    }
   }
 }
