@@ -89,14 +89,19 @@ class _ManagerHomePageState extends State<ManagerHomePage> {
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2, 
                 childAspectRatio: 1.0,
+                mainAxisSpacing: 0,
+                crossAxisSpacing: 10.0,
               ),
               itemBuilder: (context, index) {
                 Household household = households[index];
-                return Center(  
-                  child: DeviceWidget(
-                    homeName: household.homeDetails["address"],
-                    inviteCode: household.homeDetails["invitecode"],
-                    homeUsage: 0.80,
+                return SizedBox(
+                  height: 40,
+                  child: Center(
+                    child: DeviceWidget(
+                      homeName: household.homeDetails["address"] ?? "Unknown",
+                      inviteCode: household.homeDetails["inviteCode"] ?? "No Invite Code",
+                      homeUsage: 0.80,
+                    ),
                   ),
                 );
               },
