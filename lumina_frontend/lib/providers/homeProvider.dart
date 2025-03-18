@@ -10,12 +10,16 @@ class homeProvider extends ChangeNotifier {
   TopLevelHome _tLH = TopLevelHome("", "", []);
   Household _houseHold = Household("",{},{});
   List<Household> _houseHolds = [];
+  User _user = User("","","","","","",false);
+  List<EnergyUsage> _energyUsage = [];
 
   String get loginid => _loginid;
   String get accountType => _accountType;
+  User get user => _user;
   TopLevelHome get topLevelHome => _tLH;
   Household get houseHold => _houseHold;
   List<Household> get houseHolds => _houseHolds;
+  List<EnergyUsage> get energyUsage => _energyUsage;
   var instance = Integration();
   // List of rooms
   // list of devices
@@ -29,8 +33,15 @@ class homeProvider extends ChangeNotifier {
     _accountType = account;
   }
 
+  void setEnergyUsage(EnergyUsage energy) {
+    _energyUsage[0] = energy;
+  }
+
   Future<void> fetchData() async {
     User user = await instance.getUserByLogin(loginid);
+    _user = user;
+    print(loginid);
+    print(user.phoneNumber);
     TopLevelHome tLH = await instance.getTopLevelHome(user.houseCodeId);
     if (tLH.id != "") {
       setAccountType("manager");
