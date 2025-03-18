@@ -4,7 +4,7 @@ import 'package:lumina_frontend/core/utils/dial_painter.dart';
 
 class HomeDial extends StatelessWidget {
   final double value;
-  final double maxValue;
+  final double? maxValue;
   final String? unit;
 
   const HomeDial(
@@ -13,10 +13,61 @@ class HomeDial extends StatelessWidget {
       required this.maxValue,
       required this.unit});
 
-  double get _portion => value / maxValue;
+  double get _portion {
+    if (maxValue == null || maxValue == 0) {
+      return 0;
+    }
+    return value / maxValue!;
+  }
 
   @override
   Widget build(BuildContext context) {
+    Widget valueDisplay;
+    if (unit == null) {
+      if (maxValue == null) {
+        valueDisplay = Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              value.toString(),
+              style: MainTheme.h1Black,
+            ),
+          ],
+        );
+      }
+      else {
+        valueDisplay = Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              value.toString(),
+              style: MainTheme.h1Black,
+            ),
+            Text(
+              "/${maxValue.toString()}",
+              style: MainTheme.h2Black,
+            )
+          ],
+        );
+      }
+    } else {
+      valueDisplay = Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            value.toString(),
+            style: MainTheme.h1Black,
+          ),
+          Text(
+            unit!,
+            style: MainTheme.h3Black,
+          )
+        ],
+      );
+    }
+
     return Stack(children: [
       Container(
         height: 100,
@@ -33,36 +84,7 @@ class HomeDial extends StatelessWidget {
             ),
           ],
         ),
-        child: Center(
-          child: (unit == null)
-              ? Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      value.toString(),
-                      style: MainTheme.h1Black,
-                    ),
-                    Text(
-                      "/${maxValue.toString()}",
-                      style: MainTheme.h2Black,
-                    )
-                  ],
-                )
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      value.toString(),
-                      style: MainTheme.h1Black,
-                    ),
-                    Text(
-                      unit!,
-                      style: MainTheme.h3Black,
-                    )
-                  ],
-                ),
-        ),
+        child: Center(child: valueDisplay),
       ),
       Positioned(
         top: 0,

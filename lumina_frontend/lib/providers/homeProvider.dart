@@ -43,7 +43,7 @@ class homeProvider extends ChangeNotifier {
   }
 
   Future<void> managerData(user) async {
-    List<Household> tempHouseholds = await instance.getHouseholds("DP2hTQzJAs9S2WJoO0Lk");
+    List<Household> tempHouseholds = await instance.getHouseholds(_tLH.id);
     // for (int i = 0; i < tempHouseholds.length; i++){
     //    _houseHolds.add(tempHouseholds[i]);
     // }

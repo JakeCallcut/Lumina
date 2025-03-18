@@ -16,7 +16,7 @@ class ManagerHomePage extends StatefulWidget {
 }
 
 class _ManagerHomePageState extends State<ManagerHomePage> {
-  final String _address = "Lumina Care";
+  String? address;
   List<Household> households = [];
 
   @override
@@ -40,7 +40,7 @@ class _ManagerHomePageState extends State<ManagerHomePage> {
                   child: Image.asset("assets/images/logo64.png"),
                 ),
                 Text(
-                  _address,
+                  address!,
                   style: MainTheme.h1Black,
                 ),
               ],
@@ -66,9 +66,9 @@ class _ManagerHomePageState extends State<ManagerHomePage> {
                 ),
                 Column(
                   children: [
-                    const HomeDial(
-                      value: 12,
-                      maxValue: 30,
+                    HomeDial(
+                      value: households.length.toDouble(),
+                      maxValue: null,
                       unit: null,
                     ),
                     const SizedBox(
@@ -82,57 +82,24 @@ class _ManagerHomePageState extends State<ManagerHomePage> {
                 ),
               ],
             ),
-            const Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      DeviceWidget(
-                        homeName: '1 Lumina Care',
-                        homeUsage: 0.40,
-                      ),
-                      DeviceWidget(
-                        homeName: '2 Lumina Care',
-                        homeUsage: 0.80,
-                      ),
-                    ],
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: households.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, 
+                childAspectRatio: 1.0,
+              ),
+              itemBuilder: (context, index) {
+                Household household = households[index];
+                return Center(  
+                  child: DeviceWidget(
+                    homeName: household.homeDetails["address"],
+                    inviteCode: household.homeDetails["invitecode"],
+                    homeUsage: 0.80,
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      DeviceWidget(
-                        homeName: '3 Lumina Care',
-                        homeUsage: 0.76,
-                      ),
-                      DeviceWidget(
-                        homeName: '4 Lumina Care',
-                        homeUsage: 0.60,
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      DeviceWidget(
-                        homeName: '5 Lumina Care',
-                        homeUsage: 0.76,
-                      ),
-                      DeviceWidget(
-                        homeName: '6 Lumina Care',
-                        homeUsage: 0.60,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                );
+              },
             ),
           ],
         ),
@@ -145,5 +112,6 @@ class _ManagerHomePageState extends State<ManagerHomePage> {
   void getData() async{
     final house = Provider.of<homeProvider>(context, listen: false);
     households = house.houseHolds;
+    address = house.topLevelHome.name;
   }
 }
