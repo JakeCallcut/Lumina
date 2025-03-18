@@ -36,16 +36,22 @@ class _DeviceWidgetState extends State<DeviceWidget> {
           ],
       ),
       child: Column(
-        
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            widget.homeName,
-            style: MainTheme.h3White,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.home_rounded, color: Colors.white, size: 20,),
+              Text(
+                widget.homeName,
+                style: MainTheme.h2White,
+              ),
+            ],
           ),
           Text(
             'Invite Code: ${widget.inviteCode}',
-            style: MainTheme.h3White,
+            style: MainTheme.h4White,
           ),
           Text(
             '£$formattedUsage/hr',
