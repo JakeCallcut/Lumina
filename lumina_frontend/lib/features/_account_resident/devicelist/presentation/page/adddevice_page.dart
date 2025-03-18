@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import '../../domain/entities/devicelist_entiti.dart';
+//
+import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 class AddDevicePage extends StatefulWidget {
   const AddDevicePage({Key? key}) : super(key: key);
 
@@ -165,7 +167,7 @@ class _AddDevicePageState extends State<AddDevicePage> {
                     ),
                   ),
                   onPressed: () {
-  // Get form values (assuming you have TextEditingController instances for your input fields)
+  // Get form values
   final deviceName = nameController.text.trim();
   final deviceSpecies = selectedDeviceType ?? 'Smart Lamp';
   final location = selectedRoom ?? 'Lounge';
@@ -183,16 +185,20 @@ class _AddDevicePageState extends State<AddDevicePage> {
   
   // Create a new device object
   final newDevice = DeviceItem(
+    deviceID: "addDeviceID",
     //Name is up to user
     name: deviceName,
     //Type picked from a list
     species: deviceSpecies,
     //Location picked from a list
     room: location,
+    lowerHome: "addDevLower",
+    higherHome: "addDevHigher",
     // Icon based on device type
     icon: Icons.radar,
     // Any new device starts as off
-    activity: false, 
+    activity: false,
+    subactivities: {} 
   );
   
   Navigator.pop(context, newDevice);
@@ -205,36 +211,14 @@ class _AddDevicePageState extends State<AddDevicePage> {
     ),
   );
 },
-
-// Helper function to determine the icon based on device type
-
-                ),
-              ),
-              
-              // Scan Network button
-              Container(
-                width: double.infinity,
-                child: ElevatedButton.icon(
-                  icon:  Icon(Icons.wifi, color: MainTheme.luminaShadedWhite),
-                  label:  Text(
-                    'Scan Network',
-                    style: TextStyle(color: MainTheme.luminaShadedWhite),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: MainTheme.luminaBlue,
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  onPressed: () {
-                    // Scan network logic would go here
-                  },
                 ),
               ),
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: Navbar(
+      selectedPage: NavPage.devices,
       ),
     );
   }
@@ -253,6 +237,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: MainTheme.luminaShadedWhite,
       ),
       home: const AddDevicePage(),
+    
     );
   }
 }
