@@ -6,11 +6,24 @@ import 'package:lumina_frontend/features/_account_resident/home/presentation/wid
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
 import 'package:lumina_frontend/providers/homeProvider.dart';
 import 'package:provider/provider.dart';
+import 'package:lumina_frontend/model/models.dart';
 
-class ResidentHomePage extends StatelessWidget {
+class ResidentHomePage extends StatefulWidget {
   const ResidentHomePage({super.key});
+  @override
+  _ResidentHomePageState createState() => _ResidentHomePageState();
+}
+
+class _ResidentHomePageState extends State<ResidentHomePage> {
   //Dummy values
-  final String _address = "11/15 Kingfisher Street";
+  String? address;
+  Household household = Household("", {}, {});
+
+   @override
+  void initState() {
+    super.initState();
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +43,7 @@ class ResidentHomePage extends StatelessWidget {
                   child: Image.asset("assets/images/logo64.png"),
                 ),
                 Text(
-                  _address,
+                  address!,
                   style: MainTheme.h1Black,
                 ),
               ],
@@ -110,5 +123,11 @@ class ResidentHomePage extends StatelessWidget {
         selectedPage: NavPage.home,
       ),
     );
+  }
+
+  void getData() async{
+    final house = Provider.of<homeProvider>(context, listen: false);
+    household = house.houseHold;
+    address = house.houseHold.homeDetails["address"];
   }
 }
