@@ -74,7 +74,7 @@ class Routes {
       case home:
         return NoTransitionPageRoute(
             builder: (_) => userRole == 'manager'
-                ? const ManagerHomePage()
+                ? ManagerHomePage()
                 : ResidentHomePage());
       case devices:
         return NoTransitionPageRoute(builder: (_) => const ManageDevicesPage());

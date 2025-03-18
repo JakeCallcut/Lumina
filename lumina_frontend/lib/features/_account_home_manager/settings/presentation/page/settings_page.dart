@@ -26,6 +26,7 @@ class ManagerSettingsPage extends StatelessWidget {
 
 
 
+
     try {
       User? user = FirebaseAuth.instance.currentUser;
 
@@ -35,7 +36,6 @@ class ManagerSettingsPage extends StatelessWidget {
         
         // delete the user from the database and firebase auth
         await user.delete();
-        
         instance.deleteTopLevelHome(user_db.houseCodeId);
         instance.deleteUser(user_db_id);
 

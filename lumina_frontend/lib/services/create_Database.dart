@@ -89,7 +89,7 @@ class DbCreate {
     engout.update("2", (value) => 48, ifAbsent: () => 48);
     usageDetails["monthEnergyIn"] = engin;
     usageDetails["monthEnergyOut"] = engout;
-    db.collection("EnergyUsage").add(usageDetails).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
+    db.collection("Energy Usage").add(usageDetails).then((DocumentReference doc) => print('documentSnapshot added with ID: ${doc.id}'));
   }
 
   void createDevice() {
