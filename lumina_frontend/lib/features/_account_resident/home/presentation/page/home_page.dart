@@ -179,7 +179,6 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
   }
 
   void getData() async {
-  void getData() async {
     final house = Provider.of<homeProvider>(context, listen: false);
     household = house.houseHold;
     address = house.houseHold.homeDetails["address"];
