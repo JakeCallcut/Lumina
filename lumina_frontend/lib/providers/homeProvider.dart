@@ -9,6 +9,7 @@ class homeProvider extends ChangeNotifier {
 
   TopLevelHome _tLH = TopLevelHome("", "", []);
   Household _houseHold = Household("",{},{});
+  HouseCode _houseCode = HouseCode("","","","");
   List<Household> _houseHolds = [];
   User _user = User("","","","","","",false);
   List<EnergyUsage> _energyUsage = [];
@@ -18,6 +19,7 @@ class homeProvider extends ChangeNotifier {
   User get user => _user;
   TopLevelHome get topLevelHome => _tLH;
   Household get houseHold => _houseHold;
+  HouseCode get houseCode => _houseCode;
   List<Household> get houseHolds => _houseHolds;
   List<EnergyUsage> get energyUsage => _energyUsage;
   var instance = Integration();
@@ -33,37 +35,47 @@ class homeProvider extends ChangeNotifier {
     _accountType = account;
   }
 
-  void setEnergyUsage(EnergyUsage energy) {
-    _energyUsage[0] = energy;
-  }
-
   Future<void> fetchData() async {
+  try {
+    // Fetch the user data
     User user = await instance.getUserByLogin(loginid);
     _user = user;
+
+    // Attempt to fetch the TopLevelHome
     TopLevelHome tLH = await instance.getTopLevelHome(user.houseCodeId);
-    if (tLH.id != "") {
+
+    if (tLH.id.isNotEmpty) {
+      // If a valid TopLevelHome is found, proceed with manager data
       setAccountType("manager");
       _tLH = tLH;
-      await managerData(user);
+      await managerData();
     } else {
-      await residentData(user);
+      // If no valid TopLevelHome is found, fall back to resident data
+      await residentData();
     }
-    notifyListeners();
+  } catch (e) {
+    // Handle any unexpected errors
+    print("Error in fetchData: $e");
+    await residentData(); // Fallback to resident data in case of an error
   }
 
-  Future<void> managerData(user) async {
+  // Notify listeners after data is fetched
+  notifyListeners();
+}
+
+  Future<void> managerData() async {
     List<Household> tempHouseholds = await instance.getHouseholds(_tLH.id);
     _houseHolds = tempHouseholds;
-    print(_houseHolds.length);
     for (int i = 0; i < _houseHolds.length; i++) {
       EnergyUsage tempEnergy = await instance.getEnergyUsageByHouseId(_houseHolds[i].id);
-      print(tempEnergy.householdId);
       _energyUsage.add(tempEnergy);
-      print(_energyUsage[i].householdId);
     }
   }
 
-  Future<void> residentData(user) async {
-    
+  Future<void> residentData() async {
+    HouseCode tempHouseCode = await instance.getHouseCodeById(_user.houseCodeId);
+    _houseCode = tempHouseCode;
+    Household tempHousehold = await instance.getHousehold(tempHouseCode.topHouseId, tempHouseCode.householdId);
+    _houseHold = tempHousehold;
   }
 }
