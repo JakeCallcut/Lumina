@@ -117,7 +117,6 @@ class _ManagerHomePageState extends State<ManagerHomePage> {
   void getData() async{
     final house = Provider.of<homeProvider>(context, listen: false);
     households = house.houseHolds;
-    print("Energy Usage: ${house.energyUsage[0].householdId}");
     address = house.topLevelHome.name;
   }
 }
