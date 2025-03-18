@@ -6,12 +6,16 @@ class GraphBox extends StatelessWidget{
   final Color lineColor;
   final Color borderColor;
   final TextStyle textStyle;
+  final double minY;
+  final double maxY;
   
   const GraphBox(
     {super.key,
     required this.spots,
     required this.lineColor,
     required this.textStyle,
+    required this.minY,
+    required this.maxY,
     required this.borderColor,});
 
   @override
@@ -26,7 +30,7 @@ class GraphBox extends StatelessWidget{
                 minX: 1,
                 maxX: 31,
                 minY: 0,
-                maxY: 2.5,
+                maxY: maxY,
                 gridData: FlGridData(
                   show: true,
                   drawHorizontalLine: true,
