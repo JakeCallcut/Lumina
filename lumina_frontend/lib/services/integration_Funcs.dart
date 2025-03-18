@@ -146,7 +146,7 @@ class Integration {
     return user;
   }
 
-    Future<User> getUserByHCode(houseCodeId) async {
+  Future<User> getUserByHCode(houseCodeId) async {
     User user = User("","","","","","",false);
     try {
       var querySnapshot = await db.collection("User").get();
@@ -374,7 +374,7 @@ class Integration {
       int index = homes.length;
       for (var i = 0; i < index; i++) {
         Household home = homes[i];
-        HouseCode code = await getHouseCodebyInvite(home.homeDetails["inviteCode"]);
+        HouseCode code = await getHouseCodebyInvite(home.homeDetails['inviteCode']);
         User user =  await getUserByHCode(code.id);
         deleteHouseCode(code.id);
         deleteUser(user.id);
@@ -960,7 +960,7 @@ class Integration {
   }
 
   void deleteHouseCode(String hCId) {
-    db.collection("HouseCode").doc(hCId).delete().then(
+    db.collection("HouseCodes").doc(hCId).delete().then(
           (doc) => print("Document deleted"),
           onError: (e) => print("Error updating document $e"),
         );
