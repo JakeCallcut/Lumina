@@ -433,7 +433,7 @@ class Integration {
         for (var docSnapshot in querySnapshot.docs) {
           Map<String, dynamic> value = docSnapshot.data();
           home = Household(docSnapshot.id, value['Home Details'], value['Settings']);
-          if (value['Home Details'] == hName) {
+          if (value['Home Details']["address"] == hName) {
             return home;
           }
         }
@@ -618,7 +618,7 @@ class Integration {
   Future<EnergyUsage> getEnergyUsageByHouseId(hId) async {
     EnergyUsage energy = EnergyUsage("", "", "", 0, 0, 0, 0, {}, {});
     try {
-      var querySnapshot = await db.collection("EnergyUsage").get();
+      var querySnapshot = await db.collection("Energy Usage").get();
       for (var docSnapshot in querySnapshot.docs) {
         Map<String, dynamic> value = docSnapshot.data();
         energy = EnergyUsage(
@@ -650,7 +650,7 @@ class Integration {
   Future<List<EnergyUsage>> getEnergyUsage() async {
     List<EnergyUsage> energys = [];
     try {
-      var querySnapshot = await db.collection("EnergyUsage").get();
+      var querySnapshot = await db.collection("Energy Usage").get();
       for (var docSnapshot in querySnapshot.docs) {
         Map<String, dynamic> value = docSnapshot.data();
         EnergyUsage energy = EnergyUsage(
@@ -721,7 +721,7 @@ class Integration {
   }
 
   void deleteEnergy(String eId) {
-    db.collection("EnergyUsage").doc(eId).delete().then(
+    db.collection("Energy Usage").doc(eId).delete().then(
           (doc) => print("Document deleted"),
           onError: (e) => print("Error updating document $e"),
         );
