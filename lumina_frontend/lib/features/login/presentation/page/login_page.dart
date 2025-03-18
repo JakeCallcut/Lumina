@@ -9,6 +9,7 @@ import 'package:lumina_frontend/routes.dart';
 import 'package:lumina_frontend/providers/providers.dart';
 import 'package:provider/provider.dart';
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
+import 'package:lumina_frontend/core/utils/sockets.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -44,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
           child: Center(
             child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset('assets/images/text_logo.png'),
                 const SizedBox(height: 20),
@@ -54,7 +55,8 @@ class _LoginPageState extends State<LoginPage> {
                   controller: _emailController,
                   focusNode: _emailFocusNode,
                   keyboardType: TextInputType.emailAddress,
-                  decoration: MainTheme.luminaInputDecoration(hintText: "Email"),
+                  decoration:
+                      MainTheme.luminaInputDecoration(hintText: "Email"),
                   style: const TextStyle(color: Colors.white),
                   cursorColor: Colors.white,
                 ),
@@ -63,7 +65,8 @@ class _LoginPageState extends State<LoginPage> {
                   controller: _passwordController,
                   focusNode: _passwordFocusNode,
                   obscureText: true,
-                  decoration: MainTheme.luminaInputDecoration(hintText: "Password"),
+                  decoration:
+                      MainTheme.luminaInputDecoration(hintText: "Password"),
                   style: const TextStyle(color: Colors.white),
                   cursorColor: Colors.white,
                 ),
@@ -84,10 +87,10 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Text("Dont have an account? ", style: MainTheme.smallPrint),
                     GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, Routes.register);
-                      },
-                      child: Text("Create One", style: MainTheme.linkText)),
+                        onTap: () {
+                          Navigator.pushNamed(context, Routes.register);
+                        },
+                        child: Text("Create One", style: MainTheme.linkText)),
                   ],
                 ),
               ],
@@ -98,53 +101,54 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-
   void _signIn() async {
-  String email = _emailController.text.trim();
-  String password = _passwordController.text.trim();
+    String email = _emailController.text.trim();
+    String password = _passwordController.text.trim();
+    final socket = Provider.of<Sockets>(context, listen: false);
 
-  try {
-    User? user = await _auth.signInWithEmailAndPassword(email, password);
+    try {
+      User? user = await _auth.signInWithEmailAndPassword(email, password);
 
-    if (user != null) {
-      Routes.setUid(user.uid);
-      Provider.of<homeProvider>(context, listen: false).setUid(user.uid);
-      await Provider.of<homeProvider>(context, listen: false).fetchData();
-      String accountType = Provider.of<homeProvider>(context, listen: false).accountType;
-      Routes.setUserRole(accountType);
-      if (accountType == "manager") {
-        Navbar.setUserRole(accountType);
+      if (user != null) {
+        Routes.setUid(user.uid);
+        Provider.of<homeProvider>(context, listen: false).setUid(user.uid);
+        await Provider.of<homeProvider>(context, listen: false).fetchData();
+        String accountType =
+            Provider.of<homeProvider>(context, listen: false).accountType;
+        Routes.setUserRole(accountType);
+        if (accountType == "manager") {
+          Navbar.setUserRole(accountType);
+        } else {
+          Navbar.setUserRole("resident");
+        }
+        socket.energyGraphUpdate();
+        Navigator.pushNamed(context, Routes.home);
       } else {
-        Navbar.setUserRole("resident");
+        _showSnackBar(
+            "Login Unsuccessful: Incorrect password or account does not exist.");
       }
-      Navigator.pushNamed(context, Routes.home);
-    } else {
-      _showSnackBar("Login Unsuccessful: Incorrect password or account does not exist.");
+    } on FirebaseAuthException catch (e) {
+      // Catching FirebaseAuth errors and showing a general message
+      print("FirebaseAuthException: ${e.code}");
+      _showSnackBar(
+          "Login Unsuccessful: Incorrect password or account does not exist.");
+    } catch (e) {
+      // Handling unexpected errors
+      print("Login failed: $e");
+      _showSnackBar("An unexpected error occurred. Please try again.");
     }
-  } on FirebaseAuthException catch (e) { 
-    // Catching FirebaseAuth errors and showing a general message
-    print("FirebaseAuthException: ${e.code}");
-    _showSnackBar("Login Unsuccessful: Incorrect password or account does not exist.");
-  } catch (e) {
-    // Handling unexpected errors
-    print("Login failed: $e");
-    _showSnackBar("An unexpected error occurred. Please try again.");
   }
-}
 
 // Function to show a Snackbar
-void _showSnackBar(String message) {
-  if (!mounted) return;
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(message, style: TextStyle(color: Colors.white)),
-      backgroundColor: Colors.red,
-      behavior: SnackBarBehavior.floating,
-      duration: Duration(seconds: 3),
-    ),
-  );
-}
-
-
-
+  void _showSnackBar(String message) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message, style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.red,
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(seconds: 3),
+      ),
+    );
+  }
 }

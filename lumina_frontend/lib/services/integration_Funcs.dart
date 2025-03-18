@@ -616,41 +616,52 @@ class Integration {
   }
 
   Future<EnergyUsage> getEnergyUsageByHouseId(hId) async {
-    EnergyUsage energy = EnergyUsage("", "", "", 0, 0, 0, 0, {}, {});
-    try {
-      var querySnapshot = await db.collection("EnergyUsage").get();
-      for (var docSnapshot in querySnapshot.docs) {
-        Map<String, dynamic> value = docSnapshot.data();
-        energy = EnergyUsage(
-            docSnapshot.id,
-            value['topHouseId'],
-            value['householdId'],
-            value['unused'],
-            value['worth'],
-            value['amount'],
-            value['price'],
-            value['monthEnergyIn'],
-            value['monthEnergyOut']);
-        if (value['householdId'] == hId) {
-          return energy;
-        }
-        
+  print('Fetching energy usage for houseId: $hId');
+  EnergyUsage energy = EnergyUsage("", "", "", 0, 0, 0, 0, {}, {});
+  try {
+    print('1 - Querying Firestore...');
+    var querySnapshot = await db.collection("Energy Usage").get();
+    print('2 - Query completed. Number of documents: ${querySnapshot.docs.length}');
+
+    for (var docSnapshot in querySnapshot.docs) {
+      print('3 - Processing document: ${docSnapshot.id}');
+      Map<String, dynamic> value = docSnapshot.data();
+      print('4 - Document data: $value');
+
+      energy = EnergyUsage(
+        docSnapshot.id,
+        value['topHouseId'],
+        value['householdId'],
+        value['unused'],
+        value['worth'],
+        value['amount'],
+        value['price'],
+        value['monthEnergyIn'],
+        value['monthEnergyOut'],
+      );
+
+      if (value['householdId'] == hId) {
+        print('5 - Found matching document for houseId: $hId');
+        return energy;
       }
-    } catch (e) {
-      //log error here
-      //returns empty list
-      energy = EnergyUsage("", "", "", 0, 0, 0, 0, {}, {});
-      return energy;
     }
-    energy = EnergyUsage("", "", "", 0, 0, 0, 0, {}, {});
-    return energy;
+
+    print('6 - No matching document found for houseId: $hId');
+  } catch (e) {
+    print('Error fetching energy usage: $e');
+    // Return an empty EnergyUsage object in case of error
+    return EnergyUsage("", "", "", 0, 0, 0, 0, {}, {});
   }
+
+  // Return an empty EnergyUsage object if no match is found
+  return EnergyUsage("", "", "", 0, 0, 0, 0, {}, {});
+}
 
 
   Future<List<EnergyUsage>> getEnergyUsage() async {
     List<EnergyUsage> energys = [];
     try {
-      var querySnapshot = await db.collection("EnergyUsage").get();
+      var querySnapshot = await db.collection("Energy Usage").get();
       for (var docSnapshot in querySnapshot.docs) {
         Map<String, dynamic> value = docSnapshot.data();
         EnergyUsage energy = EnergyUsage(
@@ -721,7 +732,7 @@ class Integration {
   }
 
   void deleteEnergy(String eId) {
-    db.collection("EnergyUsage").doc(eId).delete().then(
+    db.collection("Energy Usage").doc(eId).delete().then(
           (doc) => print("Document deleted"),
           onError: (e) => print("Error updating document $e"),
         );

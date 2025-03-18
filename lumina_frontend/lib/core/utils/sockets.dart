@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:socket_io_client/socket_io_client.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:lumina_frontend/services/integration_Funcs.dart';
+import 'package:lumina_frontend/model/models.dart' as models;
 
 class Sockets with ChangeNotifier{
   Socket? socket;
@@ -19,7 +22,7 @@ class Sockets with ChangeNotifier{
 
   Future<void> initSocket() async { //initialises the socket connection
     socket = io(
-      'https://06fc-2a02-c7c-cb9b-3d00-2d95-a0e4-3428-6e3d.ngrok-free.app', // Use secure WebSocket with port
+      'https://29d9-82-132-216-188.ngrok-free.app', // Use secure WebSocket with port
       OptionBuilder()
         .setTransports(['websocket'])
         .disableAutoConnect()
@@ -35,6 +38,19 @@ class Sockets with ChangeNotifier{
 
   void changeState(String item, int state) { //when the state is changed in an object
     socket?.emit(item, state); //sends it to the server
+  }
+
+  void energyGraphUpdate() async {
+    var instance = Integration();
+
+    User? user = FirebaseAuth.instance.currentUser;
+    String loginId = user!.uid;
+    models.User user_db = await instance.getUserByLogin(loginId);
+    models.HouseCode house_db = await instance.getHouseCodeById(user_db.houseCodeId);
+    models.EnergyUsage energy_db = await instance.getEnergyUsageByHouseId(house_db.householdId);
+    String docName = energy_db.id;
+
+    socket?.emit("fetchDoc", docName); //sends it to the server
   }
 
   @override
