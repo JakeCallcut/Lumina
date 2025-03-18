@@ -143,6 +143,7 @@ class _ManagerHomePageState extends State<ManagerHomePage> {
     );
   }
   void getData() async{
-    households =  Provider.of<homeProvider>(context, listen: false).households;
+    final house = Provider.of<homeProvider>(context, listen: false);
+    households = house.houseHolds;
   }
 }
