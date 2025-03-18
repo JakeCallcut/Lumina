@@ -37,16 +37,13 @@ class homeProvider extends ChangeNotifier {
       _tLH = tLH;
       await managerData(user);
     } else {
-      residentData(user);
+      await residentData(user);
     }
     notifyListeners();
   }
 
   Future<void> managerData(user) async {
-    List<Household> tempHouseholds = await instance.getHouseholds("DP2hTQzJAs9S2WJoO0Lk");
-    // for (int i = 0; i < tempHouseholds.length; i++){
-    //    _houseHolds.add(tempHouseholds[i]);
-    // }
+    List<Household> tempHouseholds = await instance.getHouseholds(_tLH.id);
     _houseHolds = tempHouseholds;
   }
 
