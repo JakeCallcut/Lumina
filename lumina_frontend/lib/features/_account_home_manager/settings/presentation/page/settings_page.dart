@@ -35,9 +35,9 @@ class ManagerSettingsPage extends StatelessWidget {
         
         // delete the user from the database and firebase auth
         await user.delete();
-        instance.deleteUser(user_db_id);
+        
         instance.deleteTopLevelHome(user_db.houseCodeId);
-
+        instance.deleteUser(user_db_id);
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Account deleted successfully.")),

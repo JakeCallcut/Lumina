@@ -960,7 +960,7 @@ class Integration {
   }
 
   void deleteHouseCode(String hCId) {
-    db.collection("HouseCode").doc(hCId).delete().then(
+    db.collection("HouseCodes").doc(hCId).delete().then(
           (doc) => print("Document deleted"),
           onError: (e) => print("Error updating document $e"),
         );
