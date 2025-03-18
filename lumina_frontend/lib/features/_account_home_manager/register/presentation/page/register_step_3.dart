@@ -124,7 +124,7 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
     String address = _detailsController.text;
     String inviteCode = _settingsController.text;
 
-    Map<String, dynamic> homeDetails = {"address": address, "invitecode": inviteCode}; //address:string, inviteCode:int
+    Map<String, dynamic> homeDetails = {"address": address, "inviteCode": inviteCode}; //address:string, inviteCode:int
     Map<String, dynamic> settings = {"notification": false, "budget": 0, "darkmode": false}; //notifications:bool, budget:num, darkmode:bool
 
     Household household = Household("", homeDetails, settings);
@@ -144,12 +144,12 @@ class _RegisterStep3State extends State<ManagerRegisterStep3> {
     TopLevelHome TLH = await instance.getTopLevelHomebyName(tLHName);
     Provider.of<HCProvider>(context, listen: false).setMHCID(tLHName);
     Household HH = await instance.getHouseholdbyName(TLH.id, _detailsController.text);
-
     HouseCode houseCode = HouseCode("", _settingsController.text, TLH.id, HH.id);
-
+    EnergyUsage energy = EnergyUsage("", TLH.id, HH.id, 0, 0, 0, 0, {}, {});
 
     try {
       await instance.addHouseCode(houseCode);
+      await instance.addEnergyUsage(energy);
     } catch (e) {
       // Handle error
       print("Error adding house code: $e");

@@ -127,15 +127,22 @@ class Integration {
   // }
 
   Future<User> getUserByLogin(loginId) async {
-    User user = User("","","","","","",false);
+    User user = User("", "", "", "", "", "", false);
     try {
       var querySnapshot = await db.collection("User").get();
       for (var docSnapshot in querySnapshot.docs) {
         Map<String, dynamic> value = docSnapshot.data();
-          user = User(docSnapshot.id,value['loginId'],value['firstname'],value['surname'],value['phoneNumber'],value['houseCodeId'],value['hasGoogleLogin']);
-          if (value['loginId'] == loginId) {
-             return user;
-          }
+        user = User(
+            docSnapshot.id,
+            value['loginId'],
+            value['firstname'],
+            value['surname'],
+            value['phoneNumber'],
+            value['houseCodeId'],
+            value['hasGoogleLogin']);
+        if (value['loginId'] == loginId) {
+          return user;
+        }
       }
     } catch (e) {
       //log error here
@@ -146,16 +153,23 @@ class Integration {
     return user;
   }
 
-    Future<User> getUserByHCode(houseCodeId) async {
-    User user = User("","","","","","",false);
+  Future<User> getUserByHCode(houseCodeId) async {
+    User user = User("", "", "", "", "", "", false);
     try {
       var querySnapshot = await db.collection("User").get();
       for (var docSnapshot in querySnapshot.docs) {
         Map<String, dynamic> value = docSnapshot.data();
-          user = User(docSnapshot.id,value['loginId'],value['firstname'],value['surname'],value['phoneNumber'],value['houseCodeId'],value['hasGoogleLogin']);
-          if (value['houseCodeId'] == houseCodeId) {
-             return user;
-          }
+        user = User(
+            docSnapshot.id,
+            value['loginId'],
+            value['firstname'],
+            value['surname'],
+            value['phoneNumber'],
+            value['houseCodeId'],
+            value['hasGoogleLogin']);
+        if (value['houseCodeId'] == houseCodeId) {
+          return user;
+        }
       }
     } catch (e) {
       //log error here
@@ -172,10 +186,17 @@ class Integration {
       var querySnapshot = await db.collection("User").get();
       for (var docSnapshot in querySnapshot.docs) {
         Map<String, dynamic> value = docSnapshot.data();
-          user = User(docSnapshot.id,value['loginId'],value['firstname'],value['surname'],value['phoneNumber'],value['houseCodeId'],value['hasGoogleLogin']);
-          if (docSnapshot.id == userId) {
-             return user;
-          }
+        user = User(
+            docSnapshot.id,
+            value['loginId'],
+            value['firstname'],
+            value['surname'],
+            value['phoneNumber'],
+            value['houseCodeId'],
+            value['hasGoogleLogin']);
+        if (docSnapshot.id == userId) {
+          return user;
+        }
       }
     } catch (e) {
       //log error here
@@ -374,8 +395,9 @@ class Integration {
       int index = homes.length;
       for (var i = 0; i < index; i++) {
         Household home = homes[i];
-        HouseCode code = await getHouseCodebyInvite(home.homeDetails["inviteCode"]);
-        User user =  await getUserByHCode(code.id);
+        HouseCode code =
+            await getHouseCodebyInvite(home.homeDetails['inviteCode']);
+        User user = await getUserByHCode(code.id);
         deleteHouseCode(code.id);
         deleteUser(user.id);
         deleteHousehold(tlhId, home.id);
@@ -386,9 +408,9 @@ class Integration {
       print("Error getting households: $e");
     }
     db.collection("Top Level Homes").doc(tlhId).delete().then(
-      (doc) => print("Document deleted"),
-      onError: (e) => print("Error updating document $e"),
-    );
+          (doc) => print("Document deleted"),
+          onError: (e) => print("Error updating document $e"),
+        );
   }
 
   Future<Household> getHousehold(String tlhId, hId) async {
@@ -432,8 +454,9 @@ class Integration {
       } else {
         for (var docSnapshot in querySnapshot.docs) {
           Map<String, dynamic> value = docSnapshot.data();
-          home = Household(docSnapshot.id, value['Home Details'], value['Settings']);
-          if (value['Home Details'] == hName) {
+          home = Household(
+              docSnapshot.id, value['Home Details'], value['Settings']);
+          if (value['Home Details']["address"] == hName) {
             return home;
           }
         }
@@ -527,10 +550,16 @@ class Integration {
       print("Error getting households: $e");
     }
 
-    db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).delete().then(
-      (doc) => print("Document deleted"),
-      onError: (e) => print("Error updating document $e"),
-    );
+    db
+        .collection("Top Level Homes")
+        .doc(tlhId)
+        .collection("Household")
+        .doc(hId)
+        .delete()
+        .then(
+          (doc) => print("Document deleted"),
+          onError: (e) => print("Error updating document $e"),
+        );
   }
 
   Future<List<Room>> getRooms(String tlhId, hId) async {
@@ -609,54 +638,54 @@ class Integration {
     } catch (e) {
       print("Error getting households: $e");
     }
-    db.collection("Top Level Homes").doc(tlhId).collection("Household").doc(hId).collection("Rooms").doc(roomId).delete().then(
-      (doc) => print("Document deleted"),
-      onError: (e) => print("Error updating document $e"),
-    );
+    db
+        .collection("Top Level Homes")
+        .doc(tlhId)
+        .collection("Household")
+        .doc(hId)
+        .collection("Rooms")
+        .doc(roomId)
+        .delete()
+        .then(
+          (doc) => print("Document deleted"),
+          onError: (e) => print("Error updating document $e"),
+        );
   }
 
   Future<EnergyUsage> getEnergyUsageByHouseId(hId) async {
-  print('Fetching energy usage for houseId: $hId');
-  EnergyUsage energy = EnergyUsage("", "", "", 0, 0, 0, 0, {}, {});
-  try {
-    print('1 - Querying Firestore...');
-    var querySnapshot = await db.collection("Energy Usage").get();
-    print('2 - Query completed. Number of documents: ${querySnapshot.docs.length}');
+    EnergyUsage energy = EnergyUsage("", "", "", 0, 0, 0, 0, {}, {});
+    try {
+      var querySnapshot = await db.collection("Energy Usage").get();
 
-    for (var docSnapshot in querySnapshot.docs) {
-      print('3 - Processing document: ${docSnapshot.id}');
-      Map<String, dynamic> value = docSnapshot.data();
-      print('4 - Document data: $value');
+      for (var docSnapshot in querySnapshot.docs) {
+        Map<String, dynamic> value = docSnapshot.data();
 
-      energy = EnergyUsage(
-        docSnapshot.id,
-        value['topHouseId'],
-        value['householdId'],
-        value['unused'],
-        value['worth'],
-        value['amount'],
-        value['price'],
-        value['monthEnergyIn'],
-        value['monthEnergyOut'],
-      );
+        energy = EnergyUsage(
+          docSnapshot.id,
+          value['topHouseId'],
+          value['householdId'],
+          value['unused'],
+          value['worth'],
+          value['amount'],
+          value['price'],
+          value['monthEnergyIn'],
+          value['monthEnergyOut'],
+        );
 
-      if (value['householdId'] == hId) {
-        print('5 - Found matching document for houseId: $hId');
-        return energy;
+        if (value['householdId'] == hId) {
+          return energy;
+        }
       }
+
+    } catch (e) {
+      print('Error fetching energy usage: $e');
+      // Return an empty EnergyUsage object in case of error
+      return EnergyUsage("", "", "", 0, 0, 0, 0, {}, {});
     }
 
-    print('6 - No matching document found for houseId: $hId');
-  } catch (e) {
-    print('Error fetching energy usage: $e');
-    // Return an empty EnergyUsage object in case of error
+    // Return an empty EnergyUsage object if no match is found
     return EnergyUsage("", "", "", 0, 0, 0, 0, {}, {});
   }
-
-  // Return an empty EnergyUsage object if no match is found
-  return EnergyUsage("", "", "", 0, 0, 0, 0, {}, {});
-}
-
 
   Future<List<EnergyUsage>> getEnergyUsage() async {
     List<EnergyUsage> energys = [];
@@ -850,10 +879,11 @@ class Integration {
       var querySnapshot = await db.collection("HouseCodes").get();
       for (var docSnapshot in querySnapshot.docs) {
         Map<String, dynamic> value = docSnapshot.data();
-        code = HouseCode(docSnapshot.id, value['inviteCode'],value['topHouseId'], value['householdId']);
+        code = HouseCode(docSnapshot.id, value['inviteCode'],
+            value['topHouseId'], value['householdId']);
         if (docSnapshot.id == hcId) {
-            return code;
-          }
+          return code;
+        }
       }
     } catch (e) {
       //log error here
@@ -883,20 +913,21 @@ class Integration {
     return codes;
   }
 
-  Future<HouseCode> getHouseCodebySpecifics(String tlhId, String invite, String? houseHoldId) async {
+  Future<HouseCode> getHouseCodebySpecifics(
+      String tlhId, String invite, String? houseHoldId) async {
     HouseCode code = HouseCode("", "", "", "");
     try {
-      var querySnapshot = await db
-          .collection("HouseCodes")
-          .get();
+      var querySnapshot = await db.collection("HouseCodes").get();
       if (querySnapshot.docs.isEmpty) {
         print("No HouseCodes found");
       } else {
         for (var docSnapshot in querySnapshot.docs) {
           Map<String, dynamic> value = docSnapshot.data();
-          code = HouseCode(
-              docSnapshot.id, value['inviteCode'], value['topHouseId'], value['householdId']);
-          if (value['householdId'] == houseHoldId && value['inviteCode'] == invite && value['topHouseId'] == tlhId) {
+          code = HouseCode(docSnapshot.id, value['inviteCode'],
+              value['topHouseId'], value['householdId']);
+          if (value['householdId'] == houseHoldId &&
+              value['inviteCode'] == invite &&
+              value['topHouseId'] == tlhId) {
             return code;
           }
         }
@@ -912,16 +943,14 @@ class Integration {
   Future<HouseCode> getHouseCodebyInvite(String invite) async {
     HouseCode code = HouseCode("", "", "", "");
     try {
-      var querySnapshot = await db
-          .collection("HouseCodes")
-          .get();
+      var querySnapshot = await db.collection("HouseCodes").get();
       if (querySnapshot.docs.isEmpty) {
         print("No HouseCodes found");
       } else {
         for (var docSnapshot in querySnapshot.docs) {
           Map<String, dynamic> value = docSnapshot.data();
-          code = HouseCode(
-              docSnapshot.id, value['inviteCode'], value['topHouseId'], value['householdId']);
+          code = HouseCode(docSnapshot.id, value['inviteCode'],
+              value['topHouseId'], value['householdId']);
           if (value['inviteCode'] == invite) {
             return code;
           }
@@ -971,7 +1000,7 @@ class Integration {
   }
 
   void deleteHouseCode(String hCId) {
-    db.collection("HouseCode").doc(hCId).delete().then(
+    db.collection("HouseCodes").doc(hCId).delete().then(
           (doc) => print("Document deleted"),
           onError: (e) => print("Error updating document $e"),
         );
