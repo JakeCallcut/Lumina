@@ -54,6 +54,13 @@ class homeProvider extends ChangeNotifier {
   Future<void> managerData(user) async {
     List<Household> tempHouseholds = await instance.getHouseholds(_tLH.id);
     _houseHolds = tempHouseholds;
+    print(_houseHolds.length);
+    for (int i = 0; i < _houseHolds.length; i++) {
+      EnergyUsage tempEnergy = await instance.getEnergyUsageByHouseId(_houseHolds[i].id);
+      print(tempEnergy.householdId);
+      _energyUsage.add(tempEnergy);
+      print(_energyUsage[i].householdId);
+    }
   }
 
   Future<void> residentData(user) async {
