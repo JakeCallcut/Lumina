@@ -433,7 +433,7 @@ class Integration {
         for (var docSnapshot in querySnapshot.docs) {
           Map<String, dynamic> value = docSnapshot.data();
           home = Household(docSnapshot.id, value['Home Details'], value['Settings']);
-          if (value['Home Details'] == hName) {
+          if (value['Home Details']["address"] == hName) {
             return home;
           }
         }
