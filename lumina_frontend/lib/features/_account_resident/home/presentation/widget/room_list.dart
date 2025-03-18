@@ -20,12 +20,7 @@ class _RoomListState extends State<RoomList> {
   @override
   Widget build(BuildContext context) {
     final house = Provider.of<homeProvider>(context, listen: true);
-    instance.getRooms(house.houseCode.topHouseId, house.houseCode.householdId).then((fetchedRooms) {
-      setState(() {
-        rooms = fetchedRooms;
-      });
-    });
-    Provider.of<homeProvider>(context, listen: true).setRooms(rooms);
+    rooms = house.rooms;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -56,7 +51,8 @@ class _RoomListState extends State<RoomList> {
                       color: Colors.black,
                     ),
                     onPressed: () {
-                      TextEditingController roomNameController = TextEditingController();
+                      TextEditingController roomNameController =
+                          TextEditingController();
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -75,12 +71,23 @@ class _RoomListState extends State<RoomList> {
                                   ),
                                   const SizedBox(height: 16),
                                   ElevatedButton(
-                                    onPressed: () {
+                                    onPressed: () async {
                                       String roomName = roomNameController.text;
                                       Room place = Room("", roomName);
-                                      instance.addRoom(place, house.houseCode.topHouseId, house.houseCode.householdId);
-                                      Navigator.of(context)
-                                          .pop();
+                                      await instance.addRoom(
+                                          place,
+                                          house.houseCode.topHouseId,
+                                          house.houseCode.householdId);
+                                      await Future.delayed(
+                                          const Duration(milliseconds: 500));
+                                      List<Room> updatedRooms =
+                                          await instance.getRooms(
+                                              house.houseCode.topHouseId,
+                                              house.houseCode.householdId);
+                                      setState(() {
+                                        rooms = updatedRooms;
+                                      });
+                                      Navigator.of(context).pop();
                                     },
                                     child: const Text("Add Room"),
                                   ),
@@ -97,43 +104,38 @@ class _RoomListState extends State<RoomList> {
             ),
           ),
         ),
-        Container(
+                Container(
           color: MainTheme.luminaShadedWhite,
           height: 50.0,
-          child: rooms.isEmpty
-              ? Center(
-                  child: Text("No rooms found", style: MainTheme.h4Black),
-                )
-              : ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: rooms.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedIndex = index;
-                        });
-                        house.setRoom(rooms[index]);
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        margin: const EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                          color: selectedIndex == index
-                              ? MainTheme.luminaBlue
-                              : MainTheme.luminaLightGreen,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Text(
-                          rooms[index].name,
-                          style: selectedIndex == index
-                              ? MainTheme.h4White
-                              : MainTheme.h4Black,
-                        ),
-                      ),
-                    );
-                  },
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: rooms.length,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  margin: const EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                    color: selectedIndex == index 
+                           ? MainTheme.luminaBlue 
+                           : MainTheme.luminaLightGreen,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    rooms[index].name,
+                    style: selectedIndex == index 
+                           ? MainTheme.h4White 
+                           : MainTheme.h4Black,
+                  ),
                 ),
+              );
+            },
+          ),
         ),
       ],
     );

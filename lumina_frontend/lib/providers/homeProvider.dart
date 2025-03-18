@@ -13,7 +13,7 @@ class homeProvider extends ChangeNotifier {
   User _user = User("", "", "", "", "", "", false);
   List<EnergyUsage> _energyUsage = [];
   List<Device> _devices = [];
-  Room _curRoom = Room("", "",);
+  Room _curRoom = Room("","",);
   List<Room> _rooms = [];
 
   String get loginid => _loginid;
@@ -25,7 +25,7 @@ class homeProvider extends ChangeNotifier {
   List<Household> get houseHolds => _houseHolds;
   List<EnergyUsage> get energyUsage => _energyUsage;
   List<Device> get devices => _devices;
-  Room get curRoom => _curRoom; 
+  Room get curRoom => _curRoom;
   List<Room> get rooms => _rooms;
   var instance = Integration();
   // List of rooms
@@ -93,5 +93,7 @@ class homeProvider extends ChangeNotifier {
     Household tempHousehold = await instance.getHousehold(
         tempHouseCode.topHouseId, tempHouseCode.householdId);
     _houseHold = tempHousehold;
+    List<Room> fetchedRooms = await instance.getRooms(houseCode.topHouseId, houseCode.householdId);
+    _rooms = fetchedRooms;
   }
 }
