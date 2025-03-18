@@ -6,6 +6,8 @@ import 'package:lumina_frontend/features/user_auth/firebase_auth_implementation/
 import 'package:lumina_frontend/routes.dart';
 import 'package:lumina_frontend/model/models.dart' as models;
 import 'package:lumina_frontend/services/integration_Funcs.dart';
+import 'package:lumina_frontend/core/utils/sockets.dart';
+import 'package:provider/provider.dart';
 
 class ResidentRegisterStep4 extends StatefulWidget {
   final LoginDetails loginDetails;
@@ -109,12 +111,14 @@ class _RegisterStep4State extends State<ResidentRegisterStep4> {
   void _signUp() async {
     String email = widget.loginDetails.email;
     String password = widget.loginDetails.password;
+    final socket = Provider.of<Sockets>(context, listen: false);
 
     User? user = await _auth.signUpWithEmailAndPassword(email, password);
 
     if (user != null) {
       widget.loginDetails.userID = user.uid;   // This part fetches the userID 
       registerUser(widget.loginDetails);
+      socket.energyGraphUpdate();
       Navigator.pushNamed(context, Routes.home);
 
       print(widget.loginDetails.firstname);
