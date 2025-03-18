@@ -40,8 +40,6 @@ class homeProvider extends ChangeNotifier {
   Future<void> fetchData() async {
     User user = await instance.getUserByLogin(loginid);
     _user = user;
-    print(loginid);
-    print(user.phoneNumber);
     TopLevelHome tLH = await instance.getTopLevelHome(user.houseCodeId);
     if (tLH.id != "") {
       setAccountType("manager");
