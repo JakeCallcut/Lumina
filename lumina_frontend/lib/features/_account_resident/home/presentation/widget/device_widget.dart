@@ -37,6 +37,9 @@ class _DeviceWidgetState extends State<DeviceWidget> {
     final socket = Provider.of<Sockets>(context, listen: false);
     home = Provider.of<homeProvider>(context, listen: true); // Initialize home
 
+    // Send the device name to the server when the widget is created
+    socket.input(widget.deviceName);
+
     // Listen to the socket stream
     _socketSubscription = socket.controller.stream.listen((data) {
       String nameDevice = data.keys.first;

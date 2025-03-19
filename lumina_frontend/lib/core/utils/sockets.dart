@@ -22,7 +22,7 @@ class Sockets with ChangeNotifier{
 
   Future<void> initSocket() async { //initialises the socket connection
     socket = io(
-      'https://76dc-2a02-c7c-cb9b-3d00-2d95-a0e4-3428-6e3d.ngrok-free.app', // Use secure WebSocket with port
+      'https://9f55-82-132-223-107.ngrok-free.app', // Use secure WebSocket with port
       OptionBuilder()
         .setTransports(['websocket'])
         .disableAutoConnect()
@@ -38,6 +38,10 @@ class Sockets with ChangeNotifier{
 
   void changeState(String item, int state) { //when the state is changed in an object
     socket?.emit(item, state); //sends it to the server
+  }
+
+  void input(String name) { 
+    socket?.emit('input', name);
   }
 
   void energyGraphUpdate() async {
