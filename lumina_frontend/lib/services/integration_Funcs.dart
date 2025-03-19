@@ -400,9 +400,9 @@ class Integration {
         EnergyUsage energy = await getEnergyUsageByHouseId(home.id);
 
         deleteHouseCode(code.id);
-        deleteUser(user.id);
         deleteEnergy(energy.id);
         deleteHousehold(tlhId, home.id);
+        deleteUser(user.id);
       }
       // homes.forEach(action deleteHousehold()) {
       // }
