@@ -789,12 +789,16 @@ class Integration {
             value['typeName'],
             value['imageId'],
             value['mainAction'],
-            value['actionList']);
+            value['actionList'] != null
+            ? Map<String, bool>.from(value['actionList'])
+            : {}, // Default to an empty map if null
+        );
         devices.add(device);
       }
     } catch (e) {
       //log error here
       //returns empty list
+      print("Error fetching devices: $e");
       return devices;
     }
     return devices;

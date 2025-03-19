@@ -25,7 +25,6 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
   int usage = 0;
   late StreamSubscription _socketSubscription;
 
-
   @override
   void initState() {
     super.initState();
@@ -50,7 +49,7 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
   @override
   Widget build(BuildContext context) {
     // final home = context.watch<homeProvider>();
-    final home = Provider.of<homeProvider>(context);
+    final home = Provider.of<homeProvider>(context, listen: true);
     devices = home.devices;
     return Scaffold(
       body: SingleChildScrollView(
@@ -126,9 +125,12 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
             RoomList(),
             Container(
               color: MainTheme.luminaShadedWhite,
-              height: 50.0,
-              child: devices.isEmpty
-                  ? Center(
+              child: Consumer<homeProvider>(
+                builder: (context, home, child) {
+                  final home = Provider.of<homeProvider>(context, listen: true);
+                  List<Device> devices = home.devices;
+                  if (devices.isEmpty) {
+                    return Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -144,11 +146,12 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
                           ),
                         ],
                       ),
-                    )
-                  : GridView.builder(
+                    );
+                  } else {
+                    return GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      //itemCount: households.length,
+                      itemCount: devices.length,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
@@ -157,18 +160,21 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
                         crossAxisSpacing: 10.0,
                       ),
                       itemBuilder: (context, index) {
-                        //Household household = households[index];
+                        Device device = devices[index];
                         return SizedBox(
-                          height: 40,
+                          height: 40, // Set the height of the wrapper
                           child: Center(
                             child: DeviceWidget(
-                              deviceName: "test",
+                              deviceName: device.deviceName,
                             ),
                           ),
                         );
                       },
-                    ),
-            ),
+                    );
+                  }
+                },
+              ),
+            )
           ],
         ),
       ),
@@ -190,7 +196,7 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
       context,
       MaterialPageRoute(builder: (context) => const AddDevicePage()),
     );
-    
+
     // If a new device was returned, add it to the list
     setState(() {
       devices.add(newDevice);

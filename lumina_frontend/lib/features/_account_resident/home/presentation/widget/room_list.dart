@@ -20,30 +20,36 @@ class _RoomListState extends State<RoomList> {
   @override
   Widget build(BuildContext context) {
     final house = Provider.of<homeProvider>(context, listen: true);
-
+    rooms = house.rooms;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Header Section
         Container(
           width: 150,
           decoration: BoxDecoration(
             color: MainTheme.luminaShadedWhite,
-            borderRadius: const BorderRadius.only(topRight: Radius.circular(10)),
+            borderRadius:
+                const BorderRadius.only(topRight: Radius.circular(10)),
           ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text("Rooms", style: MainTheme.h1Black),
+                Text(
+                  "Rooms",
+                  style: MainTheme.h1Black,
+                ),
                 Container(
                   decoration: BoxDecoration(
                     color: MainTheme.luminaLightGreen,
                     shape: BoxShape.circle,
                   ),
                   child: IconButton(
-                    icon: const Icon(Icons.add, color: Colors.black),
+                    icon: const Icon(
+                      Icons.add,
+                      color: Colors.black,
+                    ),
                     onPressed: () {
                       TextEditingController roomNameController =
                           TextEditingController();
@@ -54,7 +60,8 @@ class _RoomListState extends State<RoomList> {
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: Column(
-                                mainAxisSize: MainAxisSize.min,
+                                mainAxisSize: MainAxisSize
+                                    .min, // Ensures the dialog wraps its content
                                 children: [
                                   TextField(
                                     controller: roomNameController,
@@ -68,10 +75,18 @@ class _RoomListState extends State<RoomList> {
                                       String roomName = roomNameController.text;
                                       Room place = Room("", roomName);
                                       await instance.addRoom(
-                                        place,
-                                        house.houseCode.topHouseId,
-                                        house.houseCode.householdId,
-                                      );
+                                          place,
+                                          house.houseCode.topHouseId,
+                                          house.houseCode.householdId);
+                                      await Future.delayed(
+                                          const Duration(milliseconds: 500));
+                                      List<Room> updatedRooms =
+                                          await instance.getRooms(
+                                              house.houseCode.topHouseId,
+                                              house.houseCode.householdId);
+                                      setState(() {
+                                        rooms = updatedRooms;
+                                      });
                                       Navigator.of(context).pop();
                                     },
                                     child: const Text("Add Room"),
@@ -84,39 +99,28 @@ class _RoomListState extends State<RoomList> {
                       );
                     },
                   ),
-                ),
+                )
               ],
             ),
           ),
         ),
-
-        // List Section
-        FutureBuilder<List<Room>>(
-          future: instance.getRooms(
-            house.houseCode.topHouseId,
-            house.houseCode.householdId,
-          ),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text("Error loading rooms"));
-            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return Center(child: Text("No rooms found", style: MainTheme.h4Black));
-            } else {
-              return Container(
-                color: MainTheme.luminaShadedWhite,
-                height: 50.0,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: snapshot.data!.length,
+        Container(
+          color: MainTheme.luminaShadedWhite,
+          height: 50.0, // Ensure this height is sufficient for the content
+          child: rooms.isEmpty
+              ? Center(
+                  child: Text("No rooms found", style: MainTheme.h4Black),
+                )
+              : ListView.builder(
+                  scrollDirection: Axis.horizontal, // Enable horizontal scrolling
+                  itemCount: rooms.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
                         setState(() {
                           selectedIndex = index;
                         });
-                        house.setRoom(snapshot.data![index]);
+                        house.setRoom(rooms[index]);
                       },
                       child: Container(
                         padding: const EdgeInsets.all(8.0),
@@ -128,7 +132,7 @@ class _RoomListState extends State<RoomList> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Text(
-                          snapshot.data![index].name,
+                          rooms[index].name,
                           style: selectedIndex == index
                               ? MainTheme.h4White
                               : MainTheme.h4Black,
@@ -137,10 +141,7 @@ class _RoomListState extends State<RoomList> {
                     );
                   },
                 ),
-              );
-            }
-          },
-        ),
+        )
       ],
     );
   }

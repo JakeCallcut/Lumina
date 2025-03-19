@@ -44,8 +44,11 @@ class homeProvider extends ChangeNotifier {
     _rooms = roomlist;
   }
 
-  void setRoom(Room currentRoom) {
+  void setRoom(Room currentRoom) async {
     _curRoom = currentRoom;
+    List<Device> fetchedDevices = await instance.getDevices(houseCode.topHouseId, houseCode.householdId, _curRoom.id);
+    _devices = fetchedDevices;
+    notifyListeners();
   }
 
   Future<void> fetchData() async {
