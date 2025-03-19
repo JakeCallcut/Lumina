@@ -22,7 +22,7 @@ class Sockets with ChangeNotifier{
 
   Future<void> initSocket() async { //initialises the socket connection
     socket = io(
-      'https://3804-82-132-223-107.ngrok-free.app', // Use secure WebSocket with port
+      'https://ff62-82-132-223-107.ngrok-free.app', // Use secure WebSocket with port
       OptionBuilder()
         .setTransports(['websocket'])
         .disableAutoConnect()
