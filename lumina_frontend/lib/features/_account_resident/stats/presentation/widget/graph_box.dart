@@ -55,7 +55,7 @@ class GraphBox extends StatelessWidget{
                           style: textStyle,
                         );
                       },
-                      reservedSize: 30,
+                      reservedSize: 40,
                     ),
                   ),
                   topTitles: AxisTitles(
