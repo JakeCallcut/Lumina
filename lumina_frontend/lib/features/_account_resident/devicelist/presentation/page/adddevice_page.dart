@@ -9,8 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:lumina_frontend/model/models.dart';
 import 'package:lumina_frontend/services/integration_Funcs.dart';
 import 'package:lumina_frontend/routes.dart';
-import 'package:lumina_frontend/providers/homeProvider.dart';
-import 'package:provider/provider.dart';
 
 class AddDevicePage extends StatefulWidget {
   const AddDevicePage({Key? key}) : super(key: key);
