@@ -51,38 +51,6 @@ class LandingPage extends StatelessWidget {
                         style: MainTheme.h3White,
                       )),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    MainTheme.divider,
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text('OR', style: MainTheme.h3White),
-                    ),
-                    MainTheme.divider,
-                  ],
-                ),
-                SizedBox(
-                  height: 50,
-                  width: 310,
-                  child: ElevatedButton(
-                      onPressed: () {},
-                      style: MainTheme.luminaLightButton,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset('assets/images/google_logo.png',
-                              width: 20, height: 20),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Continue with Google',
-                            style: MainTheme.h3Black,
-                          )
-                        ],
-                      )),
-                ),
               ],
             )
           ],
