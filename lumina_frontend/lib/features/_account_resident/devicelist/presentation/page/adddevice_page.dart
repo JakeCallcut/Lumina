@@ -4,6 +4,14 @@ import 'package:lumina_frontend/core/themes/main_theme.dart';
 import '../../domain/entities/devicelist_entiti.dart';
 //
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
+import 'package:lumina_frontend/providers/homeProvider.dart';
+import 'package:provider/provider.dart';
+import 'package:lumina_frontend/model/models.dart';
+import 'package:lumina_frontend/services/integration_Funcs.dart';
+import 'package:lumina_frontend/routes.dart';
+import 'package:lumina_frontend/providers/homeProvider.dart';
+import 'package:provider/provider.dart';
+
 class AddDevicePage extends StatefulWidget {
   const AddDevicePage({Key? key}) : super(key: key);
 
@@ -12,16 +20,26 @@ class AddDevicePage extends StatefulWidget {
 }
 
 class _AddDevicePageState extends State<AddDevicePage> {
+  var instance = Integration();
   String? selectedDeviceType;
   String? selectedRoom;
   final TextEditingController nameController = TextEditingController();
 // currently a pre existing list of catagories is used, hence static list
 // when back and front end integrated the list of available locations and types will be alterable
-  final List<String> species = ['Lighting', 'Robot', 'Cleaning', 'Display', 'Vehicle','Charging'];
-  final List<String> rooms = ['Lounge', 'Kitchen', 'Bathroom'];
+  final List<String> species = [
+    'Lighting',
+    'Robot',
+    'Cleaning',
+    'Display',
+    'Vehicle',
+    'Charging'
+  ];
+  List<Room> rooms = [];
 
   @override
   Widget build(BuildContext context) {
+    final house = Provider.of<homeProvider>(context);
+    rooms = house.rooms;
     return Scaffold(
       backgroundColor: MainTheme.luminaLightGrey,
       body: SafeArea(
@@ -35,7 +53,7 @@ class _AddDevicePageState extends State<AddDevicePage> {
                 children: [
                   IconButton(
                     icon: const Icon(Icons.arrow_back, color: Colors.black),
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () => Navigator.pushNamed(context, Routes.home),
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
                   ),
@@ -50,7 +68,7 @@ class _AddDevicePageState extends State<AddDevicePage> {
                 ],
               ),
               const SizedBox(height: 24),
-              
+
               // Name section
               const Text(
                 'Name',
@@ -70,12 +88,13 @@ class _AddDevicePageState extends State<AddDevicePage> {
                   decoration: const InputDecoration(
                     hintText: 'Enter Name',
                     border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   ),
                 ),
               ),
               const SizedBox(height: 16),
-              
+
               // Device Type section
               const Text(
                 'Device Type',
@@ -111,7 +130,7 @@ class _AddDevicePageState extends State<AddDevicePage> {
                 ),
               ),
               const SizedBox(height: 16),
-              
+
               // Room section
               const Text(
                 'Room',
@@ -129,13 +148,13 @@ class _AddDevicePageState extends State<AddDevicePage> {
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
-                    value: selectedRoom ?? rooms[0],
+                    value: selectedRoom ?? rooms[0].name,
                     isExpanded: true,
                     icon: const Icon(Icons.keyboard_arrow_down),
-                    items: rooms.map((String room) {
+                    items: rooms.map((Room room) {
                       return DropdownMenuItem<String>(
-                        value: room,
-                        child: Text(room),
+                        value: room.name,
+                        child: Text(room.name),
                       );
                     }).toList(),
                     onChanged: (String? newValue) {
@@ -146,15 +165,16 @@ class _AddDevicePageState extends State<AddDevicePage> {
                   ),
                 ),
               ),
-              
+
               const Spacer(),
-              
+
               // Add Device button
               Container(
                 width: double.infinity,
                 margin: const EdgeInsets.only(bottom: 12),
                 child: ElevatedButton.icon(
-                  icon: Icon(Icons.check_circle_outline, color: MainTheme.luminaShadedWhite),
+                  icon: Icon(Icons.check_circle_outline,
+                      color: MainTheme.luminaShadedWhite),
                   label: Text(
                     'Add Device',
                     style: TextStyle(color: MainTheme.luminaShadedWhite),
@@ -167,50 +187,53 @@ class _AddDevicePageState extends State<AddDevicePage> {
                     ),
                   ),
                   onPressed: () {
-  // Get form values
-  final deviceName = nameController.text.trim();
-  final deviceSpecies = selectedDeviceType ?? 'Smart Lamp';
-  final location = selectedRoom ?? 'Lounge';
-  
-  // Check if device name is provided
-  if (deviceName.isEmpty) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Device name required'),
-        backgroundColor: MainTheme.luminaShadedGreen,
-      ),
-    );
-    return;
-  }
-  
-  // Create a new device object
-  final newDevice = DeviceItem(
-    deviceID: "addDeviceID",
-    //Name is up to user
-    name: deviceName,
-    //Type picked from a list
-    species: deviceSpecies,
-    //Location picked from a list
-    room: location,
-    lowerHome: "addDevLower",
-    higherHome: "addDevHigher",
-    // Icon based on device type
-    icon: Icons.radar,
-    // Any new device starts as off
-    activity: false,
-    subactivities: {} 
-  );
-  
-  Navigator.pop(context, newDevice);
-  
-  //Adding new device works
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text('$deviceName Set Up'),
-      backgroundColor: MainTheme.luminaLightGreen,
-    ),
-  );
-},
+                    // Get form values
+                    final deviceName = nameController.text.trim();
+                    final deviceSpecies = selectedDeviceType ?? 'Smart Lamp';
+                    final location = selectedRoom ?? 'Lounge';
+
+                    // Check if device name is provided
+                    if (deviceName.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Device name required'),
+                          backgroundColor: MainTheme.luminaShadedGreen,
+                        ),
+                      );
+                      return;
+                    }
+
+                    // Create a new device object
+                    // final newDevice = DeviceItem(
+                    //     deviceID: "addDeviceID",
+                    //     //Name is up to user
+                    //     name: deviceName,
+                    //     //Type picked from a list
+                    //     species: deviceSpecies,
+                    //     //Location picked from a list
+                    //     room: location,
+                    //     lowerHome: "addDevLower",
+                    //     higherHome: "addDevHigher",
+                    //     // Icon based on device type
+                    //     icon: Icons.radar,
+                    //     // Any new device starts as off
+                    //     activity: false,
+                    //     subactivities: {});
+
+                    Device newDevice = Device("", deviceName, deviceSpecies, 0, false, {});
+          
+                    instance.addDevice(newDevice, house.houseCode.topHouseId, house.houseCode.householdId, house.curRoom.id);
+
+                    Navigator.pop(context, newDevice);
+
+                    //Adding new device works
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('$deviceName Set Up'),
+                        backgroundColor: MainTheme.luminaLightGreen,
+                      ),
+                    );
+                  },
                 ),
               ),
             ],
@@ -218,7 +241,7 @@ class _AddDevicePageState extends State<AddDevicePage> {
         ),
       ),
       bottomNavigationBar: Navbar(
-      selectedPage: NavPage.devices,
+        selectedPage: NavPage.devices,
       ),
     );
   }
@@ -237,7 +260,6 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: MainTheme.luminaShadedWhite,
       ),
       home: const AddDevicePage(),
-    
     );
   }
 }

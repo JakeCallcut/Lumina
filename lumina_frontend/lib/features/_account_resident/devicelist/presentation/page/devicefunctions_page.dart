@@ -4,9 +4,14 @@ import '../../domain/entities/devicelist_entiti.dart';
 import 'editdevice_page.dart';
 //
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
+import 'package:lumina_frontend/providers/homeProvider.dart';
+import 'package:provider/provider.dart';
+import 'package:lumina_frontend/model/models.dart';
+import 'package:lumina_frontend/services/integration_Funcs.dart';
+import 'package:lumina_frontend/routes.dart';
 
 class DeviceFunctionsPage extends StatefulWidget {
-  final DeviceItem device;
+  final Device device;
 
   const DeviceFunctionsPage({Key? key, required this.device}) : super(key: key);
 
@@ -27,13 +32,13 @@ class _DeviceFunctionsPageState extends State<DeviceFunctionsPage> {
 
   void initializeFunctions() {
     // Add default functions based on device type
-    if (widget.device.species == 'Cleaning') {
+    if (widget.device.typeName == 'Cleaning') {
       functions.add(DeviceFunction(name: '40 Minute Clean', isEnabled: false));
       functions.add(DeviceFunction(name: '60 Repetitions', isEnabled: false));
       functions.add(DeviceFunction(name: '40 Minute Clean', isEnabled: false));
       functions.add(DeviceFunction(name: '60 Repetitions', isEnabled: false));
       functions.add(DeviceFunction(name: 'Main', isEnabled: false));
-    } else if (widget.device.species == 'Robot') {
+    } else if (widget.device.typeName == 'Robot') {
       functions.add(DeviceFunction(name: 'Assist Mode', isEnabled: false));
       functions.add(DeviceFunction(name: 'Navigate', isEnabled: false));
       functions.add(DeviceFunction(name: 'Learning Mode', isEnabled: false));
@@ -139,7 +144,7 @@ class _DeviceFunctionsPageState extends State<DeviceFunctionsPage> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-          widget.device.name,
+          widget.device.deviceName,
           style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -149,23 +154,23 @@ class _DeviceFunctionsPageState extends State<DeviceFunctionsPage> {
           IconButton(
             icon: const Icon(Icons.edit, color: Colors.black54),
             onPressed: () async {
-              final result = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EditDevicePage(device: widget.device),
-                ),
-              );
+              // final result = await Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => EditDevicePage(device: widget.device),
+              //   ),
+              // );
               
-              // Handle results from edit page
-              if (result != null) {
-                if (result is Map && result['action'] == 'delete') {
-                  // Handle deletion (pass the result up to parent)
-                  Navigator.of(context).pop(result);
-                } else if (result is DeviceItem) {
-                  // Return updated device to parent
-                  Navigator.of(context).pop({'action': 'update', 'device': result});
-                }
-              }
+              // // Handle results from edit page
+              // if (result != null) {
+              //   if (result is Map && result['action'] == 'delete') {
+              //     // Handle deletion (pass the result up to parent)
+              //     Navigator.of(context).pop(result);
+              //   } else if (result is DeviceItem) {
+              //     // Return updated device to parent
+              //     Navigator.of(context).pop({'action': 'update', 'device': result});
+              //   }
+              // }
             },
           ),
         ],
@@ -192,14 +197,14 @@ class _DeviceFunctionsPageState extends State<DeviceFunctionsPage> {
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
-                        widget.device.icon,
+                        Icons.lightbulb,
                         color: Colors.white,
                         size: 24,
                       ),
                     ),
                     const SizedBox(width: 16),
                     Text(
-                      widget.device.name,
+                      widget.device.deviceName,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 18,

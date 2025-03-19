@@ -13,20 +13,36 @@ class RoomList extends StatefulWidget {
 }
 
 class _RoomListState extends State<RoomList> {
-  int? selectedIndex; //variable to track the currently selected room
   List<Room> rooms = [];
+  int? selectedIndex; // Variable to track the currently selected room
   var instance = Integration();
 
   @override
-  Widget build(BuildContext context) {
-    final house = Provider.of<homeProvider>(context, listen: false);
-    instance
-        .getRooms(house.houseCode.topHouseId, house.houseCode.householdId)
-        .then((fetchedRooms) {
-      setState(() {
-        rooms = fetchedRooms;
-      });
+  void initState() {
+    super.initState();
+    // Set the default selected index to 0 if there are rooms
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final house = Provider.of<homeProvider>(context, listen: false);
+      if (house.rooms.isNotEmpty) {
+        setState(() {
+          selectedIndex = 0;
+          house.setRoom(house.rooms[0]); // Automatically select the first room
+        });
+      }
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final house = Provider.of<homeProvider>(context, listen: true);
+    rooms = house.rooms;
+
+    // Ensure selectedIndex is valid
+    if (selectedIndex == null && rooms.isNotEmpty) {
+      selectedIndex = 0;
+      house.setRoom(rooms[0]); // Automatically select the first room
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -34,8 +50,7 @@ class _RoomListState extends State<RoomList> {
           width: 150,
           decoration: BoxDecoration(
             color: MainTheme.luminaShadedWhite,
-            borderRadius:
-                const BorderRadius.only(topRight: Radius.circular(10)),
+            borderRadius: const BorderRadius.only(topRight: Radius.circular(10)),
           ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -57,7 +72,8 @@ class _RoomListState extends State<RoomList> {
                       color: Colors.black,
                     ),
                     onPressed: () {
-                      TextEditingController roomNameController = TextEditingController();
+                      TextEditingController roomNameController =
+                          TextEditingController();
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -65,8 +81,7 @@ class _RoomListState extends State<RoomList> {
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: Column(
-                                mainAxisSize: MainAxisSize
-                                    .min, // Ensures the dialog wraps its content
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
                                   TextField(
                                     controller: roomNameController,
@@ -76,12 +91,24 @@ class _RoomListState extends State<RoomList> {
                                   ),
                                   const SizedBox(height: 16),
                                   ElevatedButton(
-                                    onPressed: () {
+                                    onPressed: () async {
                                       String roomName = roomNameController.text;
                                       Room place = Room("", roomName);
-                                      instance.addRoom(place, house.houseCode.topHouseId, house.houseCode.householdId);
-                                      Navigator.of(context)
-                                          .pop();
+                                      await instance.addRoom(
+                                          place,
+                                          house.houseCode.topHouseId,
+                                          house.houseCode.householdId);
+                                      await Future.delayed(
+                                          const Duration(milliseconds: 500));
+                                      List<Room> updatedRooms =
+                                          await instance.getRooms(
+                                              house.houseCode.topHouseId,
+                                              house.houseCode.householdId);
+                                      setState(() {
+                                        rooms = updatedRooms;
+                                        selectedIndex = 0; // Reset to the first room
+                                      });
+                                      Navigator.of(context).pop();
                                     },
                                     child: const Text("Add Room"),
                                   ),
@@ -100,13 +127,13 @@ class _RoomListState extends State<RoomList> {
         ),
         Container(
           color: MainTheme.luminaShadedWhite,
-          height: 50.0,
+          height: 50.0, // Ensure this height is sufficient for the content
           child: rooms.isEmpty
               ? Center(
                   child: Text("No rooms found", style: MainTheme.h4Black),
                 )
               : ListView.builder(
-                  scrollDirection: Axis.horizontal,
+                  scrollDirection: Axis.horizontal, // Enable horizontal scrolling
                   itemCount: rooms.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
@@ -114,6 +141,7 @@ class _RoomListState extends State<RoomList> {
                         setState(() {
                           selectedIndex = index;
                         });
+                        house.setRoom(rooms[index]);
                       },
                       child: Container(
                         padding: const EdgeInsets.all(8.0),
@@ -134,7 +162,7 @@ class _RoomListState extends State<RoomList> {
                     );
                   },
                 ),
-        ),
+        )
       ],
     );
   }

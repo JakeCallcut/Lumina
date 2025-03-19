@@ -4,13 +4,18 @@ import '../../domain/entities/devicelist_entiti.dart';
 import 'dart:math' as math;
 //
 import 'package:lumina_frontend/features/navbar/presentation/page/navbar.dart';
+import 'package:lumina_frontend/providers/homeProvider.dart';
+import 'package:provider/provider.dart';
+import 'package:lumina_frontend/model/models.dart';
+import 'package:lumina_frontend/services/integration_Funcs.dart';
+import 'package:lumina_frontend/routes.dart';
 //import '../../presentation/widget/colourwheel.dart';
 //import '../../presentation/widget/brightnessdial.dart';
 //import '../../presentation/widget/circlepainter.dart';
 
 
 class VariableLightPage extends StatefulWidget {
-  final DeviceItem device;
+  final Device device;
   
   const VariableLightPage({Key? key, required this.device}) : super(key: key);
 
@@ -29,7 +34,7 @@ class _VariableLightPageState extends State<VariableLightPage> {
   void initState() {
     super.initState();
     // Initialize state based on device activity
-    _isOn = widget.device.activity;
+    _isOn = widget.device.mainAction;
   }
 
   void _showDeleteDeviceDialog(BuildContext context) {
@@ -38,7 +43,7 @@ class _VariableLightPageState extends State<VariableLightPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Delete Device'),
-          content: Text('Are you sure you want to delete ${widget.device.name}?'),
+          content: Text('Are you sure you want to delete ${widget.device.deviceName}?'),
           actions: [
             TextButton(
               onPressed: () {
@@ -52,7 +57,7 @@ class _VariableLightPageState extends State<VariableLightPage> {
                 Navigator.of(context).pop(); // Close the dialog
                 
                 // Return to the previous screen with a result indicating deletion
-                Navigator.of(context).pop({'action': 'delete', 'deviceId': widget.device.name});
+                Navigator.of(context).pop({'action': 'delete', 'deviceId': widget.device.deviceName});
               },
               style: TextButton.styleFrom(
                 foregroundColor: Colors.red,
@@ -77,7 +82,7 @@ class _VariableLightPageState extends State<VariableLightPage> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-          widget.device.name,
+          widget.device.deviceName,
           style: TextStyle(color: MainTheme.luminaBlack, fontWeight: FontWeight.w500),
         ),
         actions: [
