@@ -77,7 +77,7 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
                     HomeDial(
                       value: usage.toDouble(),
                       maxValue: 1000,
-                      unit: "watts",
+                      unit: "W",
                     ),
                     const SizedBox(
                       height: 10,

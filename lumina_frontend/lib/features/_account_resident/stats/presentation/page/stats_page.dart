@@ -78,7 +78,7 @@ class ResidentStatsPage extends StatelessWidget {
                           children: [
                             InfoBox(
                               title: "You've used",
-                              valueMoney: 2.67,
+                              valueMoney: usageData['mostRecentValue'] * 0.27,
                               valueUnit: usageData['mostRecentValue'],
                               boxColor: MainTheme.luminaBlue,
                               textStyle: [MainTheme.h1White, MainTheme.h2White],
@@ -92,7 +92,7 @@ class ResidentStatsPage extends StatelessWidget {
                           children: [
                             InfoBox(
                               title: "You've saved",
-                              valueMoney: 0.89,
+                              valueMoney: generationData['mostRecentValue'] * 0.27,
                               valueUnit: generationData['mostRecentValue'],
                               boxColor: MainTheme.luminaLightGreen,
                               textStyle: [MainTheme.h1Black, MainTheme.h2Black],
