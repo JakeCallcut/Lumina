@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
 import 'package:lumina_frontend/model/models.dart';
 import 'package:lumina_frontend/services/integration_Funcs.dart';
 import 'package:lumina_frontend/routes.dart';
+import 'package:lumina_frontend/providers/homeProvider.dart';
+import 'package:provider/provider.dart';
 
 class AddDevicePage extends StatefulWidget {
   const AddDevicePage({Key? key}) : super(key: key);
@@ -32,11 +34,12 @@ class _AddDevicePageState extends State<AddDevicePage> {
     'Vehicle',
     'Charging'
   ];
-  final List<String> rooms = ['Lounge', 'Kitchen', 'Bathroom'];
+  List<Room> rooms = [];
 
   @override
   Widget build(BuildContext context) {
     final house = Provider.of<homeProvider>(context);
+    rooms = house.rooms;
     return Scaffold(
       backgroundColor: MainTheme.luminaLightGrey,
       body: SafeArea(
@@ -145,13 +148,13 @@ class _AddDevicePageState extends State<AddDevicePage> {
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
-                    value: selectedRoom ?? rooms[0],
+                    value: selectedRoom ?? rooms[0].name,
                     isExpanded: true,
                     icon: const Icon(Icons.keyboard_arrow_down),
-                    items: rooms.map((String room) {
+                    items: rooms.map((Room room) {
                       return DropdownMenuItem<String>(
-                        value: room,
-                        child: Text(room),
+                        value: room.name,
+                        child: Text(room.name),
                       );
                     }).toList(),
                     onChanged: (String? newValue) {

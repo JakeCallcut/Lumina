@@ -13,14 +13,36 @@ class RoomList extends StatefulWidget {
 }
 
 class _RoomListState extends State<RoomList> {
-  int? selectedIndex; //variable to track the currently selected room
   List<Room> rooms = [];
+  int? selectedIndex; // Variable to track the currently selected room
   var instance = Integration();
+
+  @override
+  void initState() {
+    super.initState();
+    // Set the default selected index to 0 if there are rooms
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final house = Provider.of<homeProvider>(context, listen: false);
+      if (house.rooms.isNotEmpty) {
+        setState(() {
+          selectedIndex = 0;
+          house.setRoom(house.rooms[0]); // Automatically select the first room
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final house = Provider.of<homeProvider>(context, listen: true);
     rooms = house.rooms;
+
+    // Ensure selectedIndex is valid
+    if (selectedIndex == null && rooms.isNotEmpty) {
+      selectedIndex = 0;
+      house.setRoom(rooms[0]); // Automatically select the first room
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -28,8 +50,7 @@ class _RoomListState extends State<RoomList> {
           width: 150,
           decoration: BoxDecoration(
             color: MainTheme.luminaShadedWhite,
-            borderRadius:
-                const BorderRadius.only(topRight: Radius.circular(10)),
+            borderRadius: const BorderRadius.only(topRight: Radius.circular(10)),
           ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -60,8 +81,7 @@ class _RoomListState extends State<RoomList> {
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: Column(
-                                mainAxisSize: MainAxisSize
-                                    .min, // Ensures the dialog wraps its content
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
                                   TextField(
                                     controller: roomNameController,
@@ -86,6 +106,7 @@ class _RoomListState extends State<RoomList> {
                                               house.houseCode.householdId);
                                       setState(() {
                                         rooms = updatedRooms;
+                                        selectedIndex = 0; // Reset to the first room
                                       });
                                       Navigator.of(context).pop();
                                     },
