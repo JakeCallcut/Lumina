@@ -166,6 +166,7 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
                           child: Center(
                             child: DeviceWidget(
                               deviceName: device.deviceName,
+                              dv: device,
                             ),
                           ),
                         );
