@@ -220,7 +220,7 @@ class _AddDevicePageState extends State<AddDevicePage> {
 
                     Device newDevice = Device("", deviceName, deviceSpecies, 0, false, {});
           
-                    instance.addDevice(newDevice, house.houseCode.topHouseId, house.houseCode.householdId, house.curRoom.id);
+                    instance.addDevice(newDevice, house.houseCode.topHouseId, house.houseCode.householdId, house.roomID);
 
                     Navigator.pop(context, newDevice);
 

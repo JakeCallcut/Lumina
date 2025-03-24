@@ -15,6 +15,7 @@ class homeProvider extends ChangeNotifier {
   User _user = User("", "", "", "", "", "", false);
   List<EnergyUsage> _energyUsage = [];
   List<Device> _devices = [];
+  String? _roomID;
   HashMap<Room, List<Device>> _allDevices = HashMap<Room, List<Device>>();
   Room _curRoom = Room(
     "",
@@ -33,6 +34,7 @@ class homeProvider extends ChangeNotifier {
   List<Device> get devices => _devices;
   HashMap<Room, List<Device>> get allDevices => _allDevices;
   Room get curRoom => _curRoom;
+  String? get roomID => _roomID;
   List<Room> get rooms => _rooms;
   var instance = Integration();
   // List of rooms
@@ -51,8 +53,8 @@ class homeProvider extends ChangeNotifier {
     _rooms = roomlist;
   }
 
-  void notify(){
-    notifyListeners();
+  void setRoomID(String? roomid){
+    _roomID = roomid;
   }
 
   void setRoom(Room currentRoom) async {
@@ -94,6 +96,10 @@ class homeProvider extends ChangeNotifier {
     }
 
     // Notify listeners after data is fetched
+    notifyListeners();
+  }
+
+  void notify() {
     notifyListeners();
   }
 

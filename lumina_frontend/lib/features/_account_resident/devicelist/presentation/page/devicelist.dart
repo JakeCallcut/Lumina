@@ -36,16 +36,16 @@ class _ManageDevicesPageState extends State<ManageDevicesPage> {
 
   @override
   void initState() {
-    super.initState();// Initialize instance
-    
+    super.initState(); // Initialize instance
   }
 
   @override
   Widget build(BuildContext context) {
-    instance = Integration(); 
+    instance = Integration();
     final home = Provider.of<homeProvider>(context);
     devices = home.allDevices;
     allDevices = devices.values.expand((deviceList) => deviceList).toList();
+    String? roomId;
 
     return Scaffold(
       backgroundColor: MainTheme.luminaShadedWhite,
@@ -113,6 +113,12 @@ class _ManageDevicesPageState extends State<ManageDevicesPage> {
                 child: ListView.builder(
                   itemCount: allDevices.length,
                   itemBuilder: (context, index) {
+                    devices.forEach((room, deviceList) {
+                      if (deviceList.contains(allDevices[index])) {
+                        roomId = room
+                            .id; // Assuming `room.id` is the unique identifier for the room
+                      }
+                    });
                     // Only show devices matching the filter
                     if (selectedFilter != 'All Devices' &&
                         allDevices[index].typeName != selectedFilter) {
@@ -160,7 +166,6 @@ class _ManageDevicesPageState extends State<ManageDevicesPage> {
                                           allDevices[index].mainAction = value;
 
                                           // Find the room containing the device
-                                          String? roomId;
                                           devices.forEach((room, deviceList) {
                                             if (deviceList
                                                 .contains(allDevices[index])) {
@@ -208,7 +213,10 @@ class _ManageDevicesPageState extends State<ManageDevicesPage> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  onPressed: navigateToAddDevice,
+                  onPressed: () {
+                    home.setRoomID(roomId);
+                    navigateToAddDevice();
+                  },
                 ),
               ),
             ],
@@ -222,14 +230,16 @@ class _ManageDevicesPageState extends State<ManageDevicesPage> {
   }
 
   void navigateToAddDevice() async {
-    Device newDevice = await Navigator.push(
+    Device? newDevice = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const AddDevicePage()),
     );
 
-    setState(() {
-      allDevices.add(newDevice);
+    if (newDevice != null) {
+    setState(() {; // Add the new device to the list
+      devices = Provider.of<homeProvider>(context, listen: false).allDevices;
     });
+  }
   }
 
   void navigateToDeviceControlPage(Device device) async {
