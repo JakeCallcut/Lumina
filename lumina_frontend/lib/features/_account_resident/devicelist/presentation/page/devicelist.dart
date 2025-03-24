@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/core/themes/main_theme.dart';
 import 'package:lumina_frontend/model/models.dart';
@@ -20,19 +22,30 @@ class ManageDevicesPage extends StatefulWidget {
 class _ManageDevicesPageState extends State<ManageDevicesPage> {
   late Integration instance;
   String selectedFilter = 'All Devices';
-  final List<String> filterOptions = ['All Devices', 'Lighting', 'Robot', 'Cleaning', 'Display', 'Vehicle', 'Charging'];
-  List<Device> devices = [];
+  final List<String> filterOptions = [
+    'All Devices',
+    'Lighting',
+    'Robot',
+    'Cleaning',
+    'Display',
+    'Vehicle',
+    'Charging'
+  ];
+  HashMap<Room, List<Device>> devices = HashMap<Room, List<Device>>();
+  List<Device> allDevices = [];
 
   @override
   void initState() {
-    super.initState();
-    instance = Integration(); // Initialize instance
+    super.initState();// Initialize instance
+    
   }
 
   @override
   Widget build(BuildContext context) {
+    instance = Integration(); 
     final home = Provider.of<homeProvider>(context);
-    devices = home.devices;
+    devices = home.allDevices;
+    allDevices = devices.values.expand((deviceList) => deviceList).toList();
 
     return Scaffold(
       backgroundColor: MainTheme.luminaShadedWhite,
@@ -98,10 +111,11 @@ class _ManageDevicesPageState extends State<ManageDevicesPage> {
               // Device list
               Expanded(
                 child: ListView.builder(
-                  itemCount: devices.length,
+                  itemCount: allDevices.length,
                   itemBuilder: (context, index) {
                     // Only show devices matching the filter
-                    if (selectedFilter != 'All Devices' && devices[index].typeName != selectedFilter) {
+                    if (selectedFilter != 'All Devices' &&
+                        allDevices[index].typeName != selectedFilter) {
                       return const SizedBox.shrink(); // Skip this device
                     }
 
@@ -111,10 +125,12 @@ class _ManageDevicesPageState extends State<ManageDevicesPage> {
                         color: MainTheme.luminaBlue,
                         borderRadius: BorderRadius.circular(8),
                         child: InkWell(
-                          onTap: () => navigateToDeviceControlPage(devices[index]),
+                          onTap: () =>
+                              navigateToDeviceControlPage(allDevices[index]),
                           borderRadius: BorderRadius.circular(8),
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 12),
                             child: Row(
                               children: [
                                 // Device icon
@@ -126,7 +142,7 @@ class _ManageDevicesPageState extends State<ManageDevicesPage> {
                                 // Device name
                                 Expanded(
                                   child: Text(
-                                    devices[index].deviceName,
+                                    allDevices[index].deviceName,
                                     style: const TextStyle(
                                       color: Colors.white,
                                     ),
@@ -137,17 +153,31 @@ class _ManageDevicesPageState extends State<ManageDevicesPage> {
                                   onTap: () {},
                                   behavior: HitTestBehavior.opaque,
                                   child: LuminaSwitch(
-                                    initialValue: devices[index].mainAction,
+                                    initialValue: allDevices[index].mainAction,
                                     onChanged: (value) {
-                                      setState(() {
-                                        devices[index].mainAction = value;
-                                        instance.updateDevice(
-                                          devices[index],
-                                          home.houseCode.topHouseId,
-                                          home.houseCode.householdId,
-                                          home.curRoom.id,
-                                        );
-                                      });
+                                      setState(
+                                        () {
+                                          allDevices[index].mainAction = value;
+
+                                          // Find the room containing the device
+                                          String? roomId;
+                                          devices.forEach((room, deviceList) {
+                                            if (deviceList
+                                                .contains(allDevices[index])) {
+                                              roomId = room
+                                                  .id; // Assuming `room.id` is the unique identifier for the room
+                                            }
+                                          });
+
+                                          // Update the device using the Integration instance
+                                          instance.updateDevice(
+                                            allDevices[index],
+                                            home.houseCode.topHouseId,
+                                            home.houseCode.householdId,
+                                            roomId, // Pass the room ID
+                                          );
+                                        },
+                                      );
                                     },
                                   ),
                                 ),
@@ -198,7 +228,7 @@ class _ManageDevicesPageState extends State<ManageDevicesPage> {
     );
 
     setState(() {
-      devices.add(newDevice);
+      allDevices.add(newDevice);
     });
   }
 
@@ -214,7 +244,7 @@ class _ManageDevicesPageState extends State<ManageDevicesPage> {
       if (result != null && result is Map && result['action'] == 'delete') {
         String deviceIdToDelete = result['deviceId'];
         setState(() {
-          devices.removeWhere((d) => d.deviceName == deviceIdToDelete);
+          allDevices.removeWhere((d) => d.deviceName == deviceIdToDelete);
         });
 
         ScaffoldMessenger.of(context).showSnackBar(
@@ -236,7 +266,7 @@ class _ManageDevicesPageState extends State<ManageDevicesPage> {
         if (result['action'] == 'delete') {
           String deviceIdToDelete = result['deviceId'];
           setState(() {
-            devices.removeWhere((d) => d.deviceName == deviceIdToDelete);
+            allDevices.removeWhere((d) => d.deviceName == deviceIdToDelete);
           });
 
           ScaffoldMessenger.of(context).showSnackBar(
@@ -248,9 +278,10 @@ class _ManageDevicesPageState extends State<ManageDevicesPage> {
         } else if (result['action'] == 'update' && result['device'] != null) {
           Device updatedDevice = result['device'];
           setState(() {
-            final int index = devices.indexWhere((d) => d.deviceName == device.deviceName);
+            final int index =
+                allDevices.indexWhere((d) => d.deviceName == device.deviceName);
             if (index != -1) {
-              devices[index] = updatedDevice;
+              allDevices[index] = updatedDevice;
             }
           });
 

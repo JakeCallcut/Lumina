@@ -26,8 +26,7 @@ class _DeviceWidgetState extends State<DeviceWidget> {
   @override
   void initState() {
     super.initState();
-    _isOn = widget.dv.mainAction; // Set _isOn based on the mainAction property of the Device
-    instance = Integration(); // Initialize instance
+ // Initialize instance
   }
 
   @override
@@ -66,6 +65,8 @@ class _DeviceWidgetState extends State<DeviceWidget> {
   @override
   Widget build(BuildContext context) {
     final socket = Provider.of<Sockets>(context);
+    _isOn = widget.dv.mainAction; // Set _isOn based on the mainAction property of the Device
+    instance = Integration();
     return Container(
       height: 130,
       width: 180,
@@ -97,9 +98,11 @@ class _DeviceWidgetState extends State<DeviceWidget> {
                     if (_isOn) {
                       socket.changeState(widget.deviceName, 1);
                       instance.updateDevice(widget.dv, home.houseCode.topHouseId, home.houseCode.householdId, home.curRoom.id);
+                      home.updateDeviceInProvider(widget.dv);
                     } else {
                       socket.changeState(widget.deviceName, 0);
                       instance.updateDevice(widget.dv, home.houseCode.topHouseId, home.houseCode.householdId, home.curRoom.id);
+                      home.updateDeviceInProvider(widget.dv);
                     }
                   });
                 },

@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:lumina_frontend/services/integration_Funcs.dart';
 import 'package:lumina_frontend/model/models.dart';
@@ -13,7 +15,11 @@ class homeProvider extends ChangeNotifier {
   User _user = User("", "", "", "", "", "", false);
   List<EnergyUsage> _energyUsage = [];
   List<Device> _devices = [];
-  Room _curRoom = Room("","",);
+  HashMap<Room, List<Device>> _allDevices = HashMap<Room, List<Device>>();
+  Room _curRoom = Room(
+    "",
+    "",
+  );
   List<Room> _rooms = [];
 
   String get loginid => _loginid;
@@ -25,6 +31,7 @@ class homeProvider extends ChangeNotifier {
   List<Household> get houseHolds => _houseHolds;
   List<EnergyUsage> get energyUsage => _energyUsage;
   List<Device> get devices => _devices;
+  HashMap<Room, List<Device>> get allDevices => _allDevices;
   Room get curRoom => _curRoom;
   List<Room> get rooms => _rooms;
   var instance = Integration();
@@ -44,10 +51,21 @@ class homeProvider extends ChangeNotifier {
     _rooms = roomlist;
   }
 
+  void notify(){
+    notifyListeners();
+  }
+
   void setRoom(Room currentRoom) async {
     _curRoom = currentRoom;
-    List<Device> fetchedDevices = await instance.getDevices(houseCode.topHouseId, houseCode.householdId, _curRoom.id);
+    List<Device> fetchedDevices = await instance.getDevices(
+        houseCode.topHouseId, houseCode.householdId, _curRoom.id);
     _devices = fetchedDevices;
+    _allDevices.clear();
+    for (int i = 0; i < _rooms.length; i++) {
+      List<Device> allFetchedDevices = await instance.getDevices(
+          houseCode.topHouseId, houseCode.householdId, _rooms[i].id);
+      _allDevices[_rooms[i]] = allFetchedDevices;
+    }
     notifyListeners();
   }
 
@@ -79,6 +97,17 @@ class homeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateDeviceInProvider(Device device) {
+  // Update the device in the provider's state
+  _allDevices.forEach((room, deviceList) {
+    int index = deviceList.indexWhere((d) => d.id == device.id);
+    if (index != -1) {
+      deviceList[index] = device;
+    }
+  });
+  notifyListeners(); // Notify listeners after updating
+}
+
   Future<void> managerData() async {
     List<Household> tempHouseholds = await instance.getHouseholds(_tLH.id);
     _houseHolds = tempHouseholds;
@@ -96,7 +125,13 @@ class homeProvider extends ChangeNotifier {
     Household tempHousehold = await instance.getHousehold(
         tempHouseCode.topHouseId, tempHouseCode.householdId);
     _houseHold = tempHousehold;
-    List<Room> fetchedRooms = await instance.getRooms(houseCode.topHouseId, houseCode.householdId);
+    List<Room> fetchedRooms =
+        await instance.getRooms(houseCode.topHouseId, houseCode.householdId);
     _rooms = fetchedRooms;
+    for (int i = 0; i < _rooms.length; i++) {
+      List<Device> allFetchedDevices = await instance.getDevices(
+          houseCode.topHouseId, houseCode.householdId, _rooms[i].id);
+      _allDevices[_rooms[i]] = allFetchedDevices;
+    }
   }
 }

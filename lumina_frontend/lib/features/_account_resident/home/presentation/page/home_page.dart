@@ -49,8 +49,6 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
   @override
   Widget build(BuildContext context) {
     // final home = context.watch<homeProvider>();
-    final home = Provider.of<homeProvider>(context, listen: true);
-    devices = home.devices;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
