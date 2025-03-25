@@ -146,7 +146,7 @@ class _AddDevicePageState extends State<AddDevicePage> {
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
-                    value: selectedRoom ?? rooms[0].name,
+                    value: selectedRoom ?? rooms[1].name,
                     isExpanded: true,
                     icon: const Icon(Icons.keyboard_arrow_down),
                     items: rooms.map((Room room) {
