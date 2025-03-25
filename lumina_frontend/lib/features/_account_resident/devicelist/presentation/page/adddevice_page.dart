@@ -184,7 +184,7 @@ class _AddDevicePageState extends State<AddDevicePage> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     // Get form values
                     final deviceName = nameController.text.trim();
                     final deviceSpecies = selectedDeviceType ?? 'Smart Lamp';
@@ -219,8 +219,10 @@ class _AddDevicePageState extends State<AddDevicePage> {
                     //     subactivities: {});
 
                     Device newDevice = Device("", deviceName, deviceSpecies, 0, false, {});
-          
-                    instance.addDevice(newDevice, house.houseCode.topHouseId, house.houseCode.householdId, house.roomID);
+
+                    Room room = await instance.getRoombyName(house.houseCode.topHouseId, house.houseCode.householdId, selectedRoom);
+
+                    instance.addDevice(newDevice, house.houseCode.topHouseId, house.houseCode.householdId, room.id);
 
                     Navigator.pop(context, newDevice);
 

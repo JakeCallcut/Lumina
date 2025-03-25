@@ -586,6 +586,34 @@ class Integration {
     }
     return rooms;
   }
+  Future<Room> getRoombyName(String tlhId, hId, name) async {
+    Room room = Room("", "");
+    try {
+      var querySnapshot = await db
+          .collection("Top Level Homes")
+          .doc(tlhId)
+          .collection("Household")
+          .doc(hId)
+          .collection("Rooms")
+          .get();
+      if (querySnapshot.docs.isEmpty) {
+        print("No households found for Top Level Home ID: $tlhId");
+      } else {
+        for (var docSnapshot in querySnapshot.docs) {
+          Map<String, dynamic> value = docSnapshot.data();
+          room = Room(docSnapshot.id, value['Room Name']);
+          if (value['Room Name'] == name) {
+            return room;
+          }
+        }
+      }
+    } catch (e) {
+      print("Error getting households: $e");
+      //log error here
+      return room;
+    }
+    return room;
+  }
 
   bool addRoom(Room place, String tlhId, hId) {
     Map<String, dynamic> room = {};
